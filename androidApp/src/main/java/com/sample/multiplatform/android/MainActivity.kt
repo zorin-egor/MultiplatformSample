@@ -13,7 +13,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.lifecycleScope
-import com.sample.multiplatform.PlatformSDK
+import com.sample.multiplatform.DetailsRepository
+import com.sample.multiplatform.UsersRepository
+import com.sample.multiplatform.di.Inject.instance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,10 +23,13 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : ComponentActivity() {
 
+    private val usersRepository: UsersRepository get() = instance()
+    private val detailsRepository: DetailsRepository get() = instance()
     private val state = mutableStateOf<String>("Begin")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContent {
             MyApplicationTheme {
                 Surface(
@@ -41,18 +46,21 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun getUsers() {
-        lifecycleScope.launch {
+        lifecycleScope.launch(context = Dispatchers.IO) {
             delay(2000)
             val users = withContext(Dispatchers.IO) {
                 kotlin.runCatching {
-                    PlatformSDK.usersRepository.getUsers(0)
+                    usersRepository.getUsers(0)
                 }
             }
 
-            val result = users.getOrNull()?.joinToString(separator = ",")
-                ?: users.exceptionOrNull().toString()
+            val details = users.getOrNull()?.firstOrNull()?.url?.let {
+                detailsRepository.getUserDetails(it)
+            }
 
-            state.value = result
+            withContext(Dispatchers.Main) {
+                state.value = details.toString()
+            }
         }
     }
 }

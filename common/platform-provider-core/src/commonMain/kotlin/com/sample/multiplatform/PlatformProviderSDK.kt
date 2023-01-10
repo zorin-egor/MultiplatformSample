@@ -6,9 +6,7 @@ import org.kodein.di.bind
 import org.kodein.di.direct
 import org.kodein.di.singleton
 
-object PlatformSDK {
-
-    val usersRepository: UsersRepository get() = Inject.instance()
+object PlatformProviderSDK {
 
     fun init(
         configuration: PlatformConfiguration
@@ -25,7 +23,8 @@ object PlatformSDK {
                 importAll(
                     providerModule,
                     coreModule,
-                    usersModule
+                    usersModule,
+                    detailsModule
                 )
             }.direct
         )

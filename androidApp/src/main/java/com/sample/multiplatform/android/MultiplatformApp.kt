@@ -2,7 +2,7 @@ package com.sample.multiplatform.android
 
 import android.app.Application
 import com.sample.multiplatform.PlatformConfiguration
-import com.sample.multiplatform.PlatformSDK
+import com.sample.multiplatform.PlatformProviderSDK
 
 class MultiplatformApp : Application() {
 
@@ -13,6 +13,6 @@ class MultiplatformApp : Application() {
 }
 
 fun MultiplatformApp.initPlatformSDK() =
-    PlatformSDK.init(
+    PlatformProviderSDK.init(
         configuration = PlatformConfiguration(context = applicationContext)
     )

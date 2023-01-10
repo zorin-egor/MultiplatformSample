@@ -1,6 +1,6 @@
 package com.sample.multiplatform.models
 
-data class User(
+data class Details(
     val id: Long,
     var updateTime: Long = 0,
     var userId: Long = -1,
