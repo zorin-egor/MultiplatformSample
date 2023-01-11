@@ -2,6 +2,9 @@ plugins {
     id("multiplatform-setup")
     id("android-setup")
 }
+android {
+    namespace = "com.sample.multiplatform.common.platform_provider_core"
+}
 
 //dependencies {
 //    implementation(project(mapOf("path" to ":common:users:api")))

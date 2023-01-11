@@ -3,6 +3,9 @@ plugins {
     id("android-setup")
     kotlin("plugin.serialization")
 }
+android {
+    namespace = "com.sample.multiplatform.common.details.data"
+}
 
 kotlin {
     sourceSets {

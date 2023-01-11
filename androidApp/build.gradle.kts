@@ -29,6 +29,7 @@ android {
             isMinifyEnabled = false
         }
     }
+    namespace = "com.sample.multiplatform.android"
 }
 
 dependencies {
