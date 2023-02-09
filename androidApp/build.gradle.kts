@@ -36,6 +36,7 @@ dependencies {
     implementation(project(":common:core"))
     implementation(project(":common:platform-provider-core"))
     implementation(project(":common:users:api"))
+    implementation(project(":common:users:compose"))
     implementation(project(":common:details:api"))
 
     implementation("androidx.compose.ui:ui:1.2.1")
