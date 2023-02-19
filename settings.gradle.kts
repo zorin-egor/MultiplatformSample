@@ -15,8 +15,13 @@ dependencyResolutionManagement {
 
 rootProject.name = "Multiplatform"
 include(":androidApp")
+include(":desktop")
+
 include(":common:core")
+include(":common:core-utils")
+include(":common:core-compose")
 include(":common:platform-provider-core")
+include(":common:platform-provider-compose")
 
 include(":common:users:api")
 include(":common:users:presentation")

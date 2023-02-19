@@ -35,6 +35,7 @@ android {
 dependencies {
     implementation(project(":common:core"))
     implementation(project(":common:platform-provider-core"))
+    implementation(project(":common:platform-provider-compose"))
     implementation(project(":common:users:api"))
     implementation(project(":common:users:compose"))
     implementation(project(":common:details:api"))
