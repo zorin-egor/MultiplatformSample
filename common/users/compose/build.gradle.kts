@@ -22,6 +22,7 @@ kotlin {
                 implementation(Dependencies.Other.Navigation.core)
                 implementation(Dependencies.Other.ViewModel.compose)
                 implementation(Dependencies.Other.ViewModel.core)
+                implementation(Dependencies.Other.ViewModel.odyssey)
             }
         }
         androidMain {

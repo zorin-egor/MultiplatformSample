@@ -23,7 +23,7 @@ object PlatformProviderSDK {
                 importAll(
                     providerModule,
                     coreModule,
-                    usersModule,
+                    dataUsersModule,
                     detailsModule
                 )
             }.direct

@@ -1,15 +1,17 @@
 package com.sample.multiplatform
 
-import com.adeo.kviewmodel.BaseSharedViewModel
+
 import com.sample.multiplatform.di.Inject
 import com.sample.multiplatform.models.User
 import com.sample.multiplatform.models.UsersAction
 import com.sample.multiplatform.models.UsersEvent
+import com.sample.multiplatform.models.UsersNavigation
 import com.sample.multiplatform.models.UsersViewState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class UsersViewModel : BaseSharedViewModel<UsersViewState, UsersAction, UsersEvent>(
+
+class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, UsersNavigation>(
     initialState = UsersViewState(isCenterProgress = true, isBottomProgress = false)
 ) {
 
@@ -53,7 +55,7 @@ class UsersViewModel : BaseSharedViewModel<UsersViewState, UsersAction, UsersEve
         when (viewEvent) {
             is UsersEvent.OnBottomEnd -> {}
             is UsersEvent.OnUserClick -> {
-                viewAction = UsersAction.OpenDetails(viewEvent.user)
+                consumableViewActions.trySend(UsersNavigation.OpenDetails(viewEvent.user))
             }
         }
     }

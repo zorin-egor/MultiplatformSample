@@ -8,7 +8,7 @@ import org.kodein.di.instance
 import org.kodein.di.provider
 import org.kodein.di.singleton
 
-val usersModule = DI.Module("com.sample.multiplatform.getUsersModule") {
+val dataUsersModule = DI.Module("com.sample.multiplatform.getUsersDataModule") {
     bind<UsersRepository>() with singleton {
         UsersRepositoryImpl(instance(), instance())
     }

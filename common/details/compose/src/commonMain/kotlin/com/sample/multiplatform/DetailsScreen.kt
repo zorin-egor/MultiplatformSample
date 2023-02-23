@@ -13,11 +13,13 @@ fun DetailsScreen(user: User) {
 
     val rootController = LocalRootController.current
 
-    ViewModel(factory = { DetailsViewModel(user) }) { viewModel ->
+    ViewModel(factory = { DetailsViewModel().apply {
+        setUser(user)
+    } }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState().value
         val viewAction = viewModel.viewActions().observeAsState().value
 
-        Text("Details: ${viewModel.user.id} - ${viewModel.user.login}")
+        Text("Details: ${viewState.details?.id} - ${viewState.details?.login}")
 
         when (viewAction) {
             is DetailsAction.ShowError -> {}

@@ -16,6 +16,7 @@ kotlin {
             dependencies {
                 implementation(project(":common:core"))
                 implementation(project(":common:users:data"))
+                implementation(project(":common:users:presentation"))
                 implementation(project(":common:details:data"))
 
                 implementation(Dependencies.Kodein.core)

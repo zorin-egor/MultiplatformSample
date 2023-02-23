@@ -3,8 +3,9 @@ plugins {
     id("android-setup")
     kotlin("plugin.serialization")
 }
+
 android {
-    namespace = "com.sample.multiplatform.shared"
+    namespace = "com.sample.multiplatform.common.core"
 }
 
 kotlin {
@@ -23,6 +24,8 @@ kotlin {
 
                 implementation(Dependencies.Settings.core)
                 implementation(Dependencies.Settings.noargs)
+
+                implementation(Dependencies.Other.ViewModel.core)
 
                 api(Dependencies.Kodein.core)
             }

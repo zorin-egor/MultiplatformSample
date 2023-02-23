@@ -11,33 +11,39 @@ import com.sample.multiplatform.models.User
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class DetailsViewModel(val user: User) : BaseSharedViewModel<DetailsViewState, DetailsAction, DetailsEvent>(
+class DetailsViewModel : BaseSharedViewModel<DetailsViewState, DetailsAction, DetailsEvent>(
     initialState = DetailsViewState(isCenterProgress = true)
 ) {
 
     private val detailsRepository: DetailsRepository = Inject.instance()
     private var detailsJob: Job? = null
-    private var details: Details = user.mapTo()
+    private var details: Details? = null
 
-    init {
-        viewState = viewState.copy(details = details)
-        getDetails(details)
+    private fun getDetails(url: String) {
+        detailsJob = viewModelScope.launch {
+            try {
+                val result = detailsRepository.getUserDetails(url)
+                this@DetailsViewModel.details = result
+                viewState = viewState.copy(details = result, isCenterProgress = false)
+            } catch (e: Exception) {
+                viewState = viewState.copy(isCenterProgress = false)
+                viewAction = DetailsAction.ShowError(e.message ?: "Unknown error")
+            }
+        }
     }
 
-    private fun getDetails(details: Details) {
-        detailsJob = viewModelScope.launch {
+    fun setUser(item: User) {
+        val temp = item.mapTo()
+        details = temp
 
-            val url = details.url
-            if (url == null) {
-                viewAction = DetailsAction.ShowError("Forbidden url")
-                viewState = viewState.copy(isCenterProgress = false)
-                return@launch
-            }
-
-            val result = detailsRepository.getUserDetails(url)
-            this@DetailsViewModel.details = result
-            viewState = viewState.copy(details = result, isCenterProgress = false)
+        val url = temp.url
+        if (url == null) {
+            viewAction = DetailsAction.ShowError("Error state")
+        } else {
+            getDetails(url)
         }
+
+        viewState = viewState.copy(details = temp, isCenterProgress = false)
     }
 
     override fun obtainEvent(viewEvent: DetailsEvent) {

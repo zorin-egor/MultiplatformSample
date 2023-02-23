@@ -11,7 +11,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(project(":common:core"))
+                implementation(project(":common:core"))
+                implementation(project(":common:core-utils"))
                 implementation(project(":common:users:api"))
                 implementation(Dependencies.Other.ViewModel.core)
             }
