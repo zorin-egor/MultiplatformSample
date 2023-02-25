@@ -15,6 +15,7 @@ object PlatformProviderSDK {
             name = "platform_provider",
             init = {
                 bind<PlatformConfiguration>() with singleton { configuration }
+                bind<ImageLoaderConfig>() with singleton { ImageLoaderConfig(configuration) }
             }
         )
 

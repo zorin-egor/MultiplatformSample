@@ -23,6 +23,8 @@ kotlin {
                 implementation(Dependencies.Other.ViewModel.compose)
                 implementation(Dependencies.Other.ViewModel.core)
                 implementation(Dependencies.Other.ViewModel.odyssey)
+
+                implementation(Dependencies.Image.ImageLoader.loader)
             }
         }
         androidMain {

@@ -7,12 +7,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class KtorDetailsResponse(
     @SerialName("id") val id: Long,
-    @SerialName("updateTime") var updateTime: Long = 0,
+    @SerialName("update_time") var updateTime: Long = 0,
     @SerialName("userId") var userId: Long = -1,
     @SerialName("nodeId") var nodeId: String? = null,
     @SerialName("login") var login: String? = null,
     @SerialName("url") var url: String? = null,
-    @SerialName("avatarUrl") var avatarUrl: String? = null
+    @SerialName("avatar_url") var avatarUrl: String? = null
 )
 
 fun mapTo(item: KtorDetailsResponse): Details {

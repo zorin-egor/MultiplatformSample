@@ -18,8 +18,8 @@ kotlin {
                 implementation(project(":common:users:data"))
                 implementation(project(":common:users:presentation"))
                 implementation(project(":common:details:data"))
-
                 implementation(Dependencies.Kodein.core)
+                implementation(Dependencies.Image.ImageLoader.loader)
             }
         }
     }
