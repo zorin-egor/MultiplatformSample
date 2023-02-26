@@ -13,9 +13,7 @@ class KtorUsersDataSource(
         return httpClient.get {
             url {
                 path("users")
-                setAttributes {
-                    "since" to request.since
-                }
+                parameters.append("since", request.since.toString())
             }
         }.body()
     }

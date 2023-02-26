@@ -15,25 +15,39 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
     initialState = UsersViewState(isCenterProgress = true, isBottomProgress = false)
 ) {
 
+    companion object {
+
+    }
+
     private val usersRepository: UsersRepository = Inject.instance()
     private var usersJob: Job? = null
     private val users: ArrayList<User> = arrayListOf()
 
     init {
-        getUsers(0)
+        getUsers(true)
     }
 
-    private fun getUsers(since: Long) {
+    private fun getUsers(isColdStart: Boolean) {
+        if (usersJob?.isActive == true) {
+            return
+        }
+
         usersJob = viewModelScope.launch {
             try {
                 viewState = viewState.copy(
-                    isCenterProgress = since == 0L,
-                    isBottomProgress = since != 0L
+                    isCenterProgress = isColdStart,
+                    isBottomProgress = !isColdStart
                 )
+
+                val since = if (isColdStart || users.isEmpty()) {
+                    UsersRepository.DEFAULT_SINCE_USER
+                } else {
+                    users.last().id
+                }
 
                 val response = usersRepository.getUsers(since)
                 if (response.isNotEmpty()) {
-                    if (since == 0L) {
+                    if (isColdStart) {
                         users.clear()
                     }
                     users.addAll(response)
@@ -53,7 +67,9 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
 
     override fun obtainEvent(viewEvent: UsersEvent) {
         when (viewEvent) {
-            is UsersEvent.OnBottomEnd -> {}
+            is UsersEvent.OnBottomEnd -> {
+                getUsers(false)
+            }
             is UsersEvent.OnUserClick -> {
                 consumableViewActions.trySend(UsersNavigation.OpenDetails(viewEvent.user))
             }
