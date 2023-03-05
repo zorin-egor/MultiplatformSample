@@ -7,20 +7,28 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class KtorUsersResponse(
     @SerialName("id") val id: Long,
-    @SerialName("update_time") var updateTime: Long = 0,
-    @SerialName("userId") var userId: Long = -1,
-    @SerialName("nodeId") var nodeId: String? = null,
-    @SerialName("login") var login: String? = null,
-    @SerialName("url") var url: String? = null,
-    @SerialName("avatar_url") var avatarUrl: String? = null
+    @SerialName("avatar_url") val avatarUrl: String,
+    @SerialName("events_url") val eventsUrl: String,
+    @SerialName("followers_url") val followersUrl: String,
+    @SerialName("following_url") val followingUrl: String,
+    @SerialName("gists_url") val gistsUrl: String,
+    @SerialName("gravatar_id") val gravatarId: String,
+    @SerialName("html_url") val htmlUrl: String,
+    @SerialName("login") val login: String,
+    @SerialName("node_id") val nodeId: String,
+    @SerialName("organizations_url") val organizationsUrl: String,
+    @SerialName("received_events_url") val receivedEventsUrl: String,
+    @SerialName("repos_url") val reposUrl: String,
+    @SerialName("site_admin") val siteAdmin: Boolean,
+    @SerialName("starred_url") val starredUrl: String,
+    @SerialName("subscriptions_url") val subscriptionsUrl: String,
+    @SerialName("type") val type: String,
+    @SerialName("url") val url: String
 )
 
 fun mapTo(item: KtorUsersResponse): User {
     return User(
         id = item.id,
-        updateTime = item.updateTime,
-        userId = item.userId,
-        nodeId = item.nodeId,
         login = item.login,
         url = item.url,
         avatarUrl = item.avatarUrl,

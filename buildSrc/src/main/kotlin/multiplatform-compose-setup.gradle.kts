@@ -7,6 +7,7 @@ plugins {
 kotlin {
     jvm("desktop")
     android()
+    ios()
 
     sourceSets {
         named("commonMain") {

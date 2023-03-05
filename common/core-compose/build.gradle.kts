@@ -6,3 +6,11 @@ plugins {
 android {
     namespace = "com.sample.multiplatform.common.core_compose"
 }
+
+kotlin {
+    sourceSets {
+        commonMain {
+            dependencies {}
+        }
+    }
+}

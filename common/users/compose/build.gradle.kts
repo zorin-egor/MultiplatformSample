@@ -14,6 +14,7 @@ kotlin {
             dependencies {
                 implementation(project(":common:core"))
                 implementation(project(":common:core-utils"))
+                implementation(project(":common:core-compose"))
                 implementation(project(":common:users:api"))
                 implementation(project(":common:users:presentation"))
                 implementation(project(":common:details:api"))
@@ -27,6 +28,7 @@ kotlin {
                 implementation(Dependencies.Image.ImageLoader.loader)
             }
         }
+
         androidMain {
             dependencies {
             }
