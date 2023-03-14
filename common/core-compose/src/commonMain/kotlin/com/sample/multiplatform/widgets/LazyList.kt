@@ -12,7 +12,9 @@ import kotlinx.coroutines.launch
 @Composable
 fun LazyListState.setEdgeEvents(prefetch: Int = 3, onTopList: ((Int) -> Unit)? = null, onBottomList: (Int) -> Unit): Boolean {
     return remember(this) {
+        println("LazyListState.setEdgeEvents() - remember")
         derivedStateOf {
+            println("LazyListState.setEdgeEvents() - derivedStateOf")
             val totalItems = layoutInfo.totalItemsCount
             val lastItem = layoutInfo.visibleItemsInfo.lastOrNull()
             val firstItem = layoutInfo.visibleItemsInfo.firstOrNull()
@@ -22,10 +24,12 @@ fun LazyListState.setEdgeEvents(prefetch: Int = 3, onTopList: ((Int) -> Unit)? =
             when {
                 layoutInfo.totalItemsCount == 0 -> false
                 lastIndex + prefetch > totalItems -> {
+                    println("LazyListState.setEdgeEvents($totalItems, $prefetch, $lastIndex) - onBottomList")
                     onBottomList(lastIndex)
                     true
                 }
                 firstIndex - prefetch < 0 -> {
+                    println("LazyListState.setEdgeEvents($totalItems, $prefetch, $firstIndex) - onTopList")
                     onTopList?.run {
                         invoke(firstIndex)
                         true
@@ -45,20 +49,21 @@ fun LazyListState.setEdgeEvents(
     onBottomList: (Int) -> Unit
 ) {
     val coroutineScope = rememberCoroutineScope()
-    var eventJob: Job? = remember { null }
+    var eventTopJob: Job? = remember { null }
+    var eventBottomJob: Job? = remember { null }
 
     setEdgeEvents(
         prefetch = prefetch,
         onTopList = onTopList@ { index ->
-            if (eventJob?.isActive == true) return@onTopList
-            eventJob = coroutineScope.launch {
+            if (eventTopJob?.isActive == true) return@onTopList
+            eventTopJob = coroutineScope.launch {
                 onTopList?.invoke(index)
                 delay(debounce)
             }
         },
         onBottomList = onBottomList@ { index ->
-            if (eventJob?.isActive == true) return@onBottomList
-            eventJob = coroutineScope.launch {
+            if (eventBottomJob?.isActive == true) return@onBottomList
+            eventBottomJob = coroutineScope.launch {
                 onBottomList(index)
                 delay(debounce)
             }

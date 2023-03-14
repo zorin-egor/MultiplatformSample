@@ -28,12 +28,16 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
     }
 
     private fun getUsers(isColdStart: Boolean) {
+        println("UsersViewModel-getUsers()-try")
+
         if (usersJob?.isActive == true) {
             return
         }
 
         usersJob = viewModelScope.launch {
             try {
+                println("UsersViewModel-getUsers()-inside")
+
                 viewState = viewState.copy(
                     isCenterProgress = isColdStart,
                     isBottomProgress = !isColdStart
@@ -58,9 +62,11 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
                     isCenterProgress = false,
                     isBottomProgress = false
                 )
+                println("UsersViewModel-getUsers()-end")
             } catch (e: Exception) {
                 viewAction = UsersAction.ShowError(e.message ?: "Unknown error")
                 viewState = viewState.copy(isCenterProgress = false, isBottomProgress = false)
+                println("UsersViewModel-getUsers()-error")
             }
         }
     }

@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class KtorUsersResponse(
     @SerialName("id") val id: Long,
-    @SerialName("avatar_url") val avatarUrl: String,
+    @SerialName("avatar_url") val avatarUrl: String?,
     @SerialName("events_url") val eventsUrl: String,
     @SerialName("followers_url") val followersUrl: String,
     @SerialName("following_url") val followingUrl: String,

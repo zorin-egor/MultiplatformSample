@@ -38,12 +38,12 @@ object Dependencies {
     }
 
     object Compose {
-        private const val version = "1.3.0"
+        private const val version = "1.3.1"
         const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$version"
     }
 
     object Ktor {
-        private const val version = "2.1.0"
+        private const val version = "2.2.4"
         const val core = "io.ktor:ktor-client-core:$version"
         const val json = "io.ktor:ktor-client-json:$version"
         const val ios = "io.ktor:ktor-client-ios:$version"
@@ -79,7 +79,7 @@ object Dependencies {
 
     object Other {
         object ViewModel {
-            private const val version = "0.13"
+            private const val version = "0.14"
             const val core = "com.adeo:kviewmodel:$version"
             const val compose = "com.adeo:kviewmodel-compose:$version"
             const val odyssey = "com.adeo:kviewmodel-odyssey:$version"

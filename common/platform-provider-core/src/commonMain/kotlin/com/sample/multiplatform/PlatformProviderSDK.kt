@@ -1,6 +1,7 @@
 package com.sample.multiplatform
 
 import com.sample.multiplatform.di.Inject
+import com.sample.multiplatform.image_loader.ImageLoaderConfig
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.direct

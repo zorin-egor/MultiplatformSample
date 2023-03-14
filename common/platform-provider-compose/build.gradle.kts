@@ -23,6 +23,8 @@ kotlin {
 
                 implementation(Dependencies.Other.Navigation.compose)
                 implementation(Dependencies.Other.Navigation.core)
+
+                implementation(Dependencies.Image.ImageLoader.loader)
             }
         }
 

@@ -19,16 +19,18 @@ import com.sample.multiplatform.widgets.setEdgeEvents
 
 @Composable
 fun ItemsUsersContent(viewState: UsersViewState, obtainEvent: (UsersEvent) -> Unit) {
+    println("UsersScreen() - ItemsUsersContent()")
+
     val listState = rememberLazyListState()
 
     listState.setEdgeEvents(
         debounce = 1000,
         prefetch = 3,
         onTopList = { index ->
-            println("ItemsUsersContent - onTopList: $index")
+            println("ItemsUsersContent() - onTopList: $index")
         },
         onBottomList = { index ->
-            println("ItemsUsersContent - onBottomList: $index")
+            println("ItemsUsersContent() - onBottomList: $index")
             obtainEvent(UsersEvent.OnBottomEnd)
         }
     )

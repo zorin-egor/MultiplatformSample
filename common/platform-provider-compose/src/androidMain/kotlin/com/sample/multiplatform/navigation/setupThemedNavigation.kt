@@ -4,8 +4,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.CompositionLocalProvider
 import com.adeo.kviewmodel.odyssey.setupWithViewModels
+import com.sample.multiplatform.di.Inject
+import com.sample.multiplatform.image_loader.ImageLoaderConfig
 import com.sample.multiplatform.theme.AppTheme
 import com.sample.multiplatform.theme.Theme
+import com.seiko.imageloader.LocalImageLoader
 import ru.alexgladkov.odyssey.compose.base.Navigator
 import ru.alexgladkov.odyssey.compose.extensions.setupWithActivity
 import ru.alexgladkov.odyssey.compose.local.LocalRootController
@@ -26,7 +29,8 @@ fun ComponentActivity.setupThemedNavigation() {
             rootController.backgroundColor = backgroundColor
 
             CompositionLocalProvider(
-                LocalRootController provides rootController
+                LocalRootController provides rootController,
+                LocalImageLoader provides Inject.instance<ImageLoaderConfig>().getDefaultImageLoader(),
             ) {
                 ModalNavigator(DefaultModalConfiguration(
                     backgroundColor = backgroundColor,

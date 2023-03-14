@@ -1,5 +1,6 @@
-package com.sample.multiplatform
+package com.sample.multiplatform.image_loader
 
+import com.sample.multiplatform.PlatformConfiguration
 import com.seiko.imageloader.ImageLoader
 import com.seiko.imageloader.ImageLoaderConfigBuilder
 import com.seiko.imageloader.util.DebugLogger
@@ -11,8 +12,8 @@ expect class ImageLoaderConfig(platformConfig: PlatformConfiguration) {
 }
 
 fun ImageLoaderConfigBuilder.commonConfig() {
-    logger = DebugLogger(LogPriority.VERBOSE)
+    logger = DebugLogger(LogPriority.DEBUG)
     interceptor {
-//        addInterceptor(BlurInterceptor())
+        addInterceptor(NullDataInterceptor)
     }
 }
