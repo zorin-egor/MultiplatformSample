@@ -1,7 +1,7 @@
 object Dependencies {
 
     object Kodein {
-        const val core = "org.kodein.di:kodein-di:7.1.0"
+        const val core = "org.kodein.di:kodein-di:7.2.0"
     }
 
     object Settings {
@@ -10,14 +10,8 @@ object Dependencies {
     }
 
     object Image {
-        object Coil {
-            const val version = "2.2.2"
-            const val core = "io.coil-kt:coil:$version"
-            const val compose = "io.coil-kt:coil-compose:$version"
-        }
-
         object ImageLoader {
-            const val version = "1.2.9"
+            const val version = "1.3.1"
             const val loader = "io.github.qdsfdhvh:image-loader:$version"
         }
     }
@@ -28,7 +22,7 @@ object Dependencies {
 
         object Serialization {
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:1.7.20"
-            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.4.1"
+            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0"
         }
 
         object Coroutines {
@@ -56,7 +50,7 @@ object Dependencies {
     }
 
     object SqlDelight {
-        private const val version = "1.5.3"
+        private const val version = "1.5.5"
         const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
         const val core = "com.squareup.sqldelight:runtime:$version"
         const val android = "com.squareup.sqldelight:android-driver:$version"
@@ -66,14 +60,14 @@ object Dependencies {
 
     object Android {
         const val gradlePlugin = "com.android.tools.build:gradle:7.3.1"
-        const val composeActivity = "androidx.activity:activity-compose:1.6.1"
+        const val composeActivity = "androidx.activity:activity-compose:1.7.0"
 
         object Compose {
-            const val runtime = "androidx.compose.runtime:runtime:1.3.3"
-            const val ui = "androidx.compose.ui:ui:1.3.3"
-            const val material = "androidx.compose.material:material:1.3.1"
-            const val tooling = "androidx.compose.ui:ui-tooling:1.3.3"
-            const val icons = "androidx.compose.material:material-icons-core:1.3.1"
+            const val runtime = "androidx.compose.runtime:runtime:1.4.1"
+            const val ui = "androidx.compose.ui:ui:1.4.1"
+            const val material = "androidx.compose.material:material:1.4.1"
+            const val tooling = "androidx.compose.ui:ui-tooling:1.4.1"
+            const val icons = "androidx.compose.material:material-icons-core:1.4.1"
         }
     }
 
