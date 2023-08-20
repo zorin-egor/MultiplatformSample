@@ -21,8 +21,8 @@ object Dependencies {
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
 
         object Serialization {
-            const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:1.7.20"
-            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.0"
+            const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:$version"
+            const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.1"
         }
 
         object Coroutines {
@@ -32,8 +32,10 @@ object Dependencies {
     }
 
     object Compose {
-        private const val version = "1.3.1"
-        const val gradlePlugin = "org.jetbrains.compose:compose-gradle-plugin:$version"
+        const val pluginVersion = "1.3.1"
+        const val compilerVersion = "1.3.2"
+        const val plugin = "org.jetbrains.compose:compose-gradle-plugin:$pluginVersion"
+        const val compiler = "androidx.compose.compiler:compiler:$compilerVersion"
     }
 
     object Ktor {
@@ -60,14 +62,15 @@ object Dependencies {
 
     object Android {
         const val gradlePlugin = "com.android.tools.build:gradle:7.3.1"
-        const val composeActivity = "androidx.activity:activity-compose:1.7.0"
+        const val composeActivity = "androidx.activity:activity-compose:1.7.2"
 
         object Compose {
-            const val runtime = "androidx.compose.runtime:runtime:1.4.1"
-            const val ui = "androidx.compose.ui:ui:1.4.1"
-            const val material = "androidx.compose.material:material:1.4.1"
-            const val tooling = "androidx.compose.ui:ui-tooling:1.4.1"
-            const val icons = "androidx.compose.material:material-icons-core:1.4.1"
+            const val compiler = "androidx.compose.compiler:compiler:1.5.1"
+            const val runtime = "androidx.compose.runtime:runtime:1.4.3"
+            const val ui = "androidx.compose.ui:ui:1.4.3"
+            const val material = "androidx.compose.material:material:1.4.3"
+            const val tooling = "androidx.compose.ui:ui-tooling:1.4.3"
+            const val icons = "androidx.compose.material:material-icons-core:1.4.3"
         }
     }
 

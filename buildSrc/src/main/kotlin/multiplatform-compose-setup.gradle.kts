@@ -4,6 +4,10 @@ plugins {
     id("org.jetbrains.compose")
 }
 
+//compose {
+//    kotlinCompilerPlugin.set(Dependencies.Compose.compilerVersion)
+//}
+
 kotlin {
     jvm("desktop")
     android()
@@ -17,6 +21,7 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.ui)
                 implementation(compose.animation)
+//                implementation(Dependencies.Compose.compiler)
             }
         }
 
