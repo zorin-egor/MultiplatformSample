@@ -1,7 +1,7 @@
 plugins {
+    kotlin("android")
     id("com.android.application")
     id("org.jetbrains.compose")
-    kotlin("android")
 }
 
 android {
@@ -16,10 +16,6 @@ android {
 
     buildFeatures {
         compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = Dependencies.Compose.compilerVersion
     }
 
     packagingOptions {
@@ -39,9 +35,9 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
-//    kotlinOptions {
-//        jvmTarget = "11"
-//    }
+    kotlin {
+        jvmToolchain(11)
+    }
 
     namespace = "com.sample.multiplatform.android"
 }
@@ -52,5 +48,4 @@ dependencies {
     implementation(project(":common:platform-provider-compose"))
 
     implementation(Dependencies.Android.composeActivity)
-//    implementation(Dependencies.Compose.compiler)
 }

@@ -1,12 +1,8 @@
 plugins {
-    id("com.android.library")
     kotlin("multiplatform")
+    id("com.android.library")
     id("org.jetbrains.compose")
 }
-
-//compose {
-//    kotlinCompilerPlugin.set(Dependencies.Compose.compilerVersion)
-//}
 
 kotlin {
     jvm("desktop")
@@ -21,7 +17,6 @@ kotlin {
                 implementation(compose.material)
                 implementation(compose.ui)
                 implementation(compose.animation)
-//                implementation(Dependencies.Compose.compiler)
             }
         }
 
@@ -30,7 +25,9 @@ kotlin {
         }
 
         named("androidMain") {
-            dependencies {}
+            dependencies {
+                implementation(compose.runtime)
+            }
         }
     }
 

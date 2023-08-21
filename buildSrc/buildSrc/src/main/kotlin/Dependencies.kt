@@ -1,7 +1,7 @@
 object Dependencies {
 
     object Kodein {
-        const val core = "org.kodein.di:kodein-di:7.2.0"
+        const val core = "org.kodein.di:kodein-di:7.20.2"
     }
 
     object Settings {
@@ -11,35 +11,34 @@ object Dependencies {
 
     object Image {
         object ImageLoader {
-            const val version = "1.3.1"
+            const val version = "1.6.4"
             const val loader = "io.github.qdsfdhvh:image-loader:$version"
         }
     }
 
     object Kotlin {
-        private const val version = "1.7.20"
+        private const val version = "1.8.20"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
 
         object Serialization {
+            private const val version = Kotlin.version
             const val gradlePlugin = "org.jetbrains.kotlin:kotlin-serialization:$version"
             const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.5.1"
         }
 
         object Coroutines {
-            private const val version = "1.6.4"
+            private const val version = "1.7.3"
             const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
         }
     }
 
     object Compose {
-        const val pluginVersion = "1.3.1"
-        const val compilerVersion = "1.3.2"
+        private const val pluginVersion = "1.4.3"
         const val plugin = "org.jetbrains.compose:compose-gradle-plugin:$pluginVersion"
-        const val compiler = "androidx.compose.compiler:compiler:$compilerVersion"
     }
 
     object Ktor {
-        private const val version = "2.2.4"
+        private const val version = "2.3.3"
         const val core = "io.ktor:ktor-client-core:$version"
         const val json = "io.ktor:ktor-client-json:$version"
         const val ios = "io.ktor:ktor-client-ios:$version"

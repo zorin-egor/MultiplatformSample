@@ -3,8 +3,7 @@ package com.sample.multiplatform.image_loader
 import com.sample.multiplatform.PlatformConfiguration
 import com.seiko.imageloader.ImageLoader
 import com.seiko.imageloader.ImageLoaderConfigBuilder
-import com.seiko.imageloader.util.DebugLogger
-import com.seiko.imageloader.util.LogPriority
+import com.seiko.imageloader.util.Logger
 
 expect class ImageLoaderConfig(platformConfig: PlatformConfiguration) {
 
@@ -12,7 +11,7 @@ expect class ImageLoaderConfig(platformConfig: PlatformConfiguration) {
 }
 
 fun ImageLoaderConfigBuilder.commonConfig() {
-    logger = DebugLogger(LogPriority.DEBUG)
+    logger = Logger.None
     interceptor {
         addInterceptor(NullDataInterceptor)
     }

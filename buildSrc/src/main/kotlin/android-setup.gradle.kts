@@ -1,6 +1,7 @@
 import org.gradle.api.JavaVersion
 
 plugins {
+    kotlin("multiplatform")
     id("com.android.library")
 }
 
@@ -16,13 +17,13 @@ android {
         compose = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = Dependencies.Compose.compilerVersion
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    kotlin {
+        jvmToolchain(11)
     }
 
     sourceSets {
@@ -32,3 +33,4 @@ android {
         }
     }
 }
+
