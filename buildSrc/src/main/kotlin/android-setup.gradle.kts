@@ -1,16 +1,14 @@
-import org.gradle.api.JavaVersion
-
 plugins {
-    kotlin("multiplatform")
     id("com.android.library")
+    kotlin("multiplatform")
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
-        minSdk = 21
-        targetSdk = 33
+        minSdk = 24
+        targetSdk = 34
     }
 
     buildFeatures {
@@ -22,6 +20,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
+
     kotlin {
         jvmToolchain(11)
     }
@@ -31,6 +33,10 @@ android {
             manifest.srcFile("src/androidMain/AndroidManifest.xml")
             res.srcDirs("src/androidMain/res", "src/commonMain/resources")
         }
+    }
+
+    dependencies {
+        implementation(Dependencies.Android.Compose.runtime)
     }
 }
 

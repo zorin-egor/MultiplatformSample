@@ -1,12 +1,12 @@
 object Dependencies {
 
     object Kodein {
-        const val core = "org.kodein.di:kodein-di:7.20.2"
+        const val core = "org.kodein.di:kodein-di:7.21.0"
     }
 
     object Settings {
-        const val core = "com.russhwolf:multiplatform-settings:1.0.0"
-        const val noargs = "com.russhwolf:multiplatform-settings-no-arg:1.0.0"
+        const val core = "com.russhwolf:multiplatform-settings:1.1.1"
+        const val noargs = "com.russhwolf:multiplatform-settings-no-arg:1.1.1"
     }
 
     object Image {
@@ -17,7 +17,7 @@ object Dependencies {
     }
 
     object Kotlin {
-        private const val version = "1.8.20"
+        private const val version = "1.9.20"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
 
         object Serialization {
@@ -33,12 +33,12 @@ object Dependencies {
     }
 
     object Compose {
-        private const val pluginVersion = "1.4.3"
+        private const val pluginVersion = "1.5.10"
         const val plugin = "org.jetbrains.compose:compose-gradle-plugin:$pluginVersion"
     }
 
     object Ktor {
-        private const val version = "2.3.3"
+        private const val version = "2.3.6"
         const val core = "io.ktor:ktor-client-core:$version"
         const val json = "io.ktor:ktor-client-json:$version"
         const val ios = "io.ktor:ktor-client-ios:$version"
@@ -60,29 +60,29 @@ object Dependencies {
     }
 
     object Android {
-        const val gradlePlugin = "com.android.tools.build:gradle:7.3.1"
-        const val composeActivity = "androidx.activity:activity-compose:1.7.2"
+        const val gradlePlugin = "com.android.tools.build:gradle:8.1.4"
+        const val composeActivity = "androidx.activity:activity-compose:1.8.1"
 
         object Compose {
-            const val compiler = "androidx.compose.compiler:compiler:1.5.1"
-            const val runtime = "androidx.compose.runtime:runtime:1.4.3"
-            const val ui = "androidx.compose.ui:ui:1.4.3"
-            const val material = "androidx.compose.material:material:1.4.3"
-            const val tooling = "androidx.compose.ui:ui-tooling:1.4.3"
-            const val icons = "androidx.compose.material:material-icons-core:1.4.3"
+            const val compiler = "androidx.compose.compiler:compiler:1.5.4"
+            const val runtime = "androidx.compose.runtime:runtime:1.5.4"
+            const val ui = "androidx.compose.ui:ui:1.5.4"
+            const val material = "androidx.compose.material:material:1.5.4"
+            const val tooling = "androidx.compose.ui:ui-tooling:1.5.4"
+            const val icons = "androidx.compose.material:material-icons-core:1.5.4"
         }
     }
 
     object Other {
         object ViewModel {
-            private const val version = "0.14"
+            private const val version = "0.15"
             const val core = "com.adeo:kviewmodel:$version"
             const val compose = "com.adeo:kviewmodel-compose:$version"
             const val odyssey = "com.adeo:kviewmodel-odyssey:$version"
         }
 
         object Navigation {
-            private const val version = "1.3.3"
+            private const val version = "1.3.40"
             const val core = "io.github.alexgladkov:odyssey-core:$version"
             const val compose = "io.github.alexgladkov:odyssey-compose:$version"
         }

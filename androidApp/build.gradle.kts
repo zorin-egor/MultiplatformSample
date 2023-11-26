@@ -1,15 +1,15 @@
 plugins {
-    kotlin("android")
     id("com.android.application")
+    kotlin("android")
     id("org.jetbrains.compose")
 }
 
 android {
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         applicationId = "com.sample.multiplatform.android"
-        minSdk = 21
-        targetSdk = 33
+        minSdk = 24
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
     }
@@ -35,6 +35,10 @@ android {
         targetCompatibility = JavaVersion.VERSION_11
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
+
     kotlin {
         jvmToolchain(11)
     }
@@ -47,5 +51,6 @@ dependencies {
     implementation(project(":common:platform-provider-core"))
     implementation(project(":common:platform-provider-compose"))
 
+    implementation(Dependencies.Android.Compose.runtime)
     implementation(Dependencies.Android.composeActivity)
 }
