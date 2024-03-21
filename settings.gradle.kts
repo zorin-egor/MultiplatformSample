@@ -4,6 +4,9 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
+    plugins {
+        id("app.cash.sqldelight") version "2.0.1"
+    }
 }
 
 dependencyResolutionManagement {
@@ -20,8 +23,14 @@ include(":desktop")
 include(":common:core")
 include(":common:core-utils")
 include(":common:core-compose")
+include(":common:widget-cycloid")
 include(":common:platform-provider-core")
 include(":common:platform-provider-compose")
+
+include(":common:splash:api")
+include(":common:splash:presentation")
+include(":common:splash:data")
+include(":common:splash:compose")
 
 include(":common:users:api")
 include(":common:users:presentation")

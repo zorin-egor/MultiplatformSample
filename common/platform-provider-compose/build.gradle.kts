@@ -14,6 +14,7 @@ kotlin {
                 implementation(project(":common:core"))
                 implementation(project(":common:core-utils"))
                 implementation(project(":common:core-compose"))
+                implementation(project(":common:splash:compose"))
                 implementation(project(":common:users:compose"))
                 implementation(project(":common:details:compose"))
 

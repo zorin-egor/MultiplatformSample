@@ -1,0 +1,17 @@
+ CREATE TABLE IF NOT EXISTS Settings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  key TEXT NOT NULL,
+  value TEXT NOT NULL
+);
+
+insert:
+INSERT INTO Settings(key, value)
+VALUES (?, ?);
+
+selectAll:
+SELECT *
+FROM Settings;
+
+update:
+INSERT OR REPLACE INTO Settings(key, value)
+VALUES (?, ?);

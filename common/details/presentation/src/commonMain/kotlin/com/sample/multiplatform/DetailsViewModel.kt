@@ -16,6 +16,8 @@ class DetailsViewModel : BaseSharedViewModel<DetailsViewState, DetailsAction, De
 ) {
 
     private val detailsRepository: DetailsRepository = Inject.instance()
+    private val usersRepository: UsersRepository = Inject.instance()
+
     private var detailsJob: Job? = null
     private var details: Details? = null
 

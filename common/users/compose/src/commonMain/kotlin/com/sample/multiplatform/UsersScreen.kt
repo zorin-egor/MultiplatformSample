@@ -16,13 +16,16 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 @Composable
 fun UsersScreen() {
+    println("UsersScreen()")
 
     val rootController = LocalRootController.current
 
     StoredViewModel(factory = { UsersViewModel() }) { viewModel ->
+        println("UsersScreen() - viewModel")
+
         val viewState = viewModel.viewStates().observeAsState().value
-        val viewAction = viewModel.viewActions().observeAsState().value
-        val navigation = viewModel.consumableViewActions().observeAsState().value
+        val viewAction = viewModel.viewActions().observeAsState()
+        val navigation = viewModel.navigationEvents().observeAsState()
         val scaffoldState = rememberScaffoldState()
         val scope = rememberCoroutineScope()
 
@@ -36,17 +39,17 @@ fun UsersScreen() {
             }
         }
 
-        when(navigation) {
+        when(val result = navigation.value) {
             is UsersNavigation.OpenDetails -> {
-                rootController.push(NavigationTree.Details.DetailsScreen.name, navigation.user)
+                rootController.push(NavigationTree.Details.DetailsScreen.name, result.user)
             }
             null -> {}
         }
 
-        when (viewAction) {
+        when (val result = viewAction.value) {
             is UsersAction.ShowError -> {
                 scope.launch {
-                    scaffoldState.snackbarHostState.showSnackbar(viewAction.message)
+                    scaffoldState.snackbarHostState.showSnackbar(result.message)
                 }
             }
             null -> {}

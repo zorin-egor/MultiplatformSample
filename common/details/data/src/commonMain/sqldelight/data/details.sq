@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS Details(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  idInner INTEGER NOT NULL,
+  login TEXT NOT NULL,
+  avatarUrl TEXT NOT NULL,
+  url TEXT NOT NULL,
+  reposUrls TEXT NOT NULL
+);
+
+insert:
+INSERT INTO Details(idInner, login, avatarUrl, url, reposUrls)
+VALUES (?, ?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM Details;
+
+update:
+INSERT OR REPLACE INTO Details(idInner, login, avatarUrl, url, reposUrls)
+VALUES (?, ?, ?, ?, ?);

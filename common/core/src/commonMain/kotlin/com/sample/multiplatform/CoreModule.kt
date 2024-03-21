@@ -1,5 +1,6 @@
 package com.sample.multiplatform
 
+import com.sample.multiplatform.db.dbFactoryModule
 import com.sample.multiplatform.json.serializationModule
 import com.sample.multiplatform.ktor.ktorModule
 import com.sample.multiplatform.settings.settingsModule
@@ -9,6 +10,7 @@ val coreModule = DI.Module("coreModule") {
     importAll(
         serializationModule,
         ktorModule,
-        settingsModule
+        settingsModule,
+        dbFactoryModule
     )
 }

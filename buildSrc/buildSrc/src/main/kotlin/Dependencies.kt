@@ -51,12 +51,11 @@ object Dependencies {
     }
 
     object SqlDelight {
-        private const val version = "1.5.5"
-        const val gradlePlugin = "com.squareup.sqldelight:gradle-plugin:$version"
-        const val core = "com.squareup.sqldelight:runtime:$version"
-        const val android = "com.squareup.sqldelight:android-driver:$version"
-        const val desktop = "com.squareup.sqldelight:sqlite-driver:$version"
-        const val ios = "com.squareup.sqldelight:native-driver:$version"
+        const val version = "2.0.1"
+        const val android = "app.cash.sqldelight:android-driver:$version"
+        const val desktop = "app.cash.sqldelight:sqlite-driver:$version"
+        const val ios = "app.cash.sqldelight:native-driver:$version"
+        const val coroutines = "app.cash.sqldelight:coroutines-extensions:$version"
     }
 
     object Android {

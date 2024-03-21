@@ -19,7 +19,7 @@ import com.sample.multiplatform.widgets.setEdgeEvents
 
 @Composable
 fun ItemsUsersContent(viewState: UsersViewState, obtainEvent: (UsersEvent) -> Unit) {
-    println("UsersScreen() - ItemsUsersContent()")
+    println("ItemsUsersContent()")
 
     val listState = rememberLazyListState()
 

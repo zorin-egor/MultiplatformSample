@@ -36,7 +36,7 @@ fun ComponentActivity.setupThemedNavigation() {
                     backgroundColor = backgroundColor,
                     displayType = DisplayType.FullScreen
                 )) {
-                    Navigator(startScreen = NavigationTree.Users.UsersScreen.name)
+                    Navigator(startScreen = NavigationTree.Splash.SplashScreen.name)
                 }
             }
         }

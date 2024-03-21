@@ -32,5 +32,8 @@ fun mapTo(item: KtorUsersResponse): User {
         login = item.login,
         url = item.url,
         avatarUrl = item.avatarUrl,
+        reposUrl = item.reposUrl,
+        followersUrl = item.followersUrl,
+        subscriptionsUrl = item.subscriptionsUrl
     )
 }

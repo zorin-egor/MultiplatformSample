@@ -5,10 +5,11 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+
     defaultConfig {
         applicationId = "com.sample.multiplatform.android"
         minSdk = 24
+        compileSdk = 34
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

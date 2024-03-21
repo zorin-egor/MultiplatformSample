@@ -20,20 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import com.sample.multiplatform.image_loader.loadImage
 import com.sample.multiplatform.models.User
 import com.sample.multiplatform.models.UsersEvent
-import com.seiko.imageloader.rememberAsyncImagePainter
 
 
 private const val PIC_PLACEHOLDER = "https://www.seekpng.com/png/detail/110-1100707_person-avatar-placeholder.png"
 
 @Composable
 fun UsersItemContent(user: User, modifier: Modifier, action: (UsersEvent)-> Unit) {
-
-    val painter = rememberAsyncImagePainter(
-        url = user.avatarUrl ?: PIC_PLACEHOLDER,
-        contentScale = ContentScale.Crop,
-    )
+    val painter = loadImage(user.avatarUrl ?: PIC_PLACEHOLDER)
 
     Card(
         modifier = modifier,

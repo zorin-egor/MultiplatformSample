@@ -15,19 +15,17 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
     initialState = UsersViewState(isCenterProgress = true, isBottomProgress = false)
 ) {
 
-    companion object {
-
-    }
+    companion object {}
 
     private val usersRepository: UsersRepository = Inject.instance()
     private var usersJob: Job? = null
     private val users: ArrayList<User> = arrayListOf()
 
     init {
-        getUsers(true)
+        getUsers()
     }
 
-    private fun getUsers(isColdStart: Boolean) {
+    fun getUsers(isColdStart: Boolean = users.isEmpty()) {
         println("UsersViewModel-getUsers()-try")
 
         if (usersJob?.isActive == true) {
@@ -78,7 +76,7 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
                 getUsers(false)
             }
             is UsersEvent.OnUserClick -> {
-                consumableViewActions.trySend(UsersNavigation.OpenDetails(viewEvent.user))
+                _navigation.trySend(UsersNavigation.OpenDetails(viewEvent.user))
             }
         }
     }

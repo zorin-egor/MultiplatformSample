@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.receiveAsFlow
 abstract class BaseViewModel<State : Any, Action, Event, Navigation>(initialState: State) :
     BaseSharedViewModel<State, Action, Event>(initialState = initialState) {
 
-    protected val consumableViewActions = Channel<Navigation>(capacity = Channel.CONFLATED)
+    protected val _navigation = Channel<Navigation>(capacity = Channel.CONFLATED)
 
-    fun consumableViewActions() = consumableViewActions.receiveAsFlow()
+    fun navigationEvents() = _navigation.receiveAsFlow()
 
 }
