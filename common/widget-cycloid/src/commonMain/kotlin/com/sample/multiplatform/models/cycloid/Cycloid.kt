@@ -15,11 +15,11 @@ import kotlin.math.min
 import kotlin.math.sin
 
 internal class Cycloid(
-    private val data: CycloidModel,
+    private val model: CycloidModel,
     private val fromProgress: Int = 0,
     private val toProgress: Int = 100,
     private val isDynamicColor: Boolean = true,
-    private val isDynamicRadius: Boolean = true,
+    private val isDynamicShape: Boolean = false,
 ) : Shape {
 
     companion object {
@@ -29,8 +29,6 @@ internal class Cycloid(
         private const val RADIUS_MAX = 0.30f
         private const val RADIUS_MIN = 0.20f
         private const val RADIUS_DELTA = 0.001f
-        private const val ALPHA_START = 255
-        private const val COLOR_STEP = 1
         private const val DELTA_SPEED = 0.01f
         private const val PARTICLE_RADIUS_FACTOR = 1.1f
     }
@@ -64,26 +62,22 @@ internal class Cycloid(
             Point(width * totalRadius, height * totalRadius * sizeCoefficient)
         }
 
-    private val particleColor: Color get() = data.colors.particleDefaultColor
+    private val particleColor: Color get() = model.colors.particleDefaultColor
 
-    private val lineColor: Color get() = data.colors.lineDefaultColor
+    private val lineColor: Color get() = model.colors.lineDefaultColor
 
-    private val particleProgressColor: Color get() = data.colors.particleProgressColor
+    private val particleProgressColor: Color get() = model.colors.particleProgressColor
 
-    private val lineProgressColor: Color get() = data.colors.lineProgressColor
+    private val lineProgressColor: Color get() = model.colors.lineProgressColor
 
 
     private fun setParticles() {
         var delta = 0.0f
-        var colorValue = 255
-        var alphaValue = ALPHA_START
-        val colorStep = COLOR_STEP
-        val alphaStep = COLOR_STEP
 
         (0 until toProgress).forEach { index ->
             points.add(Particle(
                 x = 0.0f, y = 0.0f,
-                radius = data.particleRadius,
+                radius = model.particleRadius,
                 delta = delta,
                 color = particleColor.addToRGBDynamic(
                     factor = index.toFloat() / toProgress,
@@ -92,8 +86,6 @@ internal class Cycloid(
             ).also(::setParticleXY))
 
             delta += PARTICLES_DELTA
-            colorValue += if (colorValue > 255 / 2) colorValue - colorStep else colorValue
-            alphaValue = if (alphaValue > 255 / 2) alphaValue - alphaStep else alphaValue
         }
     }
 
@@ -103,7 +95,7 @@ internal class Cycloid(
     }
 
     private fun setRadius() {
-        if (isDynamicRadius) {
+        if (isDynamicShape) {
             deltaRadius *= if (totalRadius > RADIUS_MAX || totalRadius < RADIUS_MIN) -1.0f else 1.0f
             totalRadius += deltaRadius
         }
@@ -111,9 +103,9 @@ internal class Cycloid(
 
     private inline fun setParticleXY(particle: Particle) {
         particle.x = center.x + radius.x * (cos(particle.delta + totalSpeed) +
-                cos(data.x1 * (particle.delta + totalSpeed)) / data.y1)
+                cos(model.x1 * (particle.delta + totalSpeed)) / model.y1)
         particle.y = center.y + radius.y * (sin(particle.delta + totalSpeed) +
-                sin(data.x2 * (particle.delta + totalSpeed)) / data.y2)
+                sin(model.x2 * (particle.delta + totalSpeed)) / model.y2)
     }
 
     private fun setProgress() {
@@ -127,7 +119,7 @@ internal class Cycloid(
         println("$TAG - draw() - $systemTime")
 
         // Background
-        draw.drawRect(color = data.colors.backgroundColor)
+        draw.drawRect(color = model.colors.backgroundColor)
 
         // Draw close line under first
         if (points.size > 2) {
@@ -137,7 +129,7 @@ internal class Cycloid(
                         lineColor.addToRGBDynamic(factor = 1.0f),
                 start = Offset(points.first().x, points.first().y),
                 end = Offset(points.last().x, points.last().y),
-                strokeWidth = data.lineWidth
+                strokeWidth = model.lineWidth
             )
         }
 
@@ -146,9 +138,10 @@ internal class Cycloid(
             setParticleXY(particle)
 
             val factor = index.toFloat() / toProgress
+            val radius = model.particleRadius
             var particleColor = particleColor.addToRGBDynamic(factor = factor)
             var lineColor = lineColor.addToRGBDynamic(factor = factor)
-            var radius = data.particleRadius
+
             if (index in 0..indexProgress) {
                 particleColor = particleProgressColor.addToRGBDynamic(
                     factor = factor * 0.5f,
@@ -158,7 +151,6 @@ internal class Cycloid(
                     factor = factor * 0.5f,
                     isAlphaChannelAddOrSub = false
                 )
-                radius = data.particleRadius * PARTICLE_RADIUS_FACTOR
             }
 
             if (index < points.lastIndex) {
@@ -167,7 +159,7 @@ internal class Cycloid(
                     color = lineColor,
                     start = Offset(next.x, next.y),
                     end = Offset(particle.x, particle.y),
-                    strokeWidth = data.lineWidth
+                    strokeWidth = model.lineWidth
                 )
             }
 

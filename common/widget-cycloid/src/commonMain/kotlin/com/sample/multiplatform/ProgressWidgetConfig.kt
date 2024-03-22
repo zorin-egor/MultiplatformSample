@@ -4,6 +4,7 @@ import com.sample.multiplatform.models.ShapeModel
 
 data class ProgressWidgetConfig(
     val shapeType: ShapeModel,
+    val isDynamic: Boolean = true,
     val fromProgress: Int = 0,
     val toProgress: Int = 100
 ) {

@@ -50,7 +50,7 @@ fun SplashScreen() {
                     shapeType = CycloidModel.Two(
                         colors = colors,
                         lineWidth = 7.dp.value,
-                        particleRadius = 15.dp.value
+                        particleRadius = 20.dp.value
                     ),
                     fromProgress = 0,
                     toProgress = viewModel.viewStates().replayCache.firstOrNull()?.toProgress

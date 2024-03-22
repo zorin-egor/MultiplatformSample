@@ -25,9 +25,11 @@ fun ProgressWidget(
         when(val type = widgetConfig.shapeType) {
             is CycloidModel -> {
                 Cycloid(
-                    data = type,
+                    model = type,
                     fromProgress = widgetConfig.fromProgress,
                     toProgress = widgetConfig.toProgress,
+                    isDynamicColor = widgetConfig.isDynamic,
+                    isDynamicShape = widgetConfig.isDynamic
                 )
             }
             else -> throw IllegalStateException("No shape type")
@@ -36,16 +38,20 @@ fun ProgressWidget(
 
     println("ProgressWidget() - before canvas")
 
-    val invalidate = produceState(initialValue = true) {
-        while(true) {
-            withFrameNanos {
-                value = value.not()
+    val invalidate: State<Boolean>? = if (widgetConfig.isDynamic) {
+        produceState(initialValue = true) {
+            while(true) {
+                withFrameNanos {
+                    value = value.not()
+                }
             }
         }
+    } else {
+        null
     }
 
     Canvas(modifier) {
-        invalidate.value
+        invalidate?.value
         val progressValue = progress.value
 
         println("ProgressWidget() - canvas: progress: $progressValue, width = ${size.width}, height = ${size.height}")
