@@ -45,9 +45,15 @@ class SplashViewModel : BaseViewModel<SplashViewState, SplashAction, SplashEvent
             val response = runCatching { usersRepository.getUsers(since = 0) }
             val result = response.getOrNull()
 
-            if (response.isFailure) {
-                viewAction = SplashAction.ShowError(response.exceptionOrNull()?.toString() ?: "Unknown Error")
-                return@launch
+            when {
+                response.isFailure -> {
+                    viewAction = SplashAction.ShowError(response.exceptionOrNull()?.toString() ?: "Unknown Error")
+                    return@launch
+                }
+                result.isNullOrEmpty() -> {
+                    viewAction = SplashAction.ShowError("No data")
+                    return@launch
+                }
             }
 
             if (progressJob.isActive) {
@@ -56,9 +62,7 @@ class SplashViewModel : BaseViewModel<SplashViewState, SplashAction, SplashEvent
 
             progressJob.takeIf { it.isActive }?.cancel()
 
-            println("AAAA: job cancel")
-
-            _navigation.trySend(SplashNavigation.OpenUsers(users = result))
+            _navigation.trySend(SplashNavigation.OpenUsers(lastSince = result!!.last().id))
         }
     }
 

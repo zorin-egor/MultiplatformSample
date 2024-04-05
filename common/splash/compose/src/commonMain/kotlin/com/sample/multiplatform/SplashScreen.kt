@@ -74,6 +74,7 @@ fun SplashScreen() {
                 rootController.push(
                     screen = NavigationTree.Users.UsersScreen.name,
                     launchFlag = LaunchFlag.ClearPrevious,
+                    params = result.lastSince
                 )
             }
             else -> {}

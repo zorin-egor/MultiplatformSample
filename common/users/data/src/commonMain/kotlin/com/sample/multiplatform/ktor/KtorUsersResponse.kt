@@ -1,6 +1,6 @@
 package com.sample.multiplatform.ktor
 
-import com.sample.multiplatform.models.User
+import com.sample.multiplatform.models.UserModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -26,8 +26,8 @@ data class KtorUsersResponse(
     @SerialName("url") val url: String
 )
 
-fun mapTo(item: KtorUsersResponse): User {
-    return User(
+fun mapTo(item: KtorUsersResponse): UserModel {
+    return UserModel(
         id = item.id,
         login = item.login,
         url = item.url,

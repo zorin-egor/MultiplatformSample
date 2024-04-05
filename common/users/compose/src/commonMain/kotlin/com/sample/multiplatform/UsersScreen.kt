@@ -15,7 +15,7 @@ import ru.alexgladkov.odyssey.compose.local.LocalRootController
 
 
 @Composable
-fun UsersScreen() {
+fun UsersScreen(lastSince: Long) {
     println("UsersScreen()")
 
     val rootController = LocalRootController.current

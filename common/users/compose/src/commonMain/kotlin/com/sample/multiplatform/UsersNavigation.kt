@@ -9,6 +9,6 @@ fun RootComposeBuilder.usersFlow() {
     println("usersFlow()")
     screen(name = NavigationTree.Users.UsersScreen.name) {
         println("usersFlow() - ${it?.let { it::class.simpleName }}")
-        UsersScreen()
+        UsersScreen(it as Long)
     }
 }

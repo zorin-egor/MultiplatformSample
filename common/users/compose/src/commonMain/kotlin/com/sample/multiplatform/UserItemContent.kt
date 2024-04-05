@@ -21,14 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import com.sample.multiplatform.image_loader.loadImage
-import com.sample.multiplatform.models.User
+import com.sample.multiplatform.models.UserModel
 import com.sample.multiplatform.models.UsersEvent
 
 
 private const val PIC_PLACEHOLDER = "https://www.seekpng.com/png/detail/110-1100707_person-avatar-placeholder.png"
 
 @Composable
-fun UsersItemContent(user: User, modifier: Modifier, action: (UsersEvent)-> Unit) {
+fun UsersItemContent(user: UserModel, modifier: Modifier, action: (UsersEvent)-> Unit) {
     val painter = loadImage(user.avatarUrl ?: PIC_PLACEHOLDER)
 
     Card(

@@ -2,7 +2,7 @@ package com.sample.multiplatform
 
 
 import com.sample.multiplatform.di.Inject
-import com.sample.multiplatform.models.User
+import com.sample.multiplatform.models.UserModel
 import com.sample.multiplatform.models.UsersAction
 import com.sample.multiplatform.models.UsersEvent
 import com.sample.multiplatform.models.UsersNavigation
@@ -19,7 +19,7 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
 
     private val usersRepository: UsersRepository = Inject.instance()
     private var usersJob: Job? = null
-    private val users: ArrayList<User> = arrayListOf()
+    private val users: ArrayList<UserModel> = arrayListOf()
 
     init {
         getUsers()
@@ -47,7 +47,7 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
                     users.last().id
                 }
 
-                val response = usersRepository.getUsers(since)
+                val response = usersRepository.getUsers(since = since, isUseOnlyCache = true)
                 if (response.isNotEmpty()) {
                     if (isColdStart) {
                         users.clear()

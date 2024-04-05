@@ -1,6 +1,6 @@
 package com.sample.multiplatform.ktor
 
-import com.sample.multiplatform.models.Details
+import com.sample.multiplatform.models.DetailsModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -32,20 +32,41 @@ data class KtorDetailsResponse(
     @SerialName("hireable") val hireable: String?,
     @SerialName("bio") val bio: String?,
     @SerialName("twitter_username") val twitterUsername: String?,
-    @SerialName("public_repos") val publicRepos: Int,
-    @SerialName("public_gists") val publicGists: Int,
-    @SerialName("followers") val followers: Int,
-    @SerialName("following") val following: Int,
+    @SerialName("public_repos") val publicRepos: Long,
+    @SerialName("public_gists") val publicGists: Long,
+    @SerialName("followers") val followers: Long,
+    @SerialName("following") val following: Long,
     @SerialName("created_at") val createdAt: String,
     @SerialName("updated_at") val updatedAt: String
 )
 
-fun mapTo(item: KtorDetailsResponse): Details {
-    return Details(
+fun mapTo(item: KtorDetailsResponse): DetailsModel {
+    return DetailsModel(
         id = item.id,
         nodeId = item.nodeId,
         login = item.login,
         url = item.url,
         avatarUrl = item.avatarUrl,
+        reposUrl = item.reposUrl,
+        followersUrl = item.followersUrl,
+        subscriptionsUrl = item.subscriptionsUrl,
+        followingUrl = item.followingUrl,
+        gistsUrl = item.gistsUrl,
+        starredUrl = item.starredUrl,
+        organizationsUrl = item.organizationsUrl,
+        eventsUrl = item.eventsUrl,
+        receivedEventsUrl = item.receivedEventsUrl,
+        company = item.company,
+        blog = item.blog,
+        location = item.location,
+        email = item.email,
+        hireable = item.hireable,
+        bio = item.bio,
+        publicRepos = item.publicRepos,
+        publicGists = item.publicGists,
+        followers = item.followers,
+        following = item.following,
+        createdAt = item.createdAt,
+        updatedAt = item.updatedAt,
     )
 }

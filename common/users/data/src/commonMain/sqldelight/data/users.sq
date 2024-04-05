@@ -1,20 +1,25 @@
 CREATE TABLE IF NOT EXISTS Users(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  idInner INTEGER NOT NULL,
+  idInner INTEGER NOT NULL UNIQUE,
   login TEXT NOT NULL,
-  avatarUrl TEXT NOT NULL,
+  avatarUrl TEXT,
   url TEXT NOT NULL,
-  reposUrls TEXT NOT NULL
+  reposUrls TEXT,
+  followersUrl TEXT,
+  subscriptionsUrl TEXT
 );
 
 insert:
-INSERT INTO Users(idInner, login, avatarUrl, url, reposUrls)
-VALUES (?, ?, ?, ?, ?);
+INSERT INTO Users(idInner, login, avatarUrl, url, reposUrls, followersUrl, subscriptionsUrl)
+VALUES (?, ?, ?, ?, ?, ?, ?);
 
 selectAll:
 SELECT *
 FROM Users;
 
+selectSince:
+SELECT * FROM Users ORDER BY idInner LIMIT :count OFFSET :offset;
+
 update:
-INSERT OR REPLACE INTO Users(idInner, login, avatarUrl, url, reposUrls)
-VALUES (?, ?, ?, ?, ?);
+INSERT OR REPLACE INTO Users(idInner, login, avatarUrl, url, reposUrls, followersUrl, subscriptionsUrl)
+VALUES (?, ?, ?, ?, ?, ?, ?);

@@ -2,12 +2,10 @@ package com.sample.multiplatform
 
 import com.adeo.kviewmodel.BaseSharedViewModel
 import com.sample.multiplatform.di.Inject
-import com.sample.multiplatform.mappers.mapTo
-import com.sample.multiplatform.models.Details
 import com.sample.multiplatform.models.DetailsAction
 import com.sample.multiplatform.models.DetailsEvent
+import com.sample.multiplatform.models.DetailsModel
 import com.sample.multiplatform.models.DetailsViewState
-import com.sample.multiplatform.models.User
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
@@ -16,15 +14,14 @@ class DetailsViewModel : BaseSharedViewModel<DetailsViewState, DetailsAction, De
 ) {
 
     private val detailsRepository: DetailsRepository = Inject.instance()
-    private val usersRepository: UsersRepository = Inject.instance()
 
     private var detailsJob: Job? = null
-    private var details: Details? = null
+    private var details: DetailsModel? = null
 
-    private fun getDetails(url: String) {
+    fun getDetails(id: Long, url: String) {
         detailsJob = viewModelScope.launch {
             try {
-                val result = detailsRepository.getUserDetails(url)
+                val result = detailsRepository.getUserDetails(id, url)
                 this@DetailsViewModel.details = result
                 viewState = viewState.copy(details = result, isCenterProgress = false)
             } catch (e: Exception) {
@@ -32,20 +29,6 @@ class DetailsViewModel : BaseSharedViewModel<DetailsViewState, DetailsAction, De
                 viewAction = DetailsAction.ShowError(e.message ?: "Unknown error")
             }
         }
-    }
-
-    fun setUser(item: User) {
-        val temp = item.mapTo()
-        details = temp
-
-        val url = temp.url
-        if (url == null) {
-            viewAction = DetailsAction.ShowError("Error state")
-        } else {
-            getDetails(url)
-        }
-
-        viewState = viewState.copy(details = temp, isCenterProgress = false)
     }
 
     override fun obtainEvent(viewEvent: DetailsEvent) {

@@ -1,6 +1,6 @@
 package com.sample.multiplatform
 
-import com.sample.multiplatform.models.User
+import com.sample.multiplatform.models.UserModel
 
 interface UsersRepository {
 
@@ -8,6 +8,6 @@ interface UsersRepository {
         const val DEFAULT_SINCE_USER = 0L
     }
 
-    suspend fun getUsers(since: Long): List<User>
+    suspend fun getUsers(since: Long, isUseOnlyCache: Boolean = false): List<UserModel>
 
 }

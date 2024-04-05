@@ -13,12 +13,12 @@ import com.adeo.kviewmodel.compose.ViewModel
 import com.adeo.kviewmodel.compose.observeAsState
 import com.sample.multiplatform.image_loader.loadImage
 import com.sample.multiplatform.models.DetailsAction
-import com.sample.multiplatform.models.User
+import com.sample.multiplatform.models.UserModel
 
 @Composable
-fun DetailsScreen(user: User) {
+fun DetailsScreen(user: UserModel) {
     ViewModel(factory = { DetailsViewModel().apply {
-        setUser(user)
+        getDetails(user.id, user.url)
     } }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState().value
         val viewAction = viewModel.viewActions().observeAsState().value
