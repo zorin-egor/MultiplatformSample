@@ -20,17 +20,17 @@ internal class UsersRepositoryImpl(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UsersRepository {
 
-    override suspend fun getUsers(since: Long, isUseOnlyCache: Boolean): List<UserModel> {
+    override suspend fun getUsers(since: Long, useOnlyCache: Boolean): List<UserModel> {
         val users = withContext(context = dispatcher) {
             val dbAwait = async {
                 runCatching {
-                    database.usersQueries.selectSince(count = 30, offset = since)
+                    database.usersQueries.selectSinceId(sinceId = since, count = 30)
                         .executeAsList()
                         .map(::mapTo)
                 }
             }
 
-            val requestAwait = if (!isUseOnlyCache) {
+            val requestAwait = if (!useOnlyCache) {
                 async {
                     runCatching {
                         remoteDataSource.getUsers(KtorUsersRequest(since)).map(::mapTo)
@@ -46,7 +46,7 @@ internal class UsersRepositoryImpl(
             val requestData = requestResult?.getOrNull()
 
             when {
-                !isUseOnlyCache && requestResult?.isSuccess == true && requestData != null ->
+                !useOnlyCache && requestResult?.isSuccess == true && requestData != null ->
                     requestData.onEach {
                         database.usersQueries.update(
                             idInner = it.id,
@@ -59,7 +59,7 @@ internal class UsersRepositoryImpl(
                         )
                     }
                 dbResult.isSuccess && dbData != null -> dbData
-                else -> throw (requestResult?.exceptionOrNull() ?: dbResult.exceptionOrNull()
+                else -> throw (requestResult?.exceptionOrNull()/* ?: dbResult.exceptionOrNull()*/
                     ?: IllegalStateException("No result data"))
             }
         }

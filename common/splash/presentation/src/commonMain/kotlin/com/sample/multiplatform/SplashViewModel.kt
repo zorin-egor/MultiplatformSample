@@ -2,15 +2,15 @@ package com.sample.multiplatform
 
 
 import SplashEvent
+import com.adeo.kviewmodel.BaseSharedViewModel
 import com.sample.multiplatform.di.Inject
 import com.sample.multiplatform.models.SplashAction
-import com.sample.multiplatform.models.SplashNavigation
 import com.sample.multiplatform.models.SplashViewState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
-class SplashViewModel : BaseViewModel<SplashViewState, SplashAction, SplashEvent, SplashNavigation>(
+class SplashViewModel : BaseSharedViewModel<SplashViewState, SplashAction, SplashEvent>(
     initialState = SplashViewState(
         progress = 0,
         toProgress = 110
@@ -62,7 +62,7 @@ class SplashViewModel : BaseViewModel<SplashViewState, SplashAction, SplashEvent
 
             progressJob.takeIf { it.isActive }?.cancel()
 
-            _navigation.trySend(SplashNavigation.OpenUsers(lastSince = result!!.last().id))
+            viewAction = SplashAction.OpenUsers(lastSince = result!!.last().id)
         }
     }
 

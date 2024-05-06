@@ -17,8 +17,11 @@ selectAll:
 SELECT *
 FROM Users;
 
-selectSince:
+selectOffset:
 SELECT * FROM Users ORDER BY idInner LIMIT :count OFFSET :offset;
+
+selectSinceId:
+SELECT * FROM Users WHERE idInner >= :sinceId ORDER BY idInner LIMIT :count;
 
 update:
 INSERT OR REPLACE INTO Users(idInner, login, avatarUrl, url, reposUrls, followersUrl, subscriptionsUrl)

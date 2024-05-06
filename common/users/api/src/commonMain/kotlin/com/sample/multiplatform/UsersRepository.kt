@@ -8,6 +8,6 @@ interface UsersRepository {
         const val DEFAULT_SINCE_USER = 0L
     }
 
-    suspend fun getUsers(since: Long, isUseOnlyCache: Boolean = false): List<UserModel>
+    suspend fun getUsers(since: Long, useOnlyCache: Boolean = false): List<UserModel>
 
 }

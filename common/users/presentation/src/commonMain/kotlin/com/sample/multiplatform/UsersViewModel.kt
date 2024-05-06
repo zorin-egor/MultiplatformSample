@@ -1,17 +1,17 @@
 package com.sample.multiplatform
 
 
+import com.adeo.kviewmodel.BaseSharedViewModel
 import com.sample.multiplatform.di.Inject
 import com.sample.multiplatform.models.UserModel
 import com.sample.multiplatform.models.UsersAction
 import com.sample.multiplatform.models.UsersEvent
-import com.sample.multiplatform.models.UsersNavigation
 import com.sample.multiplatform.models.UsersViewState
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 
-class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, UsersNavigation>(
+class UsersViewModel : BaseSharedViewModel<UsersViewState, UsersAction, UsersEvent>(
     initialState = UsersViewState(isCenterProgress = true, isBottomProgress = false)
 ) {
 
@@ -47,7 +47,7 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
                     users.last().id
                 }
 
-                val response = usersRepository.getUsers(since = since, isUseOnlyCache = true)
+                val response = usersRepository.getUsers(since = since, useOnlyCache = true)
                 if (response.isNotEmpty()) {
                     if (isColdStart) {
                         users.clear()
@@ -76,7 +76,10 @@ class UsersViewModel : BaseViewModel<UsersViewState, UsersAction, UsersEvent, Us
                 getUsers(false)
             }
             is UsersEvent.OnUserClick -> {
-                _navigation.trySend(UsersNavigation.OpenDetails(viewEvent.user))
+                viewAction = UsersAction.OpenDetails(viewEvent.user)
+            }
+            is UsersEvent.ResetAction -> {
+                viewAction = null
             }
         }
     }

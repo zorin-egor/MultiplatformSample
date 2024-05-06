@@ -10,7 +10,6 @@ import androidx.compose.ui.unit.dp
 import com.adeo.kviewmodel.compose.observeAsState
 import com.adeo.kviewmodel.odyssey.StoredViewModel
 import com.sample.multiplatform.models.SplashAction
-import com.sample.multiplatform.models.SplashNavigation
 import com.sample.multiplatform.models.cycloid.CycloidColors
 import com.sample.multiplatform.models.cycloid.CycloidModel
 import com.sample.multiplatform.navigation.NavigationTree
@@ -28,7 +27,6 @@ fun SplashScreen() {
     StoredViewModel(factory = { SplashViewModel() }) { viewModel ->
         val viewState = viewModel.viewStates().observeAsState()
         val viewAction = viewModel.viewActions().observeAsState()
-        val navigation = viewModel.navigationEvents().observeAsState()
         val scaffoldState = rememberScaffoldState()
         val scope = rememberCoroutineScope()
 
@@ -65,11 +63,8 @@ fun SplashScreen() {
                     scaffoldState.snackbarHostState.showSnackbar(result.message)
                 }
             }
-            else -> {}
-        }
 
-        when(val result = navigation.value) {
-            is SplashNavigation.OpenUsers -> {
+            is SplashAction.OpenUsers -> {
                 println("SplashScreen() - navigation")
                 rootController.push(
                     screen = NavigationTree.Users.UsersScreen.name,
