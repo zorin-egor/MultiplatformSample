@@ -1,0 +1,37 @@
+CREATE TABLE IF NOT EXISTS UsersEntity(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  idInner INTEGER NOT NULL UNIQUE,
+  login TEXT NOT NULL,
+  avatarUrl TEXT,
+  url TEXT NOT NULL,
+  reposUrls TEXT,
+  followersUrl TEXT,
+  subscriptionsUrl TEXT
+);
+
+insert:
+INSERT INTO UsersEntity(idInner, login, avatarUrl, url, reposUrls, followersUrl, subscriptionsUrl)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM UsersEntity;
+
+selectUser:
+SELECT *
+FROM UsersEntity
+WHERE idInner = :userId;
+
+countAll:
+SELECT COUNT(*)
+FROM UsersEntity;
+
+selectOffset:
+SELECT * FROM UsersEntity ORDER BY idInner LIMIT :count OFFSET :offset;
+
+selectSinceId:
+SELECT * FROM UsersEntity WHERE idInner >= :sinceId ORDER BY idInner LIMIT :count;
+
+update:
+INSERT OR REPLACE INTO UsersEntity(idInner, login, avatarUrl, url, reposUrls, followersUrl, subscriptionsUrl)
+VALUES (?, ?, ?, ?, ?, ?, ?);

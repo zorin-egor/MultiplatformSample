@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MultiplatformSample</string>
+    <string name="feature_users_title">Users</string>
+    <string name="feature_details_title">Details</string>
+</resources>
