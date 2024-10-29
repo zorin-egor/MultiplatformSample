@@ -1,4 +1,4 @@
-package com.sample.app.feature.details.widgets
+package com.sample.app.feature.user_details.widgets
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -25,18 +25,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
-import com.sample.app.core.model.DetailsModel
+import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.ui.ext.getEmailLink
 import com.sample.app.core.ui.ext.getHyperLink
 import com.sample.app.core.ui.ext.toAnnotatedString
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.widgets.TwoSeparatedTextWidget
-import com.sample.app.feature.details.models.UserDetailsEvent
+import com.sample.app.feature.user_details.models.UserDetailsEvent
 
 @Composable
 fun UserDetailsContent(
     isTopBarVisible: Boolean,
-    userDetails: DetailsModel,
+    userDetails: UserDetailsModel,
     onEventAction: (UserDetailsEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -6,8 +6,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import com.sample.app.AppState
-import com.sample.app.feature.details.navigation.navigateToUserDetails
-import com.sample.app.feature.details.navigation.userDetailsScreen
+import com.sample.app.feature.user_details.navigation.navigateToUserDetails
+import com.sample.app.feature.user_details.navigation.userDetailsScreen
 import com.sample.app.feature.users.navigation.USERS_ROUTE
 import com.sample.app.feature.users.navigation.usersScreen
 

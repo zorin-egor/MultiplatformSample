@@ -29,7 +29,7 @@ include(":core:domain")
 include(":core:ui")
 
 include(":feature:users")
-include(":feature:details")
+include(":feature:user_details")
 
 include(":widgets:widget-cycloid")
 

@@ -38,7 +38,7 @@ kotlin {
             implementation(projects.core.ui)
             implementation(projects.core.domain)
             implementation(projects.feature.users)
-            implementation(projects.feature.details)
+            implementation(projects.feature.userDetails)
             implementation(libs.compose.material3.adaptive)
             implementation(libs.compose.material3.adaptive.layout)
             implementation(libs.compose.material3.adaptive.navigation)

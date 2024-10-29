@@ -1,14 +1,14 @@
-package com.sample.app.feature.details
+package com.sample.app.feature.user_details
 
 import androidx.lifecycle.viewModelScope
 import com.sample.app.common.di.Inject
 import com.sample.app.common.result.Result
 import com.sample.app.core.domain.GetUserDetailsUseCase
-import com.sample.app.core.model.DetailsModel
+import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.ui.viewmodels.UiState
 import com.sample.app.core.ui.viewmodels.UiStateViewModel
-import com.sample.app.feature.details.models.UserDetailsActions
-import com.sample.app.feature.details.models.UserDetailsEvent
+import com.sample.app.feature.user_details.models.UserDetailsActions
+import com.sample.app.feature.user_details.models.UserDetailsEvent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -20,13 +20,13 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.flow.stateIn
 
 
-class DetailsViewModel(
+class UserDetailsViewModel(
     getUserDetailsUseCase: GetUserDetailsUseCase = Inject.instance(),
-) : UiStateViewModel<DetailsModel, UserDetailsActions, UserDetailsEvent>(
+) : UiStateViewModel<UserDetailsModel, UserDetailsActions, UserDetailsEvent>(
     initialAction = UserDetailsActions.None
 ) {
 
-    private var userDetails: DetailsModel? = null
+    private var userDetails: UserDetailsModel? = null
     private val userData = MutableStateFlow<UserDetailsEvent.GetUser?>(null)
 
     override fun setEvent(item: UserDetailsEvent) {
@@ -43,7 +43,7 @@ class DetailsViewModel(
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override val state: StateFlow<UiState<DetailsModel>> = userData.filterNotNull()
+    override val state: StateFlow<UiState<UserDetailsModel>> = userData.filterNotNull()
         .flatMapLatest {
             getUserDetailsUseCase(userId = it.id, url = it.url)
         }
@@ -52,7 +52,7 @@ class DetailsViewModel(
                 Result.Loading -> UiState.Loading
 
                 is Result.Error -> {
-                    getLastSuccessStateOrNull<DetailsModel>()?.let {
+                    getLastSuccessStateOrNull<UserDetailsModel>()?.let {
                         setAction(UserDetailsActions.ShowError(item.exception))
                         return@mapNotNull null
                     } ?: UiState.Empty

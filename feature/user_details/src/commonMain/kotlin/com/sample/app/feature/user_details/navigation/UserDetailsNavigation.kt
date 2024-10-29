@@ -1,4 +1,4 @@
-package com.sample.app.feature.details.navigation
+package com.sample.app.feature.user_details.navigation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -7,7 +7,7 @@ import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.sample.app.feature.details.DetailsScreen
+import com.sample.app.feature.user_details.UserDetailsScreen
 import io.ktor.util.decodeBase64String
 import io.ktor.util.encodeBase64
 
@@ -42,7 +42,7 @@ fun NavGraphBuilder.userDetailsScreen(
             navArgument(USER_URL_ARG) { type = NavType.StringType },
         ),
     ) {
-        DetailsScreen(
+        UserDetailsScreen(
             UserDetailsArgs(
                 it.arguments?.getLong(USER_ID_ARG)!!,
                 it.arguments?.getString(USER_URL_ARG)!!.decodeBase64String()

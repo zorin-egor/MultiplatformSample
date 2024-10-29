@@ -1,9 +1,9 @@
-package com.sample.app.core.data.repositories.details
+package com.sample.app.core.data.repositories.user_details
 
 import com.sample.app.common.result.Result
 import com.sample.app.core.data.database.AppDatabase
 import com.sample.app.core.datastore.settings.SettingsSource
-import com.sample.app.core.model.DetailsModel
+import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.network.requests.details.KtorDetailsDataSource
 import com.sample.app.core.network.requests.details.KtorDetailsRequest
 import com.sample.app.core.network.requests.details.mapTo
@@ -14,15 +14,15 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onStart
 
-class DetailsRepositoryImpl(
+class UserDetailsRepositoryImpl(
     private val network: KtorDetailsDataSource,
     private val database: AppDatabase,
     private val settings: SettingsSource,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
-) : DetailsRepository {
+) : UserDetailsRepository {
 
-    override fun getUserDetails(id: Long, url: String): Flow<Result<DetailsModel>> =
-        flow<Result<DetailsModel>> {
+    override fun getUserDetails(id: Long, url: String): Flow<Result<UserDetailsModel>> =
+        flow<Result<UserDetailsModel>> {
             val result = network.getDetails(KtorDetailsRequest(url))
 
             database.db().detailsQueries.update(

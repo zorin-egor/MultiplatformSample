@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS DetailsEntity(
   idInner INTEGER NOT NULL UNIQUE,
   nodeId TEXT NOT NULL,
   login TEXT NOT NULL,
+  name TEXT,
   avatarUrl TEXT,
   url TEXT,
   reposUrls TEXT,

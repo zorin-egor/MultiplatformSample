@@ -1,6 +1,6 @@
 package com.sample.app.core.model
 
-data class DetailsModel(
+data class UserDetailsModel(
     val id: Long,
     val nodeId: String,
     val login: String,

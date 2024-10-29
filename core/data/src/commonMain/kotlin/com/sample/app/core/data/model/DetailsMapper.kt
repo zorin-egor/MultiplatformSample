@@ -1,14 +1,14 @@
 package com.sample.app.core.data.model
 
-import com.sample.app.core.model.DetailsModel
+import com.sample.app.core.model.UserDetailsModel
 import data.DetailsEntity
 
-fun mapTo(user: DetailsEntity): DetailsModel {
-    return DetailsModel(
+fun mapTo(user: DetailsEntity): UserDetailsModel {
+    return UserDetailsModel(
         id = user.id,
         nodeId = user.nodeId,
         login = user.login,
-        name = "",
+        name = user.name,
         url = user.url,
         avatarUrl = user.avatarUrl,
         reposUrl = user.reposUrls,

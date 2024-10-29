@@ -17,7 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.sample.app.feature.details.navigation.navigateToUserDetails
+import com.sample.app.feature.user_details.navigation.navigateToUserDetails
 import com.sample.app.feature.users.navigation.USERS_ROUTE
 
 private const val USER_DETAILS_PANE_ROUTE = "user_details_pane_route"

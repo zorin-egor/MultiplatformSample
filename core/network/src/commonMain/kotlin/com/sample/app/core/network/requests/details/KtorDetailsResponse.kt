@@ -1,6 +1,6 @@
 package com.sample.app.core.network.requests.details
 
-import com.sample.app.core.model.DetailsModel
+import com.sample.app.core.model.UserDetailsModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -40,8 +40,8 @@ data class KtorDetailsResponse(
     @SerialName("updated_at") val updatedAt: String
 )
 
-fun mapTo(item: KtorDetailsResponse): DetailsModel {
-    return DetailsModel(
+fun mapTo(item: KtorDetailsResponse): UserDetailsModel {
+    return UserDetailsModel(
         id = item.id,
         nodeId = item.nodeId,
         login = item.login,

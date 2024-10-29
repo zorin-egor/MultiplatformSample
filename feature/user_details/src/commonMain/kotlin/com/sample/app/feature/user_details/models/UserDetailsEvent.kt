@@ -1,4 +1,4 @@
-package com.sample.app.feature.details.models
+package com.sample.app.feature.user_details.models
 
 sealed interface UserDetailsEvent {
     data object None : UserDetailsEvent

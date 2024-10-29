@@ -1,4 +1,4 @@
-package com.sample.app.feature.details
+package com.sample.app.feature.user_details
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,16 +12,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sample.app.core.ui.viewmodels.UiState
 import com.sample.app.core.ui.widgets.CircularContent
-import com.sample.app.feature.details.models.UserDetailsActions
-import com.sample.app.feature.details.models.UserDetailsEvent
-import com.sample.app.feature.details.navigation.UserDetailsArgs
-import com.sample.app.feature.details.widgets.UserDetailsContent
+import com.sample.app.feature.user_details.models.UserDetailsActions
+import com.sample.app.feature.user_details.models.UserDetailsEvent
+import com.sample.app.feature.user_details.navigation.UserDetailsArgs
+import com.sample.app.feature.user_details.widgets.UserDetailsContent
 
 @Composable
-fun DetailsScreen(
+fun UserDetailsScreen(
     args: UserDetailsArgs,
     onShowSnackbar: suspend (String, String?) -> Boolean,
-    viewModel: DetailsViewModel = viewModel { DetailsViewModel() },
+    viewModel: UserDetailsViewModel = viewModel { UserDetailsViewModel() },
 ) {
     remember { viewModel.setEvent(UserDetailsEvent.GetUser(args.userId, args.userUrl)) }
 
