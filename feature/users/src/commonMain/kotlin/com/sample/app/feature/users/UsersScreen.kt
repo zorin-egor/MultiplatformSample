@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,8 +19,9 @@ import coil3.compose.AsyncImage
 
 @Composable
 fun UsersScreen(
-    viewModel: UsersViewModel = viewModel { UsersViewModel() },
-    onUserClick: () -> Unit
+    onUserClick: (Long, String) -> Unit,
+    onShowSnackbar: suspend (String, String?) -> Boolean,
+    viewModel: UsersViewModel = viewModel { UsersViewModel() }
 ) {
     println("UsersScreen()")
 
@@ -27,8 +29,14 @@ fun UsersScreen(
     val users = viewModel.users.collectAsState()
 
     if (click.value) {
-        onUserClick()
+        users.value.getOrNull(1)?.let {
+            onUserClick(it.id, it.url)
+        }
         viewModel.reset()
+    } else {
+        LaunchedEffect(Unit) {
+            onShowSnackbar("Test", null)
+        }
     }
 
     Column (modifier = Modifier.fillMaxSize()) {

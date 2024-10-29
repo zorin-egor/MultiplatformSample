@@ -8,6 +8,6 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Preview
 fun AppRoot() {
     MaterialTheme {
-        MainScreen()
+        AppScreen()
     }
 }

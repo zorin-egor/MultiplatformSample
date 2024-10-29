@@ -9,6 +9,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,8 +22,13 @@ import com.sample.app.widget.cycloid.models.cycloid.CycloidModel
 
 @Composable
 fun DetailsScreen(
+    userId: Long,
+    userUrl: String,
+    onShowSnackbar: suspend (String, String?) -> Boolean,
     viewModel: DetailsViewModel = viewModel { DetailsViewModel() },
 ) {
+    remember { viewModel.getUsers(userId, userUrl) }
+
     val scaffoldState = rememberScaffoldState()
     val users = viewModel.users.collectAsState()
     val colors = CycloidColors(

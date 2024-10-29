@@ -18,13 +18,9 @@ class DetailsViewModel : ViewModel() {
     private val _users = MutableStateFlow<List<UserModel>>(emptyList())
     val users = _users.asStateFlow()
 
-    init {
-        getUsers()
-    }
-
-    private fun getUsers() {
+    fun getUsers(id: Long, url: String) {
         viewModelScope.launch {
-            getDetailsUseCase(1, "").collect {
+            getDetailsUseCase(id, url).collect {
                 when(it) {
                     is Result.Error -> {}
                     Result.Loading -> {}

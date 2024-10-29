@@ -1,4 +1,4 @@
-package com.sample.app.core.ui.widgets
+package com.sample.app.core.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
