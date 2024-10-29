@@ -53,6 +53,6 @@ fun main() = application {
         title = "Multiplatform sample",
         state = state
     ) {
-        App()
+        AppRoot()
     }
 }

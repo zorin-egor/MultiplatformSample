@@ -31,4 +31,6 @@ include(":core:ui")
 include(":feature:users")
 include(":feature:details")
 
+include(":widgets:widget-cycloid")
+
 include(":composeApp")

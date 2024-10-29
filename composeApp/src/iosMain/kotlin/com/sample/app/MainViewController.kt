@@ -5,5 +5,5 @@ import com.sample.app.core.model.AppConfigModel
 
 fun MainViewController() = ComposeUIViewController {
     PlatformProvider.init(AppConfigModel())
-    App()
+    AppRoot()
 }

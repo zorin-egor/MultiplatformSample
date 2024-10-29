@@ -10,7 +10,7 @@ fun main() {
     onWasmReady {
         CanvasBasedWindow {
             PlatformProvider.init(AppConfigModel())
-            App()
+            AppRoot()
         }
     }
 }

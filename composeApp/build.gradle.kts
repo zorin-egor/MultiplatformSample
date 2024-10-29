@@ -34,10 +34,15 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(compose.components.resources)
+            implementation(compose.material3AdaptiveNavigationSuite)
             implementation(projects.core.ui)
             implementation(projects.core.domain)
             implementation(projects.feature.users)
             implementation(projects.feature.details)
+            implementation(libs.compose.material3.adaptive)
+            implementation(libs.compose.material3.adaptive.layout)
+            implementation(libs.compose.material3.adaptive.navigation)
+            implementation(libs.compose.material3.window.size)
         }
 
         androidMain.dependencies {
