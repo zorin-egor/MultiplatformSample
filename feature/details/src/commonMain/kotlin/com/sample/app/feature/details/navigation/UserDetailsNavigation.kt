@@ -16,11 +16,11 @@ const val USER_URL_ARG = "userUrl"
 const val USER_DETAILS_ROUTE = "user_details_route"
 const val USER_DETAILS_ROUTE_PATH = "$USER_DETAILS_ROUTE?$USER_ID_ARG={$USER_ID_ARG}&$USER_URL_ARG={$USER_URL_ARG}"
 
-class UserDetailsArgs(val userUrl: String, val userId: Long) {
+class UserDetailsArgs(val userId: Long, val userUrl: String) {
     constructor(savedStateHandle: SavedStateHandle) :
             this(
-                checkNotNull(savedStateHandle[USER_URL_ARG]).toString().decodeBase64String(),
-                checkNotNull(savedStateHandle[USER_ID_ARG])
+                checkNotNull(savedStateHandle[USER_ID_ARG]),
+                checkNotNull(savedStateHandle[USER_URL_ARG]).toString().decodeBase64String()
             )
 }
 
@@ -43,7 +43,10 @@ fun NavGraphBuilder.userDetailsScreen(
         ),
     ) {
         DetailsScreen(
-            it.arguments?.getLong(USER_ID_ARG)!!, it.arguments?.getString(USER_URL_ARG)!!,
+            UserDetailsArgs(
+                it.arguments?.getLong(USER_ID_ARG)!!,
+                it.arguments?.getString(USER_URL_ARG)!!.decodeBase64String()
+            ),
             onShowSnackbar = onShowSnackbar
         )
     }

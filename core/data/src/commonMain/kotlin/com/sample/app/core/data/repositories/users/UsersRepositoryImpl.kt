@@ -40,24 +40,24 @@ internal class UsersRepositoryImpl(
             }
 
             println("Load from nw")
-            val nw = network.getUsers(KtorUsersRequest(sinceId)).map(::mapTo).also { nw ->
-                println("nw size after: ${nw.size}")
-                settings.setSinceUser(nw.lastOrNull()?.id ?: sinceId)
-                nw.forEach {
-                    database.db().usersQueries.update(
-                        idInner = it.id,
-                        login = it.login,
-                        avatarUrl = it.avatarUrl,
-                        url = it.url,
-                        reposUrls = it.reposUrl,
-                        followersUrl = it.followersUrl,
-                        subscriptionsUrl = it.subscriptionsUrl
-                    )
-                }
+            val nw = network.getUsers(KtorUsersRequest(sinceId)).map(::mapTo)
 
-                val newSize = database.db().usersQueries.countAll().awaitAsList()
-                println("db size after: ${newSize.firstOrNull()}")
+            println("nw size after: ${nw.size}")
+            settings.setSinceUser(nw.lastOrNull()?.id ?: sinceId)
+            nw.forEach {
+                database.db().usersQueries.update(
+                    idInner = it.id,
+                    login = it.login,
+                    avatarUrl = it.avatarUrl,
+                    url = it.url,
+                    reposUrls = it.reposUrl,
+                    followersUrl = it.followersUrl,
+                    subscriptionsUrl = it.subscriptionsUrl
+                )
             }
+
+            val newSize = database.db().usersQueries.countAll().awaitAsList()
+            println("db size after: ${newSize.firstOrNull()}")
 
             emit(Result.Success(nw))
         }

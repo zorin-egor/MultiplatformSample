@@ -1,35 +1,74 @@
 package com.sample.app.feature.details
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sample.app.common.di.Inject
 import com.sample.app.common.result.Result
 import com.sample.app.core.domain.GetUserDetailsUseCase
-import com.sample.app.core.model.UserModel
+import com.sample.app.core.model.DetailsModel
+import com.sample.app.core.ui.viewmodels.UiState
+import com.sample.app.core.ui.viewmodels.UiStateViewModel
+import com.sample.app.feature.details.models.UserDetailsActions
+import com.sample.app.feature.details.models.UserDetailsEvent
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.stateIn
 
 
-class DetailsViewModel : ViewModel() {
+class DetailsViewModel(
+    getUserDetailsUseCase: GetUserDetailsUseCase = Inject.instance(),
+) : UiStateViewModel<DetailsModel, UserDetailsActions, UserDetailsEvent>(
+    initialAction = UserDetailsActions.None
+) {
 
-    val getDetailsUseCase: GetUserDetailsUseCase = Inject.instance()
+    private var userDetails: DetailsModel? = null
+    private val userData = MutableStateFlow<UserDetailsEvent.GetUser?>(null)
 
-    private val _users = MutableStateFlow<List<UserModel>>(emptyList())
-    val users = _users.asStateFlow()
+    override fun setEvent(item: UserDetailsEvent) {
+        when (item) {
+            UserDetailsEvent.None -> setAction(UserDetailsActions.None)
+            UserDetailsEvent.NavigationBack -> { /* For analytic */ }
 
-    fun getUsers(id: Long, url: String) {
-        viewModelScope.launch {
-            getDetailsUseCase(id, url).collect {
-                when(it) {
-                    is Result.Error -> {}
-                    Result.Loading -> {}
-                    is Result.Success -> {
-                        _users.tryEmit(listOf(it.data))
-                    }
-                }
+            UserDetailsEvent.ShareProfile -> userDetails?.let {
+                setAction(UserDetailsActions.ShareUrl(it.url ?: "None"))
             }
+
+            is UserDetailsEvent.GetUser -> userData.tryEmit(item)
         }
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override val state: StateFlow<UiState<DetailsModel>> = userData.filterNotNull()
+        .flatMapLatest {
+            getUserDetailsUseCase(userId = it.id, url = it.url)
+        }
+        .mapNotNull { item ->
+            when (item) {
+                Result.Loading -> UiState.Loading
+
+                is Result.Error -> {
+                    getLastSuccessStateOrNull<DetailsModel>()?.let {
+                        setAction(UserDetailsActions.ShowError(item.exception))
+                        return@mapNotNull null
+                    } ?: UiState.Empty
+                }
+
+                is Result.Success -> {
+                    userDetails = item.data
+                    UiState.Success(item.data)
+                }
+            }
+        }.catch { error ->
+            println(error)
+            setAction(UserDetailsActions.ShowError(error))
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.Lazily,
+            initialValue = UiState.Loading,
+        )
 }

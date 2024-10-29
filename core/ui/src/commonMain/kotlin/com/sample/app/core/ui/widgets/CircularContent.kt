@@ -1,4 +1,4 @@
-package com.sample.app.feature.users.widgets
+package com.sample.app.core.ui.widgets
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun EmptyUsersContent() {
+fun CircularContent() {
     Box(modifier = Modifier.fillMaxSize()) {
         CircularProgressIndicator(modifier = Modifier.size(50.dp).align(Alignment.Center))
     }

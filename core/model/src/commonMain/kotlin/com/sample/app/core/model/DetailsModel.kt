@@ -3,9 +3,10 @@ package com.sample.app.core.model
 data class DetailsModel(
     val id: Long,
     val nodeId: String,
-    var login: String,
-    var url: String?,
-    var avatarUrl: String?,
+    val login: String,
+    val name: String?,
+    val url: String?,
+    val avatarUrl: String?,
     val reposUrl: String?,
     val followersUrl: String?,
     val subscriptionsUrl: String?,

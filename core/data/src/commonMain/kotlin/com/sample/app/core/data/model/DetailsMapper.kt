@@ -8,6 +8,7 @@ fun mapTo(user: DetailsEntity): DetailsModel {
         id = user.id,
         nodeId = user.nodeId,
         login = user.login,
+        name = "",
         url = user.url,
         avatarUrl = user.avatarUrl,
         reposUrl = user.reposUrls,
