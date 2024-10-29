@@ -41,8 +41,6 @@ kotlin {
     }
 
     sourceSets {
-        val desktopMain by getting
-
         commonMain.dependencies {
             implementation(libs.sqldelight.coroutines.ext)
             api(projects.core.common)
@@ -69,7 +67,7 @@ kotlin {
             api(projects.core.common)
         }
 
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(libs.sqldelight.sqlite.driver)
             api(projects.core.common)
         }

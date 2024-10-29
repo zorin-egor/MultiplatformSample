@@ -8,8 +8,6 @@ android {
 
 kotlin {
     sourceSets {
-        val desktopMain by getting
-
         commonMain.dependencies {
             api(libs.bundles.ktor)
             implementation(projects.core.common)
@@ -32,7 +30,7 @@ kotlin {
             implementation(projects.core.common)
         }
 
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             api(libs.ktor.client.http)
             implementation(projects.core.common)
         }

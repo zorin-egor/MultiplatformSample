@@ -1,28 +1,32 @@
 package com.sample.app.ext
 
-import org.gradle.api.JavaVersion
 import org.gradle.api.Project
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.artifacts.VersionCatalog
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.plugins.JavaPluginExtension
-import org.gradle.kotlin.dsl.configure
+import org.gradle.api.artifacts.VersionConstraint
+import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.provideDelegate
 import org.gradle.kotlin.dsl.withType
+import org.gradle.plugin.use.PluginDependency
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 internal val Project.libs
     get(): VersionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
-internal fun Project.configureKotlinJvm() {
-    extensions.configure<JavaPluginExtension> {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+internal fun Project.getLibrary(name: String): Provider<MinimalExternalModuleDependency> =
+    libs.findLibrary(name).get()
 
-    configureKotlin()
-}
+internal fun Project.getPluginProvider(name: String): Provider<PluginDependency> =
+    libs.findPlugin(name).get()
+
+internal fun Project.getPlugin(name: String): PluginDependency =
+    getPluginProvider(name).get()
+
+internal fun Project.getVersion(key: String): VersionConstraint =
+    libs.findVersion(key).get()
 
 internal fun Project.configureKotlin() {
     tasks.withType<KotlinJvmCompile>().configureEach {

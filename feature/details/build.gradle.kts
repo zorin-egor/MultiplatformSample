@@ -1,7 +1,5 @@
 plugins {
-    alias(libs.plugins.multiplatformSetupLibrary)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.multiplatformSetupComposeLibrary)
 }
 
 android {

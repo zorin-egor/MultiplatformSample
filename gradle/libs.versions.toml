@@ -12,7 +12,7 @@ androidx-lifecycle = "2.8.3"
 androidx-material = "1.12.0"
 androidx-test-junit = "1.2.1"
 androidx-navigation = "2.7.0-alpha07"
-compose-plugin = "1.6.11"
+compose-plugin = "1.7.0"
 junit = "4.13.2"
 kotlin = "2.0.21"
 kotlinxSerialization = "1.7.3"
@@ -39,7 +39,7 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
-androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-navigation = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
 
@@ -85,6 +85,7 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 sqldelight = { id = "app.cash.sqldelight", version.ref = "sqldelight" }
 
 multiplatformSetupLibrary = { id = "com.multiplatform.setup.library", version = "unspecified" }
+multiplatformSetupComposeLibrary = { id = "com.multiplatform.setup.library.compose", version = "unspecified" }
 multiplatformSetupApp = { id = "com.multiplatform.setup.app", version = "unspecified" }
 
 [bundles]
@@ -95,8 +96,4 @@ ktor = [
     "ktor-client-logging",
     "ktor-client-negotiation",
     "ktor-serialization-json"
-]
-
-koin = [
-
 ]

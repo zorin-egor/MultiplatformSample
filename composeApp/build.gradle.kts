@@ -2,24 +2,11 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     alias(libs.plugins.multiplatformSetupApp)
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.sqldelight)
 }
 
-//sqldelight {
-//    databases {
-//        create("Database") {
-//            packageName = "com.sample.app"
-//            verifyMigrations = true
-//            dependency(projects.core.data)
-//        }
-//    }
-//}
-
 kotlin {
-    jvmToolchain(17)
-    jvm("desktop")
+    jvm()
 
     js {
         moduleName = "composeApp"
@@ -45,14 +32,12 @@ kotlin {
     }
 
     sourceSets {
-        val desktopMain by getting
-
         commonMain.dependencies {
+            implementation(compose.components.resources)
             implementation(projects.core.ui)
             implementation(projects.core.domain)
             implementation(projects.feature.users)
             implementation(projects.feature.details)
-            implementation(compose.components.resources)
         }
 
         androidMain.dependencies {
@@ -66,15 +51,13 @@ kotlin {
         }
 
         jsMain.dependencies {
-            implementation(devNpm("copy-webpack-plugin", "12.0.2"))
             implementation(projects.core.ui)
             implementation(projects.core.domain)
         }
 
-        desktopMain.dependencies {
+        jvmMain.dependencies {
             implementation(projects.core.ui)
             implementation(projects.core.domain)
-            implementation(libs.kotlinx.coroutines.swing)
         }
     }
 }

@@ -10,7 +10,7 @@ internal fun Project.configureKotlinMultiplatform(
 ) = extension.apply {
 
     jvmToolchain(17)
-    jvm("desktop")
+    jvm()
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -30,19 +30,5 @@ internal fun Project.configureKotlinMultiplatform(
 
     applyDefaultHierarchyTemplate()
 
-    sourceSets.apply {
-        commonMain.dependencies {
-            api(libs.findLibrary("kotlinx.coroutines.core").get())
-            api(libs.findLibrary("kotlinx.serialization").get())
-            api(libs.findLibrary("kodein").get())
-        }
-
-        androidMain.dependencies {
-            api(libs.findLibrary("kotlinx.coroutines.android").get())
-        }
-
-        jvmMain.dependencies {
-            api(libs.findLibrary("kotlinx.coroutines.swing").get())
-        }
-    }
+    configureDependencyMultiplatform(this)
 }

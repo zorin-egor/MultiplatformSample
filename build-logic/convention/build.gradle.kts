@@ -45,17 +45,17 @@ gradlePlugin {
             id = "com.multiplatform.setup.library"
             implementationClass = "MultiplatformLibrarySetup"
         }
+        register("multiplatformComposeLibrarySetup") {
+            id = "com.multiplatform.setup.library.compose"
+            implementationClass = "MultiplatformComposeLibrarySetup"
+        }
         register("multiplatformApplicationSetup") {
             id = "com.multiplatform.setup.app"
             implementationClass = "MultiplatformApplicationSetup"
         }
-//        register("shared") {
-//            id = "com.razzaghi.shopingbykmp.shared"
-//            implementationClass = "SharedConventionPlugin"
-//        }
-//        register("androidApp") {
-//            id = "com.razzaghi.shopingbykmp.androidApp"
-//            implementationClass = "AndroidAppConventionPlugin"
-//        }
+        register("multiplatformComposeApplicationSetup") {
+            id = "com.multiplatform.setup.app.compose"
+            implementationClass = "MultiplatformComposeAppSetup"
+        }
     }
 }
