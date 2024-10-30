@@ -1,4 +1,4 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web.
+In progress. This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
 
 My notes
 1) Js build failed yarn ./gradlew kotlinUpgradeYarnLock
