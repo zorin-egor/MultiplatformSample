@@ -1,7 +1,9 @@
 package com.sample.app.core.data.repositories.user_details
 
+import app.cash.sqldelight.async.coroutines.awaitAsOneOrNull
 import com.sample.app.common.result.Result
 import com.sample.app.core.data.database.AppDatabase
+import com.sample.app.core.data.model.mapTo
 import com.sample.app.core.datastore.settings.SettingsSource
 import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.network.requests.details.KtorDetailsDataSource
@@ -23,6 +25,12 @@ class UserDetailsRepositoryImpl(
 
     override fun getUserDetails(id: Long, url: String): Flow<Result<UserDetailsModel>> =
         flow<Result<UserDetailsModel>> {
+            val db = database.db().detailsQueries.selectById(id).awaitAsOneOrNull()
+            if (db != null) {
+                emit(Result.Success(mapTo(db)))
+                return@flow
+            }
+
             val result = network.getDetails(KtorDetailsRequest(url))
 
             database.db().detailsQueries.update(

@@ -15,3 +15,5 @@ fun mapTo(user: UsersEntity): UserModel {
         subscriptionsUrl = user.subscriptionsUrl
     )
 }
+
+fun mapTo(users: List<UsersEntity>): List<UserModel> = users.map(::mapTo)

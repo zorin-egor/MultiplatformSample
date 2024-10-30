@@ -33,6 +33,7 @@ fun NavController.navigateToUserDetails(userId: Long, userUrl: String, navOption
 }
 
 fun NavGraphBuilder.userDetailsScreen(
+    onBackClick: () -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean
 ) {
     composable(
@@ -43,11 +44,12 @@ fun NavGraphBuilder.userDetailsScreen(
         ),
     ) {
         UserDetailsScreen(
-            UserDetailsArgs(
+            args = UserDetailsArgs(
                 it.arguments?.getLong(USER_ID_ARG)!!,
                 it.arguments?.getString(USER_URL_ARG)!!.decodeBase64String()
             ),
-            onShowSnackbar = onShowSnackbar
+            onShowSnackbar = onShowSnackbar,
+            onBackClick = onBackClick
         )
     }
 }

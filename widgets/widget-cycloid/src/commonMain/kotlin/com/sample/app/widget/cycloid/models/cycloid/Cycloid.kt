@@ -118,7 +118,7 @@ internal class Cycloid(
     }
 
     private fun drawShape(draw: DrawScope) {
-        println("$TAG - draw() - $systemTime")
+//        println("$TAG - draw() - $systemTime")
 
         // Background
         draw.drawRect(color = model.colors.backgroundColor)
@@ -174,7 +174,7 @@ internal class Cycloid(
     override fun setSize(width: Float, height: Float) {
         if (abs(width) < 0.00000001f || abs(height) < 0.00000001f ||
             (this.width == width && this.height == height)) {
-            println("$TAG - onSize($width, $height) - return")
+//            println("$TAG - onSize($width, $height) - return")
             return
         }
 

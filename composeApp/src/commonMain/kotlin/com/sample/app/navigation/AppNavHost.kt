@@ -67,7 +67,10 @@ private fun NavGraphBuilder.usersDetailsPaneScreen(
             onShowSnackbar = onShowSnackbar
         )
         userDetailsScreen(
-            onShowSnackbar = onShowSnackbar
+            onShowSnackbar = onShowSnackbar,
+            onBackClick = {
+                navController.popBackStack()
+            }
         )
 //    }
 }

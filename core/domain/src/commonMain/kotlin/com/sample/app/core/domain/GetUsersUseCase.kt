@@ -27,16 +27,19 @@ class GetUsersUseCase(
     private var lastId = SINCE_ID
     private var limit = LIMIT
 
-    operator fun invoke(id: Long = lastId): Flow<Result<List<UserModel>>> {
+    suspend operator fun invoke(id: Long = lastId): Flow<Result<List<UserModel>>> {
         println("GetUsersUseCase($id)")
-        if (sinceId == UNDEFINED) {
-            sinceId = id
+
+        val since = mutex.withLock {
+            if (sinceId == UNDEFINED) sinceId = id
+            sinceId
         }
 
-        return usersRepository.getUsers(sinceId = sinceId, lastId = id, limit = limit)
+        return usersRepository.getUsers(sinceId = since, limit = limit)
             .onEach { new ->
                 if (new is Result.Success) {
                     mutex.withLock {
+                        limit += LIMIT
                         lastId = new.data.lastOrNull()?.id ?: lastId
                     }
                 }
