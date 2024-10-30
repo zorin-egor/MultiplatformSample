@@ -6,18 +6,19 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import com.sample.app.AppState
+import com.sample.app.feature.splash.navigation.splashScreen
 import com.sample.app.feature.user_details.navigation.navigateToUserDetails
 import com.sample.app.feature.user_details.navigation.userDetailsScreen
-import com.sample.app.feature.users.navigation.USERS_ROUTE
+import com.sample.app.feature.users.navigation.navigateToUsers
 import com.sample.app.feature.users.navigation.usersScreen
 
 
 @Composable
 fun AppNavHost(
+    startDestination: String,
     appState: AppState,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    startDestination: String = USERS_ROUTE,
 ) {
     println("NavHost($appState)")
 
@@ -28,6 +29,13 @@ fun AppNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
+        splashScreen(
+            onShowSnackbar = onShowSnackbar,
+            onNavigationEvent = {
+                navController.navigateToUsers()
+            }
+        )
+
         usersDetailsPaneScreen(
             appState = appState,
             navController = navController,

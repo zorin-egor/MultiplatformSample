@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sample.app.feature.details"
+    namespace = "com.sample.app.feature.splash"
 }
 
 kotlin {
@@ -12,6 +12,7 @@ kotlin {
             implementation(projects.core.domain)
             implementation(projects.core.model)
             implementation(projects.core.ui)
+            implementation(projects.widgets.widgetCycloid)
         }
     }
 }

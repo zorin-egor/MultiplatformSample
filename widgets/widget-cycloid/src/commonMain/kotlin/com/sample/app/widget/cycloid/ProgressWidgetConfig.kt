@@ -10,7 +10,7 @@ data class ProgressWidgetConfig(
 ) {
 
     val key: String = buildString {
-        append(shapeType::class.simpleName).append("_")
+        append(shapeType).append("_")
         append(toProgress).append("_")
     }
 

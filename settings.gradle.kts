@@ -28,6 +28,7 @@ include(":core:data")
 include(":core:domain")
 include(":core:ui")
 
+include(":feature:splash")
 include(":feature:users")
 include(":feature:user_details")
 

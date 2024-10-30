@@ -17,7 +17,7 @@ internal class UsersArgs(val sinceId: Long? = null) {
     constructor(savedStateHandle: SavedStateHandle) : this(savedStateHandle[SINCE_ID_ARG])
 }
 
-fun NavController.navigateToUsers(sinceId: Long? = null, navOptions: NavOptions) {
+fun NavController.navigateToUsers(sinceId: Long? = null, navOptions: NavOptions? = null) {
     val newRoute = USERS_ROUTE
     navigate(newRoute, navOptions)
 }

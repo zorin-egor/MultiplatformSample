@@ -37,6 +37,7 @@ kotlin {
             implementation(compose.material3AdaptiveNavigationSuite)
             implementation(projects.core.ui)
             implementation(projects.core.domain)
+            implementation(projects.feature.splash)
             implementation(projects.feature.users)
             implementation(projects.feature.userDetails)
             implementation(libs.compose.material3.adaptive)

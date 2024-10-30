@@ -21,7 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sample.app.core.ui.components.AppBackground
-import com.sample.app.feature.users.navigation.USERS_ROUTE
+import com.sample.app.feature.splash.navigation.SPLASH_ROUTE
 import com.sample.app.navigation.AppNavHost
 import com.sample.app.navigation.NavHostScreens
 
@@ -60,8 +60,8 @@ fun AppScreen(
         ) { innerPadding ->
 
             AppNavHost(
+                startDestination = SPLASH_ROUTE,
                 appState = appState,
-                startDestination = USERS_ROUTE,
                 onShowSnackbar = snackbarAction,
                 modifier = Modifier
                     .fillMaxSize()

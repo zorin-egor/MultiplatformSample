@@ -14,13 +14,13 @@ import com.sample.app.widget.cycloid.models.cycloid.CycloidModel
 
 @Composable
 fun ProgressWidget(
-    progress: State<Int>,
+    progress: Int,
     widgetConfig: ProgressWidgetConfig,
     modifier: Modifier = Modifier.fillMaxSize()
 ) {
     println("ProgressWidget() - dp: ${1.dp}; ${1.dp.value}")
 
-    val shape = remember(key1 = widgetConfig.key) {
+    val originShape = remember {
         println("ProgressWidget() - remember - cycloid")
         when(val type = widgetConfig.shapeType) {
             is CycloidModel -> {
@@ -36,9 +36,9 @@ fun ProgressWidget(
         }
     }
 
-    println("ProgressWidget() - before canvas")
+    println("ProgressWidget() - before canvas: ${originShape.hashCode()}")
 
-    val invalidate: State<Boolean>? = if (widgetConfig.isDynamic) {
+    val drawState: State<Boolean>? = if (widgetConfig.isDynamic) {
         produceState(initialValue = true) {
             while(true) {
                 withFrameNanos {
@@ -51,13 +51,10 @@ fun ProgressWidget(
     }
 
     Canvas(modifier) {
-        invalidate?.value
-        val progressValue = progress.value
-
-        println("ProgressWidget() - canvas: progress: $progressValue, width = ${size.width}, height = ${size.height}")
-
-        shape.setSize(width = size.width, height = size.height)
-        shape.setProgress(progress.value)
-        shape.draw(draw = this)
+        drawState?.value
+//        println("ProgressWidget() - canvas: progress: $progressValue, width = ${size.width}, height = ${size.height}")
+        originShape.setSize(width = size.width, height = size.height)
+        originShape.setProgress(progress)
+        originShape.draw(draw = this)
     }
 }
