@@ -5,3 +5,4 @@ My notes
 https://youtrack.jetbrains.com/issue/KT-65870/KJS-Gradle-kotlinUpgradePackageLock-fails-making-Yarn-unusable
 2) Run desktop ./graldew :composeApp:run
 3) Run js ./gradlew jsBrowserRun
+4) https://plugins.jetbrains.com/plugin/14936-kotlin-multiplatform
