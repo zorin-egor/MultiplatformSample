@@ -18,9 +18,16 @@ internal fun Project.configureComposeMultiplatform(
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
+            implementation(compose.components.resources)
+            implementation(compose.material3AdaptiveNavigationSuite)
             implementation(getLibrary("androidx-lifecycle-viewmodel"))
             implementation(getLibrary("androidx.lifecycle.runtime.compose"))
             implementation(getLibrary("androidx.navigation"))
+
+            implementation(getLibrary("compose.material3.adaptive"))
+            implementation(getLibrary("compose.material3.adaptive.layout"))
+            implementation(getLibrary("compose.material3.adaptive.navigation"))
+            implementation(getLibrary("compose.material3.window.size"))
 
             implementation(getLibrary("coil"))
             implementation(getLibrary("coil.compose"))
