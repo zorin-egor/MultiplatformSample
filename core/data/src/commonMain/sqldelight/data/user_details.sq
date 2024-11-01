@@ -1,0 +1,74 @@
+CREATE TABLE IF NOT EXISTS UserDetailsEntity(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  idInner INTEGER NOT NULL UNIQUE,
+  login TEXT NOT NULL,
+  avatarUrl TEXT,
+  url TEXT NOT NULL,
+  name TEXT,
+  company TEXT,
+  blog TEXT,
+  location TEXT,
+  email TEXT,
+  bio TEXT,
+  publicRepos INTEGER,
+  publicGists INTEGER,
+  followers INTEGER,
+  following INTEGER,
+  createdAt TEXT,
+  updatedAt TEXT,
+  reposUrls TEXT,
+  hireable TEXT
+);
+
+insert:
+INSERT INTO UserDetailsEntity(
+  idInner,
+  login,
+  avatarUrl,
+  url,
+  name,
+  company,
+  blog,
+  location,
+  email,
+  bio,
+  publicRepos,
+  publicGists,
+  followers,
+  following,
+  createdAt,
+  updatedAt,
+  reposUrls,
+  hireable
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+selectAll:
+SELECT *
+FROM UserDetailsEntity;
+
+selectById:
+SELECT * FROM UserDetailsEntity WHERE idInner = :id;
+
+update:
+INSERT OR REPLACE INTO UserDetailsEntity(
+    idInner,
+    login,
+    avatarUrl,
+    url,
+    name,
+    company,
+    blog,
+    location,
+    email,
+    bio,
+    publicRepos,
+    publicGists,
+    followers,
+    following,
+    createdAt,
+    updatedAt,
+    reposUrls,
+    hireable
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);

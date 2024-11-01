@@ -7,10 +7,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import com.sample.app.AppState
 import com.sample.app.feature.splash.navigation.splashScreen
-import com.sample.app.feature.user_details.navigation.navigateToUserDetails
-import com.sample.app.feature.user_details.navigation.userDetailsScreen
 import com.sample.app.feature.users.navigation.navigateToUsers
-import com.sample.app.feature.users.navigation.usersScreen
+import com.sample.app.users_details_list_2_pane.usersListDetailsScreen
 
 
 @Composable
@@ -36,9 +34,7 @@ fun AppNavHost(
             }
         )
 
-        usersDetailsPaneScreen(
-            appState = appState,
-            navController = navController,
+        usersListDetailsScreen(
             onShowSnackbar = onShowSnackbar
         )
 
@@ -48,31 +44,6 @@ fun AppNavHost(
             onShowSnackbar = onShowSnackbar
         )
     }
-}
-
-private fun NavGraphBuilder.usersDetailsPaneScreen(
-    appState: AppState,
-    navController: NavController,
-    onShowSnackbar: suspend (String, String?) -> Boolean
-) {
-//    if (true || appState.shouldShowNavRail) {
-//        usersListDetailsScreen(
-//            onShowSnackbar = onShowSnackbar
-//        )
-//    } else {
-        usersScreen(
-            onUserClick = { id, url ->
-                navController.navigateToUserDetails(userId = id, userUrl = url)
-            },
-            onShowSnackbar = onShowSnackbar
-        )
-        userDetailsScreen(
-            onShowSnackbar = onShowSnackbar,
-            onBackClick = {
-                navController.popBackStack()
-            }
-        )
-//    }
 }
 
 private fun NavGraphBuilder.repositoriesDetailsPaneScreen(

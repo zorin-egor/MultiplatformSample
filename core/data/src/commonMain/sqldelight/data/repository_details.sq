@@ -1,0 +1,23 @@
+CREATE TABLE IF NOT EXISTS RepositoryDetailsEntity(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  repoId INTEGER NOT NULL UNIQUE,
+  userId INTEGER NOT NULL,
+  owner TEXT NOT NULL,
+  name TEXT NOT NULL,
+  avatarUrl TEXT NOT NULL,
+  forks INTEGER,
+  watchersCount INTEGER,
+  createdAt TEXT,
+  updatedAt TEXT,
+  stargazersCount INTEGER,
+  description TEXT,
+  htmlUrl TEXT,
+  nodeId TEXT,
+  pushedAt TEXT,
+  defaultBranch TEXT NOT NULL,
+  tagsUrl TEXT,
+  branchesUrl TEXT,
+  commitsUrl TEXT,
+  topics TEXT,
+  license TEXT
+);

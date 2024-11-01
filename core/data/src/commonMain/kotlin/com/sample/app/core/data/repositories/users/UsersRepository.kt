@@ -1,6 +1,6 @@
 package com.sample.app.core.data.repositories.users
 
-import com.sample.app.common.result.Result
+import com.sample.app.core.common.result.Result
 import com.sample.app.core.model.UserModel
 import kotlinx.coroutines.flow.Flow
 

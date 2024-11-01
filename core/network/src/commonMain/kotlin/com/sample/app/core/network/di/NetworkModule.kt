@@ -1,6 +1,6 @@
 package com.sample.app.core.network.di
 
-import com.sample.app.core.network.requests.details.KtorDetailsDataSource
+import com.sample.app.core.network.requests.repositories.KtorRepositoriesDataSource
 import com.sample.app.core.network.requests.users.KtorUsersDataSource
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
@@ -55,7 +55,7 @@ val networkModule = DI.Module(MODULE_NETWORK) {
         KtorUsersDataSource(instance(), instance())
     }
 
-    bind<KtorDetailsDataSource>() with singleton {
-        KtorDetailsDataSource(instance())
+    bind<KtorRepositoriesDataSource>() with singleton {
+        KtorRepositoriesDataSource(instance())
     }
 }

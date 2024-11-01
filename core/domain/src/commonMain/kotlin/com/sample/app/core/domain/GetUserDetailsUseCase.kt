@@ -1,6 +1,6 @@
 package com.sample.app.core.domain
 
-import com.sample.app.common.result.Result
+import com.sample.app.core.common.result.Result
 import com.sample.app.core.data.repositories.user_details.UserDetailsRepository
 import com.sample.app.core.model.UserDetailsModel
 import kotlinx.coroutines.CoroutineDispatcher

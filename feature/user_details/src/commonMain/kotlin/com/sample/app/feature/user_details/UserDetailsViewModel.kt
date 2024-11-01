@@ -1,8 +1,8 @@
 package com.sample.app.feature.user_details
 
 import androidx.lifecycle.viewModelScope
-import com.sample.app.common.di.Inject
-import com.sample.app.common.result.Result
+import com.sample.app.core.common.di.Inject
+import com.sample.app.core.common.result.Result
 import com.sample.app.core.domain.GetUserDetailsUseCase
 import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.ui.viewmodels.UiState

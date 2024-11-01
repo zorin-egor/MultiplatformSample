@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarDuration
@@ -21,7 +19,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.sample.app.core.ui.components.AppBackground
-import com.sample.app.feature.splash.navigation.SPLASH_ROUTE
+import com.sample.app.feature.users.navigation.USERS_ROUTE
 import com.sample.app.navigation.AppNavHost
 import com.sample.app.navigation.NavHostScreens
 
@@ -60,12 +58,11 @@ fun AppScreen(
         ) { innerPadding ->
 
             AppNavHost(
-                startDestination = SPLASH_ROUTE,
+                startDestination = USERS_ROUTE,
                 appState = appState,
                 onShowSnackbar = snackbarAction,
                 modifier = Modifier
                     .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
                     .padding(innerPadding)
             )
         }

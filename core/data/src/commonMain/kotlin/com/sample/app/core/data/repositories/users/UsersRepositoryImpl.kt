@@ -2,15 +2,15 @@ package com.sample.app.core.data.repositories.users
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.coroutines.asFlow
-import com.sample.app.common.result.Result
-import com.sample.app.common.result.startLoading
+import com.sample.app.core.common.result.Result
+import com.sample.app.core.common.result.startLoading
 import com.sample.app.core.data.database.AppDatabase
-import com.sample.app.core.data.model.mapTo
+import com.sample.app.core.data.model.entitiesToUserModels
+import com.sample.app.core.data.model.networkToUserModels
 import com.sample.app.core.datastore.settings.SettingsSource
 import com.sample.app.core.model.UserModel
 import com.sample.app.core.network.requests.users.KtorUsersDataSource
 import com.sample.app.core.network.requests.users.KtorUsersRequest
-import com.sample.app.core.network.requests.users.mapTo
 import data.UsersEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -36,7 +36,7 @@ internal class UsersRepositoryImpl(
             .asFlow()
             .map { it.awaitAsList() }
             .filterNot { it.isEmpty() }
-            .map<List<UsersEntity>, Result<List<UserModel>>> { Result.Success(mapTo(it)) }
+            .map<List<UsersEntity>, Result<List<UserModel>>> { Result.Success(it.entitiesToUserModels()) }
             .onStart { emit(Result.Loading) }
             .catch {
                 println("UsersRepositoryImpl() - $it")
@@ -46,7 +46,7 @@ internal class UsersRepositoryImpl(
         val networkFlow = flow<Result<List<UserModel>>> {
             emit(Result.Loading)
 
-            val response = network.getUsers(KtorUsersRequest(sinceId)).map(::mapTo)
+            val response = network.getUsers(KtorUsersRequest(sinceId)).networkToUserModels()
             if (response.isNotEmpty()) {
                 runCatching {
                     response.forEach {

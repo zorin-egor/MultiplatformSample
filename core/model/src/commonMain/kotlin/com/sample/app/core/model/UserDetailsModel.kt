@@ -1,31 +1,23 @@
 package com.sample.app.core.model
 
+import kotlinx.datetime.Instant
+
 data class UserDetailsModel(
     val id: Long,
-    val nodeId: String,
-    val login: String,
-    val name: String?,
-    val url: String?,
+    val url: String,
     val avatarUrl: String?,
-    val reposUrl: String?,
-    val followersUrl: String?,
-    val subscriptionsUrl: String?,
-    val followingUrl: String?,
-    val gistsUrl: String?,
-    val starredUrl: String?,
-    val organizationsUrl: String?,
-    val eventsUrl: String?,
-    val receivedEventsUrl: String?,
+    val name: String?,
     val company: String?,
     val blog: String?,
     val location: String?,
     val email: String?,
-    val hireable: String?,
     val bio: String?,
     val publicRepos: Long?,
     val publicGists: Long?,
     val followers: Long?,
     val following: Long?,
-    val createdAt: String?,
-    val updatedAt: String?,
+    val createdAt: Instant?,
+    val updatedAt: Instant?,
+    val reposUrl: String?,
+    val hireable: Boolean
 )

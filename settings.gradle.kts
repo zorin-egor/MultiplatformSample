@@ -31,6 +31,7 @@ include(":core:ui")
 include(":feature:splash")
 include(":feature:users")
 include(":feature:user_details")
+include(":feature:repositories")
 
 include(":widgets:widget-cycloid")
 

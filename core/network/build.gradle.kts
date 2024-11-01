@@ -11,7 +11,6 @@ kotlin {
         commonMain.dependencies {
             api(libs.bundles.ktor)
             implementation(projects.core.common)
-            implementation(projects.core.model)
             implementation(projects.core.datastore)
         }
 

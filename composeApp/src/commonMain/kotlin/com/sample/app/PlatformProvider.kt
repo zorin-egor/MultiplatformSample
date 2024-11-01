@@ -1,6 +1,6 @@
 package com.sample.app
 
-import com.sample.app.common.di.Inject
+import com.sample.app.core.common.di.Inject
 import com.sample.app.core.data.di.dataModule
 import com.sample.app.core.datastore.di.dataStoreModule
 import com.sample.app.core.domain.di.domainModule

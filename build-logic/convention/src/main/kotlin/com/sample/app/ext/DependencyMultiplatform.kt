@@ -11,6 +11,7 @@ internal fun Project.configureDependencyMultiplatform(
             implementation(getLibrary("kotlinx.coroutines.core"))
             implementation(getLibrary("kotlinx.serialization"))
             implementation(getLibrary("kodein"))
+            implementation(getLibrary("kotlinx.datetime"))
         }
 
         androidMain.dependencies {
