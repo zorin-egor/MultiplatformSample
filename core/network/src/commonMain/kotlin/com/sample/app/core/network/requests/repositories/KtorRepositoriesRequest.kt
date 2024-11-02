@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class KtorRepositoriesRequest(
     val query: String,
-    val page: Int,
-    val perPage: Int = 30,
-    val sort: String? = null,
+    val page: Long,
+    val perPage: Long = 30,
+    val isDescSort: Boolean? = null,
     val order: String? = null
 )

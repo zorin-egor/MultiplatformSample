@@ -1,23 +1,21 @@
 package com.sample.app.core.domain
 
+import com.sample.app.core.common.result.Result
 import com.sample.app.core.data.repositories.repositories.RepositoriesRepository
 import com.sample.app.core.model.RepositoryModel
-import com.sample.architecturecomponents.core.di.Dispatcher
-import com.sample.architecturecomponents.core.di.Dispatchers
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
-import org.jetbrains.annotations.TestOnly
-import timber.log.Timber
-import java.util.concurrent.atomic.AtomicLong
-import javax.inject.Inject
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
 
-class GetRepositoriesByNameUseCase @Inject constructor(
+class GetRepositoriesByNameUseCase(
     private val repositoriesRepository: RepositoriesRepository,
-    @Dispatcher(Dispatchers.IO) val dispatcher: CoroutineDispatcher,
+    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
 ) {
 
     companion object {
@@ -25,43 +23,32 @@ class GetRepositoriesByNameUseCase @Inject constructor(
         private const val START_PAGE = 1L
     }
 
-    @TestOnly
-    constructor(
-        repositoriesRepository: RepositoriesRepository,
-        @Dispatcher(Dispatchers.IO) dispatcher: CoroutineDispatcher,
-        limitPerPage: Long = LIMIT
-    ) : this(
-        repositoriesRepository = repositoriesRepository,
-        dispatcher = dispatcher
-    ) {
-        limit = limitPerPage
-    }
-
     private val repositories = ArrayList<RepositoryModel>()
-    private val lock = Any()
+    private val mutex = Mutex()
     private var previousName = ""
     private var hasNext = true
-    private var page = AtomicLong(START_PAGE)
+    private var page = START_PAGE
     private var limit = LIMIT
 
-    operator fun invoke(name: String = previousName): Flow<Result<List<RepositoryModel>>> {
-        Timber.d("invoke($name, $previousName)")
+    suspend operator fun invoke(name: String = previousName): Flow<Result<List<RepositoryModel>>> {
+        println("invoke($name, $previousName)")
 
-        synchronized(lock) {
+        val p = mutex.withLock {
             when {
                 name.isEmpty() -> return flowOf(Result.Success(data = emptyList()))
                 name == previousName && !hasNext -> return flowOf(Result.Success(repositories.toList()))
-                name != previousName -> page.set(START_PAGE)
+                name != previousName -> page = START_PAGE
             }
+            page
         }
 
-        return repositoriesRepository.getRepositoriesByName(name = name, page = page.get(), limit = limit)
+        return repositoriesRepository.getRepositoriesByName(name = name, page = p, limit = limit)
             .map { new ->
                 if (new is Result.Success) {
-                    synchronized(lock) {
+                    mutex.withLock {
                         if (name != previousName) repositories.clear()
                         previousName = name
-                        page.incrementAndGet()
+                        ++page
                         hasNext = new.data.size >= limit
                         new.data.forEach { item ->
                             if (repositories.find { it.id == item.id } == null) {
@@ -69,7 +56,7 @@ class GetRepositoriesByNameUseCase @Inject constructor(
                             }
                         }
 
-                        Timber.d("map() - $repositories")
+                        println("map() - $repositories")
                         Result.Success(repositories.toList())
                     }
                 } else {

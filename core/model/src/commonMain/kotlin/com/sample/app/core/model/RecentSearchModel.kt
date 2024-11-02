@@ -4,7 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 
 data class RecentSearchModel(
-    val value: String,
+    val query: String,
     val date: Instant = Clock.System.now(),
     val tag: RecentSearchTagsModel = RecentSearchTagsModel.None,
 )

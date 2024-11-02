@@ -13,7 +13,7 @@ class GetUserDetailsUseCase(
     private val dispatcher: CoroutineDispatcher = Dispatchers.Default
 ) {
 
-    operator fun invoke(userId: Long, url: String): Flow<Result<UserDetailsModel>> =
+    suspend operator fun invoke(userId: Long, url: String): Flow<Result<UserDetailsModel>> =
         userDetailsRepository.getUserDetails(id = userId, url = url)
             .flowOn(dispatcher)
 }

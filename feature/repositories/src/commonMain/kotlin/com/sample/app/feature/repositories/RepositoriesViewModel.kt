@@ -2,6 +2,9 @@ package com.sample.app.feature.repositories
 
 import androidx.lifecycle.viewModelScope
 import com.sample.app.core.common.result.Result
+import com.sample.app.core.domain.GetRecentSearchUseCase
+import com.sample.app.core.domain.GetRepositoriesByNameUseCase
+import com.sample.app.core.domain.SetRecentSearchUseCase
 import com.sample.app.core.ui.viewmodels.StateViewModel
 import com.sample.app.feature.repositories.models.RecentSearchUiModel
 import com.sample.app.feature.repositories.models.RepositoriesActions

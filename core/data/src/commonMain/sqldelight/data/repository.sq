@@ -4,11 +4,35 @@ CREATE TABLE IF NOT EXISTS RepositoryEntity(
   userId INTEGER NOT NULL,
   owner TEXT NOT NULL,
   name TEXT NOT NULL,
-  avatarUrl TEXT NOT NULL,
-  forks INTEGER,
-  watchersCount INTEGER,
-  createdAt TEXT,
-  updatedAt TEXT,
-  stargazersCount INTEGER,
+  avatarUrl TEXT,
+  forks INTEGER NOT NULL,
+  watchersCount INTEGER NOT NULL,
+  createdAt INTEGER NOT NULL,
+  updatedAt INTEGER,
+  stargazersCount INTEGER NOT NULL,
   description TEXT
 );
+
+selectRepos:
+SELECT * FROM RepositoryEntity WHERE name LIKE '%' || :name || '%' OR
+description LIKE '%' || :name || '%' ORDER BY name ASC LIMIT :limit OFFSET :offset;
+
+update:
+INSERT OR REPLACE INTO RepositoryEntity(
+  repoId,
+  userId,
+  owner,
+  name,
+  avatarUrl,
+  forks,
+  watchersCount,
+  createdAt,
+  updatedAt,
+  stargazersCount,
+  description
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+delete:
+DELETE FROM RepositoryEntity
+WHERE :id = repoId;

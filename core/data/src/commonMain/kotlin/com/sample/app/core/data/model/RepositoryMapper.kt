@@ -1,11 +1,12 @@
 package com.sample.app.core.data.model
 
 import com.sample.app.core.model.LicenseModel
-import com.sample.app.core.model.RepositoryDetailsModel
 import com.sample.app.core.model.RepositoryModel
 import com.sample.app.core.network.converters.dateTimeConverter
 import com.sample.app.core.network.models.NetworkLicense
 import com.sample.app.core.network.models.NetworkRepository
+import data.RepositoryEntity
+import kotlinx.datetime.Instant
 
 fun NetworkRepository.toRepositoryModel() = RepositoryModel(
     id = id,
@@ -26,25 +27,58 @@ fun NetworkLicense.toLicenseModel() = LicenseModel(
     url = url
 )
 
-fun NetworkRepository.toRepositoryDetailsModel() = RepositoryDetailsModel(
-    id = id,
-    userId = owner.id,
-    userLogin = owner.login,
-    avatarUrl = owner.avatarUrl,
+fun List<NetworkRepository>.toRepositoryModels() = map { it.toRepositoryModel() }
+
+fun RepositoryModel.toRepositoryEntity() = RepositoryEntity(
+    id = 0,
+    repoId = id,
+    userId = userId,
+    owner = owner,
+    avatarUrl = avatarUrl,
     name = name,
     forks = forks,
     watchersCount = watchersCount,
-    createdAt = dateTimeConverter(createdAt),
-    updatedAt = dateTimeConverter(updatedAt),
+    createdAt = createdAt.toEpochMilliseconds(),
+    updatedAt = updatedAt?.toEpochMilliseconds(),
     stargazersCount = stargazersCount,
     description = description,
-    nodeId = nodeId,
-    htmlUrl = htmlUrl,
-    defaultBranch = defaultBranch,
-    pushedAt = pushedAt?.let(::dateTimeConverter),
-    tagsUrl = tagsUrl,
-    branchesUrl = branchesUrl,
-    commitsUrl = commitsUrl,
-    topics = topics,
-    license = networkLicense?.toLicenseModel()
+)                   
+
+fun RepositoryEntity.toRepositoryModel() = RepositoryModel(
+    id = repoId,
+    userId = userId,
+    owner = owner,
+    name = name,
+    avatarUrl = avatarUrl,
+    forks = forks,
+    watchersCount = watchersCount,
+    createdAt = Instant.fromEpochMilliseconds(createdAt),
+    updatedAt = updatedAt?.let { Instant.fromEpochMilliseconds(it) },
+    stargazersCount = stargazersCount,
+    description = description,
 )
+
+fun List<RepositoryEntity>.toRepositoryModels() = map { it.toRepositoryModel() }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

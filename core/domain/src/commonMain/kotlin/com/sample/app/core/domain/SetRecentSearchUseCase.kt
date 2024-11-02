@@ -1,26 +1,24 @@
 package com.sample.app.core.domain
 
 import com.sample.app.core.data.repositories.recent_search.RecentSearchRepository
-import com.sample.architecturecomponents.core.di.IoScope
-import com.sample.architecturecomponents.core.model.RecentSearch
-import com.sample.architecturecomponents.core.model.RecentSearchTags
+import com.sample.app.core.model.RecentSearchModel
+import com.sample.app.core.model.RecentSearchTagsModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import timber.log.Timber
-import javax.inject.Inject
 
 
-class SetRecentSearchUseCase @Inject constructor(
+class SetRecentSearchUseCase(
     private val recentSearchRepository: RecentSearchRepository,
-    @IoScope private val ioScope: CoroutineScope
+    private val ioScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
 ) {
 
-    operator fun invoke(query: String, tag: RecentSearchTags = RecentSearchTags.None) =
+    operator fun invoke(query: String, tag: RecentSearchTagsModel = RecentSearchTagsModel.None) =
         ioScope.launch(SupervisorJob() + CoroutineExceptionHandler { coroutineContext, throwable ->
-            Timber.e(throwable)
+            println(throwable)
         }) {
-            recentSearchRepository.insert(RecentSearch(value = query, tag = tag))
+            recentSearchRepository.insert(RecentSearchModel(query = query, tag = tag))
         }
 }

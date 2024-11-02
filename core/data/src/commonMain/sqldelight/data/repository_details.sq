@@ -4,20 +4,52 @@ CREATE TABLE IF NOT EXISTS RepositoryDetailsEntity(
   userId INTEGER NOT NULL,
   owner TEXT NOT NULL,
   name TEXT NOT NULL,
-  avatarUrl TEXT NOT NULL,
-  forks INTEGER,
-  watchersCount INTEGER,
-  createdAt TEXT,
-  updatedAt TEXT,
-  stargazersCount INTEGER,
+  avatarUrl TEXT,
+  forks INTEGER NOT NULL,
+  watchersCount INTEGER NOT NULL,
+  createdAt INTEGER NOT NULL,
+  updatedAt INTEGER,
+  stargazersCount INTEGER NOT NULL,
   description TEXT,
   htmlUrl TEXT,
-  nodeId TEXT,
-  pushedAt TEXT,
+  nodeId TEXT NOT NULL,
+  pushedAt INTEGER,
   defaultBranch TEXT NOT NULL,
   tagsUrl TEXT,
-  branchesUrl TEXT,
+  branchesUrl TEXT NOT NULL,
   commitsUrl TEXT,
   topics TEXT,
   license TEXT
 );
+
+selectByOwnerAndName:
+SELECT * FROM RepositoryDetailsEntity WHERE owner = :owner AND name = :name;
+
+update:
+INSERT OR REPLACE INTO RepositoryDetailsEntity(
+  repoId,
+  userId,
+  owner,
+  name,
+  avatarUrl,
+  forks,
+  watchersCount,
+  createdAt,
+  updatedAt,
+  stargazersCount,
+  description,
+  htmlUrl,
+  nodeId,
+  pushedAt,
+  defaultBranch,
+  tagsUrl,
+  branchesUrl,
+  commitsUrl,
+  topics,
+  license
+)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+delete:
+DELETE FROM RepositoryDetailsEntity
+WHERE :id = repoId;

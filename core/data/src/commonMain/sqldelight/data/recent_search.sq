@@ -1,6 +1,25 @@
 CREATE TABLE IF NOT EXISTS RecentSearchEntity(
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  value TEXT NOT NULL,
-  date TEXT NOT NULL,
+  query TEXT NOT NULL,
+  date INTEGER NOT NULL,
   tag TEXT NOT NULL
 );
+
+update:
+INSERT OR REPLACE INTO RecentSearchEntity(
+  query,
+  date,
+  tag
+)
+VALUES (?, ?, ?);
+
+delete:
+DELETE FROM RecentSearchEntity
+WHERE :query = query AND :tag = tag;
+
+deleteAll:
+DELETE FROM RecentSearchEntity;
+
+selectRecentSearch:
+SELECT * FROM RecentSearchEntity WHERE query LIKE :query || '%' AND tag LIKE :tag
+ORDER BY date DESC LIMIT :limit;
