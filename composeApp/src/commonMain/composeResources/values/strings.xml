@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">MultiplatformSample</string>
     <string name="app_feature_users_title">Users</string>
-    <string name="app_feature_details_title">Details</string>
+    <string name="app_feature_user_details_title">User details</string>
+    <string name="app_feature_repositories_title">Repositories</string>
+    <string name="app_feature_repository_details_title">Repository details</string>
     <string name="app_common_empty_header">Empty</string>
     <string name="app_common_empty_title">Try refresh</string>
 </resources>

@@ -6,7 +6,10 @@ import com.sample.app.core.model.RecentSearchModel
 import com.sample.app.core.model.RecentSearchTagsModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 
 class GetRecentSearchUseCase(
@@ -18,19 +21,19 @@ class GetRecentSearchUseCase(
         private const val LIMIT = 5L
     }
 
-    suspend operator fun invoke(query: String, tag: RecentSearchTagsModel = RecentSearchTagsModel.None): Result<List<RecentSearchModel>> {
+    suspend operator fun invoke(query: String, tag: RecentSearchTagsModel = RecentSearchTagsModel.None): Flow<Result<List<RecentSearchModel>>> {
         if (query.isEmpty()) {
-            return Result.Success(emptyList())
+            return flowOf(Result.Success(emptyList()))
         }
 
-        return withContext(dispatcher) {
-            val result = recentSearchRepository.getRecentSearch(query = query, limit = LIMIT, tag = tag)
-            if (result is Result.Success && result.data.isNotEmpty()) {
-                Result.Success(result.data.filter { it.query != query })
-            } else {
-                result
-            }
-        }
+        return recentSearchRepository.getRecentSearch(query = query, limit = LIMIT, tag = tag)
+            .map { tags ->
+                if (tags is Result.Success && tags.data.isNotEmpty()) {
+                    Result.Success(tags.data.filter { it.query != query })
+                } else {
+                    tags
+                }
+            }.flowOn(dispatcher)
     }
 
 

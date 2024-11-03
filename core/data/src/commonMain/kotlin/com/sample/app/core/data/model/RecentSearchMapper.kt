@@ -10,3 +10,5 @@ fun RecentSearchEntity.toRecentSearchModel() = RecentSearchModel(
     date = Instant.fromEpochMilliseconds(date),
     tag = RecentSearchTagsModel.valueOf(tag),
 )
+
+fun List<RecentSearchEntity>.toRecentSearchModels() = map { it.toRecentSearchModel() }

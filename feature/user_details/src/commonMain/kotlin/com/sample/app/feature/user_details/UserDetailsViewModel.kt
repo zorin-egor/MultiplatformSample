@@ -44,9 +44,7 @@ class UserDetailsViewModel(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     override val state: StateFlow<UiState<UserDetailsModel>> = userData.filterNotNull()
-        .flatMapLatest {
-            getUserDetailsUseCase(userId = it.id, url = it.url)
-        }
+        .flatMapLatest { getUserDetailsUseCase(userId = it.id, url = it.url) }
         .mapNotNull { item ->
             when (item) {
                 Result.Loading -> UiState.Loading

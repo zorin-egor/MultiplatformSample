@@ -33,6 +33,7 @@ val networkModule = DI.Module(MODULE_NETWORK) {
 
             install(ContentNegotiation) {
                 json(Json {
+                    explicitNulls = false
                     isLenient = true
                     ignoreUnknownKeys = true
                     prettyPrint = true

@@ -5,7 +5,8 @@ import app.cash.sqldelight.coroutines.asFlow
 import com.sample.app.core.common.result.Result
 import com.sample.app.core.common.result.startLoading
 import com.sample.app.core.data.database.AppDatabase
-import com.sample.app.core.data.model.toRepositoryModels
+import com.sample.app.core.data.model.entitiesToRepositoryModels
+import com.sample.app.core.data.model.networkToRepositoryModels
 import com.sample.app.core.model.RepositoryModel
 import com.sample.app.core.network.requests.repositories.KtorRepositoriesDataSource
 import com.sample.app.core.network.requests.repositories.KtorRepositoriesRequest
@@ -35,7 +36,7 @@ internal class RepositoriesRepositoryImpl(
             .asFlow()
             .map { it.awaitAsList() }
             .filterNot { it.isEmpty() }
-            .map<List<RepositoryEntity>, Result<List<RepositoryModel>>> { Result.Success(it.toRepositoryModels()) }
+            .map<List<RepositoryEntity>, Result<List<RepositoryModel>>> { Result.Success(it.entitiesToRepositoryModels()) }
             .onStart { emit(Result.Loading) }
             .catch {
                 println("UsersRepositoryImpl() - $it")
@@ -51,7 +52,7 @@ internal class RepositoriesRepositoryImpl(
                 perPage = limit,
                 isDescSort = isDescSort
             )
-            val response = networkDatasource.getRepositories(request).networkRepositories.toRepositoryModels()
+            val response = networkDatasource.getRepositories(request).networkRepositories.networkToRepositoryModels()
             if (response.isNotEmpty()) {
                 runCatching {
                     response.forEach {

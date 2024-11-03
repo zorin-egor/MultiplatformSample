@@ -2,13 +2,12 @@ package com.sample.app.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import com.sample.app.AppState
 import com.sample.app.feature.splash.navigation.splashScreen
 import com.sample.app.feature.users.navigation.navigateToUsers
-import com.sample.app.users_details_list_2_pane.usersListDetailsScreen
+import com.sample.app.panes.repos_details_list_2_pane.reposListDetailsScreen
+import com.sample.app.panes.users_details_list_2_pane.usersListDetailsScreen
 
 
 @Composable
@@ -38,18 +37,8 @@ fun AppNavHost(
             onShowSnackbar = onShowSnackbar
         )
 
-        repositoriesDetailsPaneScreen(
-            appState = appState,
-            navController = navController,
+        reposListDetailsScreen(
             onShowSnackbar = onShowSnackbar
         )
     }
-}
-
-private fun NavGraphBuilder.repositoriesDetailsPaneScreen(
-    appState: AppState,
-    navController: NavController,
-    onShowSnackbar: suspend (String, String?) -> Boolean,
-) {
-
 }

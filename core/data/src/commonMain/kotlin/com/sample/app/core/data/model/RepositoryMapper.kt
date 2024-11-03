@@ -27,7 +27,7 @@ fun NetworkLicense.toLicenseModel() = LicenseModel(
     url = url
 )
 
-fun List<NetworkRepository>.toRepositoryModels() = map { it.toRepositoryModel() }
+fun List<NetworkRepository>.networkToRepositoryModels() = map { it.toRepositoryModel() }
 
 fun RepositoryModel.toRepositoryEntity() = RepositoryEntity(
     id = 0,
@@ -58,7 +58,7 @@ fun RepositoryEntity.toRepositoryModel() = RepositoryModel(
     description = description,
 )
 
-fun List<RepositoryEntity>.toRepositoryModels() = map { it.toRepositoryModel() }
+fun List<RepositoryEntity>.entitiesToRepositoryModels() = map { it.toRepositoryModel() }
 
 
 

@@ -38,6 +38,8 @@ kotlin {
             implementation(projects.feature.splash)
             implementation(projects.feature.users)
             implementation(projects.feature.userDetails)
+            implementation(projects.feature.repositories)
+            implementation(projects.feature.repositoryDetails)
         }
 
         androidMain.dependencies {

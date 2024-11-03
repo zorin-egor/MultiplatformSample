@@ -11,6 +11,7 @@ kotlin {
         commonMain.dependencies {
             implementation(projects.core.model)
             api(libs.compose.constraintlayout)
+            api(libs.kotlinx.collections.immutable)
         }
 
         androidMain.dependencies {

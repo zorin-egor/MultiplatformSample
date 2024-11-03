@@ -45,8 +45,8 @@ fun NavGraphBuilder.userDetailsScreen(
     ) {
         UserDetailsScreen(
             args = UserDetailsArgs(
-                it.arguments?.getLong(USER_ID_ARG)!!,
-                it.arguments?.getString(USER_URL_ARG)!!.decodeBase64String()
+                userId = it.arguments?.getLong(USER_ID_ARG)!!,
+                userUrl = it.arguments?.getString(USER_URL_ARG)!!.decodeBase64String()
             ),
             onShowSnackbar = onShowSnackbar,
             onBackClick = onBackClick

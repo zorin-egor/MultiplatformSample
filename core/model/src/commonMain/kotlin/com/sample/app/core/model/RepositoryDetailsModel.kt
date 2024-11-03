@@ -8,7 +8,7 @@ data class RepositoryDetailsModel(
     val userLogin: String,
     val avatarUrl: String?,
     val name: String,
-    val htmlUrl: String?,
+    val htmlUrl: String,
     val nodeId: String,
     val forks: Long,
     val watchersCount: Long,

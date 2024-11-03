@@ -25,6 +25,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImagePainter
 import coil3.compose.rememberAsyncImagePainter
+import com.sample.app.core.domain.ext.toFormatterDateTime
 import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.ui.ext.getEmailLink
 import com.sample.app.core.ui.ext.getHyperLink
@@ -164,6 +165,13 @@ fun UserDetailsContent(
             }
 
             userDetails.followers?.toAnnotatedString()?.let {
+                TwoSeparatedTextWidget(
+                    header = "Header",
+                    title = it
+                )
+            }
+
+            userDetails.createdAt?.toFormatterDateTime?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
                     header = "Header",
                     title = it

@@ -32,6 +32,7 @@ include(":feature:splash")
 include(":feature:users")
 include(":feature:user_details")
 include(":feature:repositories")
+include(":feature:repository_details")
 
 include(":widgets:widget-cycloid")
 
