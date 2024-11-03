@@ -31,3 +31,9 @@ kotlin {
         }
     }
 }
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.sample.app.core.ui.resources"
+    generateResClass = auto
+}

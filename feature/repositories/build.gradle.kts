@@ -15,3 +15,9 @@ kotlin {
         }
     }
 }
+
+compose.resources {
+    publicResClass = true
+    packageOfResClass = "com.sample.app.feature.repositories.resources"
+    generateResClass = auto
+}

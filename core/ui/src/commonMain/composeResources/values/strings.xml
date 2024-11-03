@@ -1,0 +1,29 @@
+<resources>
+    <string name="core_common_error_unknown">Unknown error</string>
+    <string name="core_common_error_with_code">Error with code: %s</string>
+    <string name="core_common_error_no_data">No data</string>
+    <string name="core_common_error_with_description">Error with description: %s</string>
+    <string name="core_common_error_network_no_internet">Check internet connection or VPN</string>
+
+    <string name="core_common_search_placeholder_header">Search</string>
+    <string name="core_common_search_placeholder_title">Try entering a query in the search field</string>
+    <string name="core_common_empty_placeholder_header">Empty</string>
+    <string name="core_common_empty_placeholder_title">No data to display.\nTry change query or refresh.</string>
+
+    <string name="core_common_error_network_unknown">Network unknown error</string>
+    <string name="core_common_error_network_400">Bad Request</string>
+    <string name="core_common_error_network_401">Unauthorized</string>
+    <string name="core_common_error_network_403">Forbidden</string>
+    <string name="core_common_error_network_404">Not Found</string>
+    <string name="core_common_error_network_405">Method Not Allowed</string>
+    <string name="core_common_error_network_408">Request Timeout</string>
+    <string name="core_common_error_network_409">Conflict</string>
+    <string name="core_common_error_network_415">Unsupported Media Type</string>
+    <string name="core_common_error_network_500">Internal Server Error</string>
+
+    <string name="core_common_repo">Repo</string>
+    <string name="core_common_version">Version: %s</string>
+    <string name="core_common_ok">OK</string>
+    <string name="core_common_cancel">Cancel</string>
+    <string name="core_common_share">Share</string>
+</resources>

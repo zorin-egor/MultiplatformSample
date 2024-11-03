@@ -8,7 +8,8 @@ import com.sample.app.core.domain.GetRepositoriesByNameUseCase
 import com.sample.app.core.domain.SetRecentSearchUseCase
 import com.sample.app.core.model.RecentSearchModel
 import com.sample.app.core.model.RepositoryModel
-import com.sample.app.core.network.exceptions.EmptyException
+import com.sample.app.core.model.exceptions.EmptyException
+import com.sample.app.core.ui.ext.toStringResource
 import com.sample.app.core.ui.viewmodels.StateViewModel
 import com.sample.app.core.ui.viewmodels.UiState
 import com.sample.app.core.ui.widgets.SearchTextDataItem
@@ -66,7 +67,7 @@ class RepositoriesViewModel(
                 .mapNotNull { mapTo(item = it, previousState = lastItemCacheState?.repoState) }
                 .catch {
                     println("Repo flow\n$it")
-                    setAction(RepositoriesActions.ShowError(it))
+                    setAction(RepositoriesActions.ShowError(it.toStringResource))
                 }
 
             repoFlow.combine(searchFlow) { repoState, searchState ->
@@ -78,7 +79,7 @@ class RepositoriesViewModel(
             }
     }.catch { error ->
         println("catch\n$error")
-        setAction(RepositoriesActions.ShowError(error))
+        setAction(RepositoriesActions.ShowError(error.toStringResource))
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
@@ -130,7 +131,7 @@ class RepositoriesViewModel(
                 ?: UiState.Loading
 
             is Result.Error -> {
-                setAction(RepositoriesActions.ShowError(item.exception))
+                setAction(RepositoriesActions.ShowError(item.exception.toStringResource))
                 when {
                     successState != null -> successState.copy(item = successState.item.copy(isBottomProgress = false))
                     item.exception is EmptyException -> UiState.Empty

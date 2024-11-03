@@ -21,7 +21,7 @@ import com.sample.app.feature.user_details.models.UserDetailsEvent
 import com.sample.app.feature.user_details.navigation.UserDetailsArgs
 import com.sample.app.feature.user_details.widgets.UserDetailsContent
 import multiplatformsample.feature.user_details.generated.resources.Res
-import multiplatformsample.feature.user_details.generated.resources.feature_details_title
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_title
 import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -57,8 +57,9 @@ fun UserDetailsScreen(
             viewModel.setEvent(UserDetailsEvent.None)
         }
         is UserDetailsActions.ShowError -> {
+            val error = stringResource(action.error)
             LaunchedEffect(key1 = action) {
-                onShowSnackbar(action.error.message ?: "Oops", null)
+                onShowSnackbar(error, null)
                 viewModel.setEvent(UserDetailsEvent.None)
             }
         }
@@ -72,7 +73,7 @@ fun UserDetailsScreen(
             Column(modifier = Modifier.fillMaxSize()) {
                 AppTopBar(
                     navigationIcon = AppIcons.ArrowBack,
-                    title = stringResource(Res.string.feature_details_title),
+                    title = stringResource(Res.string.feature_user_details_title),
                     onNavigationClick = onBackClick
                 )
 

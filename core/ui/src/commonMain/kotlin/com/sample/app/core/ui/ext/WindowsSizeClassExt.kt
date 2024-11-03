@@ -14,8 +14,8 @@ expect val screenSize: IntSize
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 val windowSizeClass: WindowSizeClass
     @Composable get() = with(screenSize) {
-        val density = LocalDensity.current
-        val height = (height / density.density).dp
-        val width = (width / density.density).dp
-        WindowSizeClass.calculateFromSize(DpSize(width = width, height = height))
+        val density = LocalDensity.current.density
+        val h = (height / density).dp
+        val w = (width / density).dp
+        WindowSizeClass.calculateFromSize(DpSize(width = w, height = h))
     }

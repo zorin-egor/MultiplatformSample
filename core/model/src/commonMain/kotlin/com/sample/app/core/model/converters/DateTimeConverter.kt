@@ -1,4 +1,4 @@
-package com.sample.app.core.network.converters
+package com.sample.app.core.model.converters
 
 import kotlinx.datetime.Instant
 

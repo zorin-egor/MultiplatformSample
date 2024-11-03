@@ -5,6 +5,7 @@ import com.sample.app.core.common.di.Inject
 import com.sample.app.core.common.result.Result
 import com.sample.app.core.domain.GetUserDetailsUseCase
 import com.sample.app.core.model.UserDetailsModel
+import com.sample.app.core.ui.ext.toStringResource
 import com.sample.app.core.ui.viewmodels.UiState
 import com.sample.app.core.ui.viewmodels.UiStateViewModel
 import com.sample.app.feature.user_details.models.UserDetailsActions
@@ -51,7 +52,7 @@ class UserDetailsViewModel(
 
                 is Result.Error -> {
                     getLastSuccessStateOrNull<UserDetailsModel>()?.let {
-                        setAction(UserDetailsActions.ShowError(item.exception))
+                        setAction(UserDetailsActions.ShowError(item.exception.toStringResource))
                         return@mapNotNull null
                     } ?: UiState.Empty
                 }
@@ -63,7 +64,7 @@ class UserDetailsViewModel(
             }
         }.catch { error ->
             println(error)
-            setAction(UserDetailsActions.ShowError(error))
+            setAction(UserDetailsActions.ShowError(error.toStringResource))
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,

@@ -1,6 +1,7 @@
 package com.sample.app.core.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
+import com.sample.app.core.ui.resources.Res
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -13,6 +14,7 @@ abstract class ResultViewModel<T> : ViewModel() {
     private val _result = MutableSharedFlow<Pair<String, T?>>(replay = 1, onBufferOverflow = BufferOverflow.SUSPEND)
 
     fun emit(key: String, value: T) {
+        Res
         _result.tryEmit(key to value)
     }
 

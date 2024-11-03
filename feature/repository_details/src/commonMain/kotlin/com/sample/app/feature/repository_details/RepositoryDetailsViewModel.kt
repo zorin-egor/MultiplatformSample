@@ -5,6 +5,7 @@ import com.sample.app.core.common.di.Inject
 import com.sample.app.core.common.result.Result
 import com.sample.app.core.domain.GetRepositoryDetailsByOwnerUseCase
 import com.sample.app.core.model.RepositoryDetailsModel
+import com.sample.app.core.ui.ext.toStringResource
 import com.sample.app.core.ui.viewmodels.UiState
 import com.sample.app.core.ui.viewmodels.UiStateViewModel
 import com.sample.app.feature.repository_details.models.RepositoryDetailsActions
@@ -37,7 +38,7 @@ class RepositoryDetailsViewModel(
 
                 is Result.Error -> {
                     getLastSuccessStateOrNull<RepositoryDetailsModel>()?.let {
-                        setAction(RepositoryDetailsActions.ShowError(item.exception))
+                        setAction(RepositoryDetailsActions.ShowError(item.exception.toStringResource))
                         return@mapNotNull null
                     } ?: UiState.Empty
                 }
@@ -49,7 +50,7 @@ class RepositoryDetailsViewModel(
             }
         }.catch { error ->
             println(error)
-            setAction(RepositoryDetailsActions.ShowError(error))
+            setAction(RepositoryDetailsActions.ShowError(error.toStringResource))
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.Lazily,

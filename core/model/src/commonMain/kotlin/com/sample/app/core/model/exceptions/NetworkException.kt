@@ -1,4 +1,4 @@
-package com.sample.app.core.network.exceptions
+package com.sample.app.core.model.exceptions
 
 import kotlinx.io.IOException
 

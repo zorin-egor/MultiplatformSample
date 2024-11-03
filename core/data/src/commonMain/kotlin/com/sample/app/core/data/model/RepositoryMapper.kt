@@ -2,7 +2,7 @@ package com.sample.app.core.data.model
 
 import com.sample.app.core.model.LicenseModel
 import com.sample.app.core.model.RepositoryModel
-import com.sample.app.core.network.converters.dateTimeConverter
+import com.sample.app.core.model.converters.dateTimeConverter
 import com.sample.app.core.network.models.NetworkLicense
 import com.sample.app.core.network.models.NetworkRepository
 import data.RepositoryEntity

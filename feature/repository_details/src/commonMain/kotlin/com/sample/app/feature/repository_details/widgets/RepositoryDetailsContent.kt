@@ -33,6 +33,19 @@ import com.sample.app.core.ui.ext.toAnnotatedString
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.widgets.TwoSeparatedTextWidget
 import com.sample.app.feature.repository_details.models.RepositoryDetailsEvents
+import multiplatformsample.feature.repository_details.generated.resources.Res
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_created_at
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_default_branch
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_description
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_forks
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_license
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_pushed_at
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_repository_name
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_stargazers_count
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_topics
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_updated_at
+import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_watchers
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RepositoryDetailsContent(
@@ -92,88 +105,80 @@ fun RepositoryDetailsContent(
 
             repositoryDetails.name.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_repository_name),
                     title = it
                 )
             }
 
             repositoryDetails.forks.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_forks),
                     title = it
                 )
             }
 
             repositoryDetails.watchersCount.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_watchers),
                     title = it
                 )
             }
 
             repositoryDetails.createdAt.toFormatterDateTime?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_created_at),
                     title = it
                 )
             }
 
             repositoryDetails.updatedAt?.toFormatterDateTime?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_updated_at),
                     title = it
                 )
             }
 
             repositoryDetails.pushedAt?.toFormatterDateTime?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_pushed_at),
                     title = it
                 )
             }
 
             repositoryDetails.defaultBranch.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_default_branch),
                     title = it
                 )
             }
 
             repositoryDetails.stargazersCount.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
-                    title = it
-                )
-            }
-
-            repositoryDetails.stargazersCount.toAnnotatedString()?.let {
-                TwoSeparatedTextWidget(
-                    header = "Header",
-                    title = it
-                )
-            }
-
-            repositoryDetails.description?.toAnnotatedString()?.let {
-                TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_stargazers_count),
                     title = it
                 )
             }
 
             repositoryDetails.topics.joinToString(separator = "-") { it }.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_topics),
+                    title = it
+                )
+            }
+
+            repositoryDetails.description?.toAnnotatedString()?.let {
+                TwoSeparatedTextWidget(
+                    header = stringResource(Res.string.feature_repository_details_description),
                     title = it
                 )
             }
 
             getHyperLink(repositoryDetails.license?.url)?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_repository_details_license),
                     title = it
                 )
             }
-
         }
     }
 }

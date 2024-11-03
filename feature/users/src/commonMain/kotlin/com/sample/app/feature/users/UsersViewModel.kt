@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.sample.app.core.common.di.Inject
 import com.sample.app.core.common.result.Result
 import com.sample.app.core.domain.GetUsersUseCase
+import com.sample.app.core.ui.ext.toStringResource
 import com.sample.app.core.ui.viewmodels.UiState
 import com.sample.app.core.ui.viewmodels.UiStateViewModel
 import com.sample.app.feature.users.models.UsersActions
@@ -43,7 +44,7 @@ class UsersViewModel(
 
                 is Result.Error -> {
                     getLastSuccessStateOrNull<UsersUiModel>()?.let {
-                        setAction(UsersActions.ShowError(item.exception))
+                        setAction(UsersActions.ShowError(item.exception.toStringResource))
                         return@mapNotNull null
                     } ?: UiState.Empty
                 }
@@ -58,7 +59,7 @@ class UsersViewModel(
             }
         }.catch { error ->
             println(error)
-            setAction(UsersActions.ShowError(error))
+            setAction(UsersActions.ShowError(error.toStringResource))
             updateSuccessState<UsersUiModel> {
                 it.copy(isBottomProgress = false)
             }

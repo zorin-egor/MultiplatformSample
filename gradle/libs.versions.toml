@@ -20,6 +20,7 @@ kotlin = "2.0.21"
 kotlinxSerialization = "1.7.3"
 kotlinxDatetime = "0.6.1"
 kotlinxCollectionsImmutable = "0.3.8"
+kotlinxIoCore = "0.5.4"
 
 ksp = "2.0.20-1.0.25"
 coroutines = "1.9.0"
@@ -49,7 +50,9 @@ compose-material3-adaptive-navigation = { module = "org.jetbrains.compose.materi
 compose-material3-window-size = { module = "org.jetbrains.compose.material3:material3-window-size-class", version.ref = "composeWindowSize" }
 kotlinx-collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "kotlinxCollectionsImmutable" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinx-io-core = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinxIoCore" }
 compose-constraintlayout = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "composeConstraintlayout" }
+
 
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }

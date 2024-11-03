@@ -19,6 +19,7 @@ import com.sample.app.feature.repository_details.models.RepositoryDetailsEvents
 import com.sample.app.feature.repository_details.navigation.REPOSITORY_DETAILS_ROUTE_PATH
 import com.sample.app.feature.repository_details.navigation.RepositoryDetailsArgs
 import com.sample.app.feature.repository_details.widgets.RepositoryDetailsContent
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 internal fun RepositoryDetailsScreen(
@@ -61,8 +62,9 @@ internal fun RepositoryDetailsScreen(
             viewModel.setEvent(RepositoryDetailsEvents.None)
         }
         is RepositoryDetailsActions.ShowError -> {
+            val error = stringResource(action.error)
             LaunchedEffect(key1 = action) {
-                onShowSnackbar(action.error.message ?: "Oops", null)
+                onShowSnackbar(error, null)
                 viewModel.setEvent(RepositoryDetailsEvents.None)
             }
         }

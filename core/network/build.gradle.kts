@@ -10,6 +10,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(libs.bundles.ktor)
+            implementation(projects.core.model)
             implementation(projects.core.common)
             implementation(projects.core.datastore)
         }

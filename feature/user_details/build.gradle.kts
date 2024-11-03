@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.sample.app.feature.details"
+    namespace = "com.sample.app.feature.user_details"
 }
 
 kotlin {

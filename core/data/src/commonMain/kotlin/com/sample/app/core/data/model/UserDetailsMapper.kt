@@ -1,7 +1,7 @@
 package com.sample.app.core.data.model
 
 import com.sample.app.core.model.UserDetailsModel
-import com.sample.app.core.network.converters.dateTimeConverter
+import com.sample.app.core.model.converters.dateTimeConverter
 import com.sample.app.core.network.models.NetworkUserDetails
 import data.UserDetailsEntity
 

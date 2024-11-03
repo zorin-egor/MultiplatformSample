@@ -1,4 +1,5 @@
 <resources>
     <string name="feature_repositories_title">Repositories</string>
+    <string name="feature_repositories_title_short">Repos</string>
     <string name="feature_repositories_by_name_search_title">Input repository name</string>
 </resources>

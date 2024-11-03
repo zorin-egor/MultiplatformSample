@@ -33,6 +33,19 @@ import com.sample.app.core.ui.ext.toAnnotatedString
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.widgets.TwoSeparatedTextWidget
 import com.sample.app.feature.user_details.models.UserDetailsEvent
+import multiplatformsample.feature.user_details.generated.resources.Res
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_bio
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_blog
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_company
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_created
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_email
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_followers
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_id
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_location
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_name
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_repos
+import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_url
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun UserDetailsContent(
@@ -103,84 +116,77 @@ fun UserDetailsContent(
 
             userDetails.id.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "header",
+                    header = stringResource(Res.string.feature_user_details_user_id),
                     title = it
                 )
             }
 
             getHyperLink(userDetails.url)?.let {
                 TwoSeparatedTextWidget(
-                    header = "header",
+                    header = stringResource(Res.string.feature_user_details_user_url),
                     title = it
                 )
             }
 
             userDetails.name?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_name),
                     title = it
                 )
             }
 
             userDetails.company?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_company),
                     title = it
                 )
             }
 
             getHyperLink(userDetails.blog)?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_blog),
                     title = it
                 )
             }
 
             userDetails.location?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_location),
                     title = it
                 )
             }
 
             getEmailLink(userDetails.email, userDetails.email)?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_email),
                     title = it
                 )
             }
 
             userDetails.bio?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
-                    title = it
-                )
-            }
-
-            userDetails.bio?.toAnnotatedString()?.let {
-                TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_bio),
                     title = it
                 )
             }
 
             userDetails.followers?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_followers),
                     title = it
                 )
             }
 
             userDetails.createdAt?.toFormatterDateTime?.toAnnotatedString()?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_created),
                     title = it
                 )
             }
 
             getHyperLink(userDetails.reposUrl)?.let {
                 TwoSeparatedTextWidget(
-                    header = "Header",
+                    header = stringResource(Res.string.feature_user_details_user_repos),
                     title = it
                 )
             }
