@@ -19,9 +19,9 @@ import org.kodein.di.bind
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
-const val MODULE_NETWORK = "networkModule"
+const val DI_MODULE_NETWORK = "networkModule"
 
-val networkModule = DI.Module(MODULE_NETWORK) {
+val networkModule = DI.Module(DI_MODULE_NETWORK) {
     bind<HttpClient>() with singleton {
         HttpClient {
             install(Logging) {

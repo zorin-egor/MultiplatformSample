@@ -33,6 +33,7 @@ fun NavController.navigateToUserDetails(userId: Long, userUrl: String, navOption
 }
 
 fun NavGraphBuilder.userDetailsScreen(
+    isTopBarVisible: Boolean,
     onBackClick: () -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean
 ) {
@@ -48,6 +49,7 @@ fun NavGraphBuilder.userDetailsScreen(
                 userId = it.arguments?.getLong(USER_ID_ARG)!!,
                 userUrl = it.arguments?.getString(USER_URL_ARG)!!.decodeBase64String()
             ),
+            isTopBarVisible = isTopBarVisible,
             onShowSnackbar = onShowSnackbar,
             onBackClick = onBackClick
         )

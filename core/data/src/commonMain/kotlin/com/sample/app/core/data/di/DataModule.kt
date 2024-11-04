@@ -1,5 +1,6 @@
 package com.sample.app.core.data.di
 
+import com.sample.app.core.common.di.DI_TAG_SCOPE_IO
 import com.sample.app.core.data.database.databaseModule
 import com.sample.app.core.data.repositories.recent_search.RecentSearchRepository
 import com.sample.app.core.data.repositories.recent_search.RecentSearchRepositoryImpl
@@ -16,13 +17,23 @@ import org.kodein.di.bind
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
-const val MODULE_DATA = "dataModule"
+const val DI_MODULE_DATA = "dataModule"
 
-val dataModule = DI.Module(MODULE_DATA) {
+val dataModule = DI.Module(DI_MODULE_DATA) {
     import(databaseModule)
-    bind<UserDetailsRepository>() with singleton { UserDetailsRepositoryImpl(instance(), instance(), instance()) }
-    bind<UsersRepository>() with singleton { UsersRepositoryImpl(instance(), instance(), instance()) }
-    bind<RepositoriesRepository>() with singleton { RepositoriesRepositoryImpl(instance(), instance()) }
-    bind<RepositoryDetailsRepository>() with singleton { RepositoryDetailsRepositoryImpl(instance(), instance()) }
-    bind<RecentSearchRepository>() with singleton { RecentSearchRepositoryImpl(instance()) }
+    bind<UserDetailsRepository>() with singleton {
+        UserDetailsRepositoryImpl(instance(), instance(), instance(), instance(tag = DI_TAG_SCOPE_IO))
+    }
+    bind<UsersRepository>() with singleton {
+        UsersRepositoryImpl(instance(), instance(), instance(), instance(tag = DI_TAG_SCOPE_IO))
+    }
+    bind<RepositoriesRepository>() with singleton {
+        RepositoriesRepositoryImpl(instance(), instance(), instance(tag = DI_TAG_SCOPE_IO))
+    }
+    bind<RepositoryDetailsRepository>() with singleton {
+        RepositoryDetailsRepositoryImpl(instance(), instance(), instance(tag = DI_TAG_SCOPE_IO))
+    }
+    bind<RecentSearchRepository>() with singleton {
+        RecentSearchRepositoryImpl(instance(), instance(tag = DI_TAG_SCOPE_IO))
+    }
 }

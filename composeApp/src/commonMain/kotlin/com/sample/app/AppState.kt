@@ -2,7 +2,6 @@ package com.sample.app
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -40,10 +39,9 @@ fun rememberAppState(
     }
 }
 
-@Stable
 class AppState(
     val navController: NavHostController,
-    coroutineScope: CoroutineScope? = null,
+    val coroutineScope: CoroutineScope? = null,
 ) {
 
     val currentDestination: NavDestination?

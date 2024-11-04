@@ -15,7 +15,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sample.app.AppState
+import com.sample.app.NavAppTopBar
+import com.sample.app.core.ui.ext.isListPaneVisible
 import com.sample.app.core.ui.icon.AppIcons
+import com.sample.app.core.ui.navigation.BackPressHandler
 import com.sample.app.core.ui.widgets.RoundedPlaceholderWidget
 import com.sample.app.feature.repository_details.RepositoriesScreen
 import com.sample.app.feature.repository_details.navigation.REPOSITORIES_ROUTE
@@ -29,10 +33,12 @@ import org.jetbrains.compose.resources.stringResource
 private const val REPO_DETAILS_PANE_ROUTE = "repo_details_pane_route"
 
 fun NavGraphBuilder.reposListDetailsScreen(
+    appState: AppState,
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     composable(route = REPOSITORIES_ROUTE) {
         ReposListScreen(
+            appState = appState,
             onRepoClick = { id, owner -> println("reposListDetailsScreen() - id, owner: $id, $owner") },
             onShowSnackbar = onShowSnackbar
         )
@@ -42,15 +48,16 @@ fun NavGraphBuilder.reposListDetailsScreen(
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 internal fun ReposListScreen(
+    appState: AppState,
     onRepoClick: (String, String) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     val listDetailNavigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
-//    BackHandler(listDetailNavigator.canNavigateBack()) {
-//        listDetailNavigator.navigateBack()
-//    }
+    val backAction: () -> Unit = remember {{ listDetailNavigator.navigateBack() }}
+    BackPressHandler(enabled = listDetailNavigator.canNavigateBack(), onBackEvent = backAction)
 
     val nestedNavController = rememberNavController()
+    val searchClear = remember {{ nestedNavController.navigate(route = REPOSITORY_DETAILS_ROUTE) }}
     val onUrlClick: (String) -> Unit = remember {{ println("detailPane() - repoDetailsScreen: $it") }}
 
     fun onRepoClickShowDetailPane(owner: String, repo: String) {
@@ -68,11 +75,18 @@ internal fun ReposListScreen(
         listPane = {
             RepositoriesScreen(
                 onRepositoryClick = ::onRepoClickShowDetailPane,
+                onSearchClear = searchClear,
                 onShowSnackbar = onShowSnackbar,
             )
         },
         detailPane = {
             Column(Modifier.fillMaxSize()) {
+                println("detailPane() - repos - AppState: ${appState.shouldShowBottomBar}")
+
+                if (appState.shouldShowBottomBar) {
+                    NavAppTopBar(state = appState)
+                }
+
                 NavHost(
                     navController = nestedNavController,
                     startDestination = REPOSITORY_DETAILS_ROUTE,
@@ -86,9 +100,10 @@ internal fun ReposListScreen(
                         )
                     }
                     repositoryDetailsScreen(
-                        onBackClick = { nestedNavController.popBackStack() },
+                        isTopBarVisible = !listDetailNavigator.isListPaneVisible(),
+                        onBackClick = backAction,
                         onShowSnackbar = onShowSnackbar,
-                        onUrlClick = onUrlClick
+                        onUrlClick = onUrlClick,
                     )
                 }
             }

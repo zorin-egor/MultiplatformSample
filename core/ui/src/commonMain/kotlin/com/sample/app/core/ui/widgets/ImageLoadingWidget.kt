@@ -4,14 +4,17 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun ImageLoadingWidget(
@@ -21,6 +24,7 @@ fun ImageLoadingWidget(
     placeHolder: ImageVector,
     contentScale: ContentScale,
     modifier: Modifier = Modifier,
+    shapeType: RoundedCornerShape = RoundedCornerShape(0.dp),
     placeholderColorFilter: ColorFilter? = null,
 ) {
     Box(modifier = modifier) {
@@ -42,7 +46,8 @@ fun ImageLoadingWidget(
             painter = painter,
             contentDescription = null,
             contentScale = contentScale,
-            modifier = Modifier.fillMaxSize().align(Alignment.Center),
+            modifier = Modifier.fillMaxSize().align(Alignment.Center)
+                .clip(shapeType)
         )
     }
 }

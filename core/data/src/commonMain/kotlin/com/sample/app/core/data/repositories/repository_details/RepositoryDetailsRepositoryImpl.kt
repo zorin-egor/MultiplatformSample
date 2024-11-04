@@ -11,6 +11,7 @@ import com.sample.app.core.model.RepositoryDetailsModel
 import com.sample.app.core.network.requests.repositories.KtorRepositoriesDataSource
 import com.sample.app.core.network.requests.repositories.KtorRepositoryDetailsRequest
 import data.RepositoryDetailsEntity
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -25,6 +26,7 @@ import kotlinx.serialization.json.Json
 internal class RepositoryDetailsRepositoryImpl(
     private val networkDatasource: KtorRepositoriesDataSource,
     private val database: AppDatabase,
+    private val scope: CoroutineScope
 ) : RepositoryDetailsRepository {
 
     override suspend fun getDetails(owner: String, repo: String): Flow<Result<RepositoryDetailsModel>> {

@@ -1,6 +1,7 @@
 package com.sample.app
 
 import com.sample.app.core.common.di.Inject
+import com.sample.app.core.common.di.commonModule
 import com.sample.app.core.data.di.dataModule
 import com.sample.app.core.datastore.di.dataStoreModule
 import com.sample.app.core.domain.di.domainModule
@@ -25,6 +26,7 @@ object PlatformProvider {
             DI {
                 importAll(
                     providerModule,
+                    commonModule,
                     networkModule,
                     dataStoreModule,
                     dataModule,

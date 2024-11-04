@@ -33,18 +33,18 @@ import com.sample.app.core.ui.ext.toAnnotatedString
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.widgets.TwoSeparatedTextWidget
 import com.sample.app.feature.repository_details.models.RepositoryDetailsEvents
-import multiplatformsample.feature.repository_details.generated.resources.Res
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_created_at
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_default_branch
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_description
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_forks
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_license
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_pushed_at
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_repository_name
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_stargazers_count
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_topics
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_updated_at
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_watchers
+import com.sample.app.feature.repository_details.resources.Res
+import com.sample.app.feature.repository_details.resources.feature_repository_details_created_at
+import com.sample.app.feature.repository_details.resources.feature_repository_details_default_branch
+import com.sample.app.feature.repository_details.resources.feature_repository_details_description
+import com.sample.app.feature.repository_details.resources.feature_repository_details_forks
+import com.sample.app.feature.repository_details.resources.feature_repository_details_license
+import com.sample.app.feature.repository_details.resources.feature_repository_details_pushed_at
+import com.sample.app.feature.repository_details.resources.feature_repository_details_repository_name
+import com.sample.app.feature.repository_details.resources.feature_repository_details_stargazers_count
+import com.sample.app.feature.repository_details.resources.feature_repository_details_topics
+import com.sample.app.feature.repository_details.resources.feature_repository_details_updated_at
+import com.sample.app.feature.repository_details.resources.feature_repository_details_watchers
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -78,6 +78,7 @@ fun RepositoryDetailsContent(
                 .fillMaxWidth()
                 .fillMaxHeight()
                 .verticalScroll(scroll)
+                .padding(bottom = 16.dp)
         ) {
             Box(modifier = Modifier.wrapContentSize()) {
                 Image(

@@ -4,7 +4,6 @@ import com.sample.app.core.common.result.Result
 import com.sample.app.core.data.repositories.repositories.RepositoriesRepository
 import com.sample.app.core.model.RepositoryModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -15,7 +14,7 @@ import kotlinx.coroutines.sync.withLock
 
 class GetRepositoriesByNameUseCase(
     private val repositoriesRepository: RepositoriesRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default,
+    private val dispatcher: CoroutineDispatcher
 ) {
 
     companion object {
@@ -33,16 +32,16 @@ class GetRepositoriesByNameUseCase(
     suspend operator fun invoke(name: String = previousName): Flow<Result<List<RepositoryModel>>> {
         println("invoke($name, $previousName)")
 
-        val p = mutex.withLock {
+        val (reposPage, repoLimit) = mutex.withLock {
             when {
                 name.isEmpty() -> return flowOf(Result.Success(data = emptyList()))
                 name == previousName && !hasNext -> return flowOf(Result.Success(repositories.toList()))
                 name != previousName -> page = START_PAGE
             }
-            page
+            page to limit
         }
 
-        return repositoriesRepository.getRepositoriesByName(name = name, page = p, limit = limit)
+        return repositoriesRepository.getRepositoriesByName(name = name, page = reposPage, limit = repoLimit)
             .map { new ->
                 if (new is Result.Success) {
                     mutex.withLock {

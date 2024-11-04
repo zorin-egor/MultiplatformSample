@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface UsersRepository {
 
-    suspend fun getUsers(sinceId: Long, limit: Long): Flow<Result<List<UserModel>>>
+    suspend fun getUsers(sinceId: Long, lastId: Long, limit: Long): Flow<Result<List<UserModel>>>
 
 }

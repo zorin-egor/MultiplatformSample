@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.runtime.Composable
@@ -33,18 +34,18 @@ import com.sample.app.core.ui.ext.toAnnotatedString
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.widgets.TwoSeparatedTextWidget
 import com.sample.app.feature.user_details.models.UserDetailsEvent
-import multiplatformsample.feature.user_details.generated.resources.Res
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_bio
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_blog
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_company
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_created
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_email
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_followers
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_id
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_location
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_name
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_repos
-import multiplatformsample.feature.user_details.generated.resources.feature_user_details_user_url
+import com.sample.app.feature.user_details.resources.Res
+import com.sample.app.feature.user_details.resources.feature_user_details_user_bio
+import com.sample.app.feature.user_details.resources.feature_user_details_user_blog
+import com.sample.app.feature.user_details.resources.feature_user_details_user_company
+import com.sample.app.feature.user_details.resources.feature_user_details_user_created
+import com.sample.app.feature.user_details.resources.feature_user_details_user_email
+import com.sample.app.feature.user_details.resources.feature_user_details_user_followers
+import com.sample.app.feature.user_details.resources.feature_user_details_user_id
+import com.sample.app.feature.user_details.resources.feature_user_details_user_location
+import com.sample.app.feature.user_details.resources.feature_user_details_user_name
+import com.sample.app.feature.user_details.resources.feature_user_details_user_repos
+import com.sample.app.feature.user_details.resources.feature_user_details_user_url
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -54,18 +55,6 @@ fun UserDetailsContent(
     onEventAction: (UserDetailsEvent) -> Unit,
     modifier: Modifier = Modifier
 ) {
-
-    /*
-    Vertically scrollable component was measured with an infinity maximum height constraints,
-    which is disallowed. One of the common reasons is nesting layouts like LazyColumn and
-    Column(Modifier.verticalScroll()). If you want to add a header before the list of items please
-    add a header as a separate item() before the main items() inside the LazyColumn scope.
-    There are could be other reasons for this to happen: your ComposeView was added into a
-    LinearLayout with some weight, you applied Modifier.wrapContentSize(unbounded = true) or wrote
-    a custom layout. Please try to remove the source of infinite constraints in the hierarchy above
-    the scrolling container.
-    * */
-
     var isLoading by remember { mutableStateOf(true) }
     var isError by remember { mutableStateOf(false) }
     val imageLoader = rememberAsyncImagePainter(
@@ -89,7 +78,8 @@ fun UserDetailsContent(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight()
-//                .verticalScroll(scroll)
+                .verticalScroll(scroll)
+                .padding(bottom = 16.dp)
         ) {
             Box(modifier = Modifier.wrapContentSize()) {
                 Image(

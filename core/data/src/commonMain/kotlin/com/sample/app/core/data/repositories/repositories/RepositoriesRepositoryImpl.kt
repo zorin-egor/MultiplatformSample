@@ -11,8 +11,7 @@ import com.sample.app.core.model.RepositoryModel
 import com.sample.app.core.network.requests.repositories.KtorRepositoriesDataSource
 import com.sample.app.core.network.requests.repositories.KtorRepositoriesRequest
 import data.RepositoryEntity
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -27,7 +26,7 @@ import kotlinx.coroutines.flow.onStart
 internal class RepositoriesRepositoryImpl(
     private val networkDatasource: KtorRepositoriesDataSource,
     private val database: AppDatabase,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val scope: CoroutineScope
 ) : RepositoriesRepository {
 
     override suspend fun getRepositoriesByName(name: String, page: Long, limit: Long, isDescSort: Boolean): Flow<Result<List<RepositoryModel>>> {

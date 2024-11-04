@@ -28,7 +28,7 @@ fun NavController.navigateToRepositoryDetails(owner: String, repo: String, navOp
 }
 
 fun NavGraphBuilder.repositoryDetailsScreen(
-//    isTopBarVisible: Boolean,
+    isTopBarVisible: Boolean,
     onBackClick: () -> Unit,
     onUrlClick: (String) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean
@@ -45,7 +45,7 @@ fun NavGraphBuilder.repositoryDetailsScreen(
                 repo = it.arguments?.getString(REPOSITORY_ID)!!,
                 owner = it.arguments?.getString(REPOSITORY_OWNER)!!
             ),
-//            isTopBarVisible = isTopBarVisible,
+            isTopBarVisible = isTopBarVisible,
             onUrlClick = onUrlClick,
             onBackClick = onBackClick,
             onShowSnackbar = onShowSnackbar

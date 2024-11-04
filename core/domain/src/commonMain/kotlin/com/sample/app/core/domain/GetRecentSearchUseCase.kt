@@ -5,7 +5,6 @@ import com.sample.app.core.data.repositories.recent_search.RecentSearchRepositor
 import com.sample.app.core.model.RecentSearchModel
 import com.sample.app.core.model.RecentSearchTagsModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
@@ -14,7 +13,7 @@ import kotlinx.coroutines.flow.map
 
 class GetRecentSearchUseCase(
     private val recentSearchRepository: RecentSearchRepository,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val dispatcher: CoroutineDispatcher
 ) {
 
     companion object {

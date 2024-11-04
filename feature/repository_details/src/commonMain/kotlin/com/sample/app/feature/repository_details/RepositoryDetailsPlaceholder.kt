@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.theme.AppTheme
-import multiplatformsample.feature.repository_details.generated.resources.Res
-import multiplatformsample.feature.repository_details.generated.resources.feature_repository_details_title
+import com.sample.app.feature.repository_details.resources.Res
+import com.sample.app.feature.repository_details.resources.feature_repository_details_title
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

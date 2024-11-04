@@ -5,14 +5,13 @@ import com.sample.app.core.model.RecentSearchModel
 import com.sample.app.core.model.RecentSearchTagsModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 
 
 class SetRecentSearchUseCase(
     private val recentSearchRepository: RecentSearchRepository,
-    private val ioScope: CoroutineScope = CoroutineScope(Dispatchers.Default)
+    private val ioScope: CoroutineScope
 ) {
 
     operator fun invoke(query: String, tag: RecentSearchTagsModel = RecentSearchTagsModel.None) =

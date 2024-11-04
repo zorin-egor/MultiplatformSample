@@ -9,13 +9,12 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 
 
-expect val screenSize: IntSize
+expect val screenSize: IntSize @Composable get
 
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
-val windowSizeClass: WindowSizeClass
-    @Composable get() = with(screenSize) {
-        val density = LocalDensity.current.density
-        val h = (height / density).dp
-        val w = (width / density).dp
-        WindowSizeClass.calculateFromSize(DpSize(width = w, height = h))
-    }
+val windowSizeClass: WindowSizeClass @Composable get() = with(screenSize) {
+    val density = LocalDensity.current.density
+    val h = (height / density).dp
+    val w = (width / density).dp
+    return WindowSizeClass.calculateFromSize(DpSize(width = w, height = h))
+}

@@ -24,27 +24,26 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 internal fun RepositoryDetailsScreen(
     args: RepositoryDetailsArgs,
-//    isTopBarVisible: Boolean,
+    isTopBarVisible: Boolean,
     onUrlClick: (String) -> Unit,
     onBackClick: () -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     viewModel: RepositoryDetailsViewModel = viewModel { RepositoryDetailsViewModel() },
-    topBarViewModel: TopBarNavigationViewModel? = viewModel { TopBarNavigationViewModel() }
+    topBarViewModel: TopBarNavigationViewModel = viewModel()
 ) {
     println("RepositoryDetailsScreen()")
 
     remember { viewModel.setEvent(RepositoryDetailsEvents.GetRepo(owner = args.owner, repo = args.repo)) }
 
-    val onShareClick: (String) -> Unit = remember {{  }}
-
     val detailsState by viewModel.state.collectAsStateWithLifecycle()
     val detailsAction by viewModel.action.collectAsStateWithLifecycle()
+    val onShareClick: (String) -> Unit = remember {{ println("RepositoryDetailsScreen() - share link: $it") }}
 
-    val topBarNavigationState = topBarViewModel?.collect(key = REPOSITORY_DETAILS_ROUTE_PATH)
-        ?.collectAsStateWithLifecycle(initialValue = TopBarNavigationState.None)
+    val topBarNavigationState = topBarViewModel.collect(key = REPOSITORY_DETAILS_ROUTE_PATH)
+        .collectAsStateWithLifecycle(initialValue = TopBarNavigationState.None)
 
-    when(val action = topBarNavigationState?.value) {
+    when(val action = topBarNavigationState.value) {
         is TopBarNavigationState.Menu -> {
             println("TopBarNavigationState: menu")
             viewModel.setEvent(RepositoryDetailsEvents.ShareProfile)
@@ -76,7 +75,7 @@ internal fun RepositoryDetailsScreen(
     when (val state = detailsState) {
         UiState.Loading -> CircularContent()
         is UiState.Success -> RepositoryDetailsContent(
-            isTopBarVisible = false,
+            isTopBarVisible = isTopBarVisible,
             repositoryDetails = state.item,
             onEventAction = viewModel::setEvent,
             modifier = Modifier.fillMaxSize().padding(8.dp)

@@ -2,6 +2,7 @@ package com.sample.app.core.data.repositories.users
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.coroutines.asFlow
+import com.sample.app.core.common.extensions.currentThreadName
 import com.sample.app.core.common.result.Result
 import com.sample.app.core.common.result.startLoading
 import com.sample.app.core.data.database.AppDatabase
@@ -12,8 +13,7 @@ import com.sample.app.core.model.UserModel
 import com.sample.app.core.network.requests.users.KtorUsersDataSource
 import com.sample.app.core.network.requests.users.KtorUsersRequest
 import data.UsersEntity
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -28,37 +28,44 @@ internal class UsersRepositoryImpl(
     private val network: KtorUsersDataSource,
     private val database: AppDatabase,
     private val settings: SettingsSource,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val scope: CoroutineScope
 ) : UsersRepository {
 
-    override suspend fun getUsers(sinceId: Long, limit: Long): Flow<Result<List<UserModel>>> {
+    override suspend fun getUsers(sinceId: Long, lastId: Long, limit: Long): Flow<Result<List<UserModel>>> {
         val dbFlow = database.db().usersQueries.selectSinceId(sinceId = sinceId, count = limit)
             .asFlow()
             .map { it.awaitAsList() }
             .filterNot { it.isEmpty() }
             .map<List<UsersEntity>, Result<List<UserModel>>> { Result.Success(it.entitiesToUserModels()) }
-            .onStart { emit(Result.Loading) }
+            .onStart {
+                println("AAAAA:1 $currentThreadName")
+                emit(Result.Loading)
+            }
             .catch {
                 println("UsersRepositoryImpl() - $it")
                 emit(Result.Error(it))
             }
 
         val networkFlow = flow<Result<List<UserModel>>> {
+            println("AAAAA:2 $currentThreadName")
+
             emit(Result.Loading)
 
-            val response = network.getUsers(KtorUsersRequest(sinceId)).networkToUserModels()
+            val response = network.getUsers(KtorUsersRequest(lastId)).networkToUserModels()
             if (response.isNotEmpty()) {
                 runCatching {
-                    response.forEach {
-                        database.db().usersQueries.update(
-                            idInner = it.id,
-                            login = it.login,
-                            avatarUrl = it.avatarUrl,
-                            url = it.url,
-                            reposUrls = it.reposUrl,
-                            followersUrl = it.followersUrl,
-                            subscriptionsUrl = it.subscriptionsUrl
-                        )
+                    database.db().usersQueries.transaction {
+                        response.forEach {
+                            database.db().usersQueries.update(
+                                idInner = it.id,
+                                login = it.login,
+                                avatarUrl = it.avatarUrl,
+                                url = it.url,
+                                reposUrls = it.reposUrl,
+                                followersUrl = it.followersUrl,
+                                subscriptionsUrl = it.subscriptionsUrl
+                            )
+                        }
                     }
                 }.onFailure(::println)
             }

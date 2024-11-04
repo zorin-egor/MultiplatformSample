@@ -15,7 +15,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.sample.app.AppState
+import com.sample.app.NavAppTopBar
+import com.sample.app.core.ui.ext.isListPaneVisible
 import com.sample.app.core.ui.icon.AppIcons
+import com.sample.app.core.ui.navigation.BackPressHandler
 import com.sample.app.core.ui.widgets.RoundedPlaceholderWidget
 import com.sample.app.feature.user_details.navigation.USER_DETAILS_ROUTE
 import com.sample.app.feature.user_details.navigation.navigateToUserDetails
@@ -29,10 +33,12 @@ import org.jetbrains.compose.resources.stringResource
 private const val USER_DETAILS_PANE_ROUTE = "user_details_pane_route"
 
 fun NavGraphBuilder.usersListDetailsScreen(
+    appState: AppState,
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     composable(route = USERS_ROUTE) {
         UsersListScreen(
+            appState = appState,
             onUserClick = { id, url -> println("usersListDetailsScreen() - id, url: $id, $url") },
             onShowSnackbar = onShowSnackbar
         )
@@ -42,13 +48,13 @@ fun NavGraphBuilder.usersListDetailsScreen(
 @OptIn(ExperimentalMaterial3AdaptiveApi::class)
 @Composable
 internal fun UsersListScreen(
+    appState: AppState,
     onUserClick: (Long, String) -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
 ) {
     val listDetailNavigator = rememberListDetailPaneScaffoldNavigator<Nothing>()
-//    BackHandler(listDetailNavigator.canNavigateBack()) {
-//        listDetailNavigator.navigateBack()
-//    }
+    val backAction: () -> Unit = remember {{ listDetailNavigator.navigateBack() }}
+    BackPressHandler(enabled = listDetailNavigator.canNavigateBack(), onBackEvent = backAction)
 
     val nestedNavController = rememberNavController()
     val onUrlClick: (String) -> Unit = remember {{ println("detailPane() - userDetailsScreen: $it") }}
@@ -73,6 +79,13 @@ internal fun UsersListScreen(
         },
         detailPane = {
             Column(Modifier.fillMaxSize()) {
+                val shouldShowBottomBar = appState.shouldShowBottomBar
+                println("detailPane() - users - AppState: ${shouldShowBottomBar}")
+
+                if (shouldShowBottomBar) {
+                    NavAppTopBar(state = appState)
+                }
+
                 NavHost(
                     navController = nestedNavController,
                     startDestination = USER_DETAILS_ROUTE,
@@ -86,7 +99,8 @@ internal fun UsersListScreen(
                         )
                     }
                     userDetailsScreen(
-                        onBackClick = { nestedNavController.popBackStack() },
+                        isTopBarVisible = !listDetailNavigator.isListPaneVisible(),
+                        onBackClick = backAction,
                         onShowSnackbar = onShowSnackbar,
                     )
                 }

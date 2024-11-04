@@ -11,8 +11,7 @@ import com.sample.app.core.model.UserDetailsModel
 import com.sample.app.core.network.requests.users.KtorDetailsRequest
 import com.sample.app.core.network.requests.users.KtorUsersDataSource
 import data.UserDetailsEntity
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -26,7 +25,7 @@ class UserDetailsRepositoryImpl(
     private val network: KtorUsersDataSource,
     private val database: AppDatabase,
     private val settings: SettingsSource,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Default
+    private val scope: CoroutineScope
 ) : UserDetailsRepository {
 
     override suspend fun getUserDetails(id: Long, url: String): Flow<Result<UserDetailsModel>> {

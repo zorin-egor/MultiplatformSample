@@ -8,9 +8,9 @@ import org.kodein.di.bind
 import org.kodein.di.instance
 import org.kodein.di.singleton
 
-const val MODULE_DATA_STORE = "dataStoreModule"
+const val DI_MODULE_DATA_STORE = "dataStoreModule"
 
-val dataStoreModule = DI.Module(MODULE_DATA_STORE) {
+val dataStoreModule = DI.Module(DI_MODULE_DATA_STORE) {
     bind<Settings>() with singleton { Settings() }
     bind<SettingsSource>() with singleton { SettingsSourceImpl(instance()) }
 }

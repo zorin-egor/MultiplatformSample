@@ -8,6 +8,7 @@ import com.sample.app.core.data.database.AppDatabase
 import com.sample.app.core.data.model.toRecentSearchModels
 import com.sample.app.core.model.RecentSearchModel
 import com.sample.app.core.model.RecentSearchTagsModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.take
@@ -15,6 +16,7 @@ import kotlinx.coroutines.flow.take
 
 internal class RecentSearchRepositoryImpl(
     private val database: AppDatabase,
+    private val scope: CoroutineScope
 ) : RecentSearchRepository {
 
     override suspend fun getRecentSearch(query: String, limit: Long, tag: RecentSearchTagsModel): Flow<Result<List<RecentSearchModel>>> {
