@@ -89,7 +89,7 @@ fun AppScreen() {
                     ),
             ) {
 
-                if (appState.shouldShowNavRail) {
+                if (appState.shouldShowNavRail && !appState.splashState.value) {
                     AppNavRail(
                         destinations = appState.topLevelDestinations.toImmutableSet(),
                         destinationsWithUnreadResources = emptySet(),
@@ -102,9 +102,7 @@ fun AppScreen() {
                 }
 
                 Column(Modifier.fillMaxSize()) {
-                    println("AppScreen() - column")
                     NavAppTopBar(state = appState)
-
                     AppNavHost(
                         appState = appState,
                         onShowSnackbar = snackbarAction,

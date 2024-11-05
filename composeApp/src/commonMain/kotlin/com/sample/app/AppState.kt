@@ -4,6 +4,8 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.Stable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -17,6 +19,7 @@ import androidx.navigation.navOptions
 import com.sample.app.core.ui.ext.windowSizeClass
 import com.sample.app.feature.repository_details.navigation.REPOSITORIES_ROUTE
 import com.sample.app.feature.repository_details.navigation.navigateToRepositories
+import com.sample.app.feature.splash.navigation.SPLASH_ROUTE
 import com.sample.app.feature.users.navigation.USERS_ROUTE
 import com.sample.app.feature.users.navigation.navigateToUsers
 import com.sample.app.navigation.TopLevelDestination
@@ -48,12 +51,16 @@ class AppState(
     val coroutineScope: CoroutineScope? = null,
 ) {
 
-    val startDestination: String = USERS_ROUTE
+    val startDestination: String = SPLASH_ROUTE
 
     val route: String? get() = navController.currentDestination?.route
 
     var routeState: MutableState<String?> = mutableStateOf(route)
         private set
+
+    val splashState: State<Boolean> = derivedStateOf {
+        routeState.value == SPLASH_ROUTE || routeState.value == null
+    }
 
     val currentDestination: NavDestination?
         @Composable get() = navController.currentDestinationFromState
