@@ -2,6 +2,9 @@ package com.sample.app
 
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -39,10 +42,18 @@ fun rememberAppState(
     }
 }
 
+@Stable
 class AppState(
     val navController: NavHostController,
     val coroutineScope: CoroutineScope? = null,
 ) {
+
+    val startDestination: String = USERS_ROUTE
+
+    val route: String? get() = navController.currentDestination?.route
+
+    var routeState: MutableState<String?> = mutableStateOf(route)
+        private set
 
     val currentDestination: NavDestination?
         @Composable get() = navController.currentDestinationFromState
@@ -58,7 +69,12 @@ class AppState(
         @Composable get() = LocalWindowInfo.current.isWindowFocused
 
     val shouldShowBottomBar: Boolean
-        @Composable get() = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+        @Composable get() {
+            val widthSizeClass = windowSizeClass.widthSizeClass
+            val isCompact = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+            println("AppState() - WindowsSizeClass - shouldShowBottomBar: $widthSizeClass, $isCompact")
+            return isCompact
+        }
 
     val shouldShowNavRail: Boolean
         @Composable get() = !shouldShowBottomBar
@@ -78,6 +94,10 @@ class AppState(
             TopLevelDestination.USERS -> navController.navigateToUsers(navOptions = topLevelNavOptions)
             TopLevelDestination.REPOSITORIES -> navController.navigateToRepositories(navOptions = topLevelNavOptions)
         }
+    }
+
+    fun setRoute(route: String? = null) {
+        routeState.value = route
     }
 
 }

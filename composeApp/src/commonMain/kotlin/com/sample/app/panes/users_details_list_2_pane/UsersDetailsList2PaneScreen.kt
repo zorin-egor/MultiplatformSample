@@ -16,8 +16,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sample.app.AppState
-import com.sample.app.NavAppTopBar
-import com.sample.app.core.ui.ext.isListPaneVisible
+import com.sample.app.UserDetailsTopAppBar
+import com.sample.app.UsersTopAppBar
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.navigation.BackPressHandler
 import com.sample.app.core.ui.widgets.RoundedPlaceholderWidget
@@ -60,7 +60,7 @@ internal fun UsersListScreen(
     val onUrlClick: (String) -> Unit = remember {{ println("detailPane() - userDetailsScreen: $it") }}
 
     fun onUserClickShowDetailPane(userId: Long, userUrl: String) {
-        println("onUserClickShowDetailPane($userId, $userUrl)")
+        println("UsersListScreen() - onUserClickShowDetailPane($userId, $userUrl)")
         onUserClick(userId, userUrl)
         nestedNavController.navigateToUserDetails(userId = userId, userUrl = userUrl) {
             popUpTo(USER_DETAILS_PANE_ROUTE)
@@ -72,18 +72,23 @@ internal fun UsersListScreen(
         value = listDetailNavigator.scaffoldValue,
         directive = listDetailNavigator.scaffoldDirective,
         listPane = {
-            UsersScreen(
-                onUserClick = ::onUserClickShowDetailPane,
-                onShowSnackbar = onShowSnackbar,
-            )
+            Column(modifier = Modifier.fillMaxSize()) {
+                if (appState.shouldShowBottomBar) {
+                    UsersTopAppBar(onBackClick = {})
+                }
+
+                UsersScreen(
+                    onUserClick = ::onUserClickShowDetailPane,
+                    onShowSnackbar = onShowSnackbar,
+                )
+            }
         },
         detailPane = {
-            Column(Modifier.fillMaxSize()) {
-                val shouldShowBottomBar = appState.shouldShowBottomBar
-                println("detailPane() - users - AppState: ${shouldShowBottomBar}")
-
-                if (shouldShowBottomBar) {
-                    NavAppTopBar(state = appState)
+            Column(modifier = Modifier.fillMaxSize()) {
+                if (appState.shouldShowBottomBar) {
+                    UserDetailsTopAppBar(
+                        onBackClick = { listDetailNavigator.navigateBack() }
+                    )
                 }
 
                 NavHost(
@@ -99,12 +104,12 @@ internal fun UsersListScreen(
                         )
                     }
                     userDetailsScreen(
-                        isTopBarVisible = !listDetailNavigator.isListPaneVisible(),
+                        isTopBarVisible = true,
                         onBackClick = backAction,
                         onShowSnackbar = onShowSnackbar,
                     )
                 }
             }
-        },
+        }
     )
 }

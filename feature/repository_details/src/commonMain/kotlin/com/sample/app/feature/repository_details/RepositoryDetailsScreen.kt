@@ -30,7 +30,7 @@ internal fun RepositoryDetailsScreen(
     onShowSnackbar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     viewModel: RepositoryDetailsViewModel = viewModel { RepositoryDetailsViewModel() },
-    topBarViewModel: TopBarNavigationViewModel = viewModel()
+    topBarViewModel: TopBarNavigationViewModel = viewModel { TopBarNavigationViewModel() }
 ) {
     println("RepositoryDetailsScreen()")
 

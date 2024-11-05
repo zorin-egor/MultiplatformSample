@@ -2,7 +2,6 @@ package com.sample.app.core.data.repositories.users
 
 import app.cash.sqldelight.async.coroutines.awaitAsList
 import app.cash.sqldelight.coroutines.asFlow
-import com.sample.app.core.common.extensions.currentThreadName
 import com.sample.app.core.common.result.Result
 import com.sample.app.core.common.result.startLoading
 import com.sample.app.core.data.database.AppDatabase
@@ -37,18 +36,13 @@ internal class UsersRepositoryImpl(
             .map { it.awaitAsList() }
             .filterNot { it.isEmpty() }
             .map<List<UsersEntity>, Result<List<UserModel>>> { Result.Success(it.entitiesToUserModels()) }
-            .onStart {
-                println("AAAAA:1 $currentThreadName")
-                emit(Result.Loading)
-            }
+            .onStart { emit(Result.Loading) }
             .catch {
                 println("UsersRepositoryImpl() - $it")
                 emit(Result.Error(it))
             }
 
         val networkFlow = flow<Result<List<UserModel>>> {
-            println("AAAAA:2 $currentThreadName")
-
             emit(Result.Loading)
 
             val response = network.getUsers(KtorUsersRequest(lastId)).networkToUserModels()

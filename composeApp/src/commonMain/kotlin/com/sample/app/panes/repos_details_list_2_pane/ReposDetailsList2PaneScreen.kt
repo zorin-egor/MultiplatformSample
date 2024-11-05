@@ -16,7 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.sample.app.AppState
-import com.sample.app.NavAppTopBar
+import com.sample.app.RepositoryDetailsTopAppBar
 import com.sample.app.core.ui.ext.isListPaneVisible
 import com.sample.app.core.ui.icon.AppIcons
 import com.sample.app.core.ui.navigation.BackPressHandler
@@ -80,11 +80,11 @@ internal fun ReposListScreen(
             )
         },
         detailPane = {
-            Column(Modifier.fillMaxSize()) {
-                println("detailPane() - repos - AppState: ${appState.shouldShowBottomBar}")
-
+            Column(modifier = Modifier.fillMaxSize()) {
                 if (appState.shouldShowBottomBar) {
-                    NavAppTopBar(state = appState)
+                    RepositoryDetailsTopAppBar(
+                        onBackClick = { listDetailNavigator.navigateBack() }
+                    )
                 }
 
                 NavHost(
@@ -107,6 +107,6 @@ internal fun ReposListScreen(
                     )
                 }
             }
-        },
+        }
     )
 }

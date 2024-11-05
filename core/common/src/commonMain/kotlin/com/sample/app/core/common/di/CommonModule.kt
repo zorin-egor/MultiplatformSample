@@ -22,9 +22,9 @@ val commonModule = DI.Module(DI_MODULE_COMMON) {
         Dispatchers.Default
     }
     bind<CoroutineScope>(tag = DI_TAG_SCOPE_IO) with singleton {
-        CoroutineScope(instance(tag = DI_TAG_DISPATCHER_IO))
+        CoroutineScope(instance<CoroutineDispatcher>(tag = DI_TAG_DISPATCHER_IO))
     }
     bind<CoroutineScope>(tag = DI_TAG_SCOPE_COMPUTE) with singleton {
-        CoroutineScope(instance(tag = DI_TAG_DISPATCHER_COMPUTE))
+        CoroutineScope(instance<CoroutineDispatcher>(tag = DI_TAG_DISPATCHER_COMPUTE))
     }
 }

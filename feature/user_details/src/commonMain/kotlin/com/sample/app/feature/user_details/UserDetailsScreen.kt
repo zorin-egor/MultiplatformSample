@@ -9,7 +9,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sample.app.core.ui.viewmodels.TopBarNavigationState
 import com.sample.app.core.ui.viewmodels.TopBarNavigationViewModel
@@ -29,7 +28,7 @@ fun UserDetailsScreen(
     onBackClick: () -> Unit,
     onShowSnackbar: suspend (String, String?) -> Boolean,
     viewModel: UserDetailsViewModel = viewModel { UserDetailsViewModel() },
-    topBarViewModel: TopBarNavigationViewModel = viewModel(LocalViewModelStoreOwner.current!!)
+    topBarViewModel: TopBarNavigationViewModel = viewModel { TopBarNavigationViewModel() }
 ) {
     println("UserDetailsScreen() - ${topBarViewModel.hashCode()}")
 

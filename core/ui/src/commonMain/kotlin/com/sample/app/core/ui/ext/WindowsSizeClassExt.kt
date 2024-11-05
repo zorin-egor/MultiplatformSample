@@ -16,5 +16,6 @@ val windowSizeClass: WindowSizeClass @Composable get() = with(screenSize) {
     val density = LocalDensity.current.density
     val h = (height / density).dp
     val w = (width / density).dp
+    println("WindowsSizeClass - height, width: $h, $w}")
     return WindowSizeClass.calculateFromSize(DpSize(width = w, height = h))
 }

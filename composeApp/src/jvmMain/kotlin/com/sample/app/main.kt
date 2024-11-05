@@ -20,11 +20,12 @@ fun main() = application {
     PlatformProvider.init(configuration = AppConfigModel())
 
     val trayState = rememberTrayState()
-    val notificaition = rememberNotification("Notification", "Hello, Playzone")
+    val notificaition = rememberNotification("Notification", "Hello, multiplatform")
 
     val state = rememberWindowState(
         placement = WindowPlacement.Floating,
         size = DpSize(1024.dp, 800.dp),
+        isMinimized = true,
         position = WindowPosition.Aligned(Alignment.Center)
     )
 
