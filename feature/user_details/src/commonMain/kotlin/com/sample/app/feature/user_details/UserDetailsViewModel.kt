@@ -51,10 +51,8 @@ class UserDetailsViewModel(
                 Result.Loading -> UiState.Loading
 
                 is Result.Error -> {
-                    getLastSuccessStateOrNull<UserDetailsModel>()?.let {
-                        setAction(UserDetailsActions.ShowError(item.exception.toStringResource))
-                        return@mapNotNull null
-                    } ?: UiState.Empty
+                    setAction(UserDetailsActions.ShowError(item.exception.toStringResource))
+                    return@mapNotNull null
                 }
 
                 is Result.Success -> {

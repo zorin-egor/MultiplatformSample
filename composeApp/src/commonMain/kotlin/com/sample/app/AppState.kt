@@ -78,7 +78,7 @@ class AppState(
     val shouldShowBottomBar: Boolean
         @Composable get() {
             val widthSizeClass = windowSizeClass.widthSizeClass
-            val isCompact = windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
+            val isCompact = widthSizeClass == WindowWidthSizeClass.Medium || widthSizeClass == WindowWidthSizeClass.Compact
             println("AppState() - WindowsSizeClass - shouldShowBottomBar: $widthSizeClass, $isCompact")
             return isCompact
         }

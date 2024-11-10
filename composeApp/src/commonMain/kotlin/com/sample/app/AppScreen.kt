@@ -53,8 +53,10 @@ fun AppScreen() {
                 duration = SnackbarDuration.Short,
             ) == SnackbarResult.ActionPerformed
 
+            println("AppScreen() - Snackbar - action: $isActionPerformed")
+
             if (isActionPerformed) {
-                println("AppScreen() - Snackbar - action")
+                // Add action
             }
 
             isActionPerformed
@@ -66,7 +68,7 @@ fun AppScreen() {
             snackbarHost = { SnackbarHost(snackbarHostState) },
             modifier = Modifier.fillMaxSize().imePadding(),
             bottomBar = {
-                if (appState.shouldShowBottomBar) {
+                if (appState.shouldShowBottomBar && !appState.splashState.value) {
                     AppBottomBar(
                         destinations = appState.topLevelDestinations.toImmutableList(),
                         onNavigateToDestination = appState::navigateToTopLevelDestination,
@@ -102,7 +104,10 @@ fun AppScreen() {
                 }
 
                 Column(Modifier.fillMaxSize()) {
-                    NavAppTopBar(state = appState)
+                    NavAppTopBar(
+                        state = appState,
+                        onShowSnackbar = snackbarAction
+                    )
                     AppNavHost(
                         appState = appState,
                         onShowSnackbar = snackbarAction,

@@ -4,6 +4,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -22,7 +27,7 @@ import com.sample.app.feature.users.resources.Res
 import com.sample.app.feature.users.resources.feature_users_title
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
-
+import kotlin.random.Random
 import com.sample.app.core.ui.resources.Res as CoreUiRes
 import com.sample.app.feature.repository_details.resources.Res as FeatureRepoDetailsRes
 import com.sample.app.feature.user_details.resources.Res as FeatureUserDetailsRes
@@ -32,6 +37,7 @@ import com.sample.app.feature.users.resources.Res as FeatureUsersRes
 @Composable
 internal fun NavAppTopBar(
     state: AppState,
+    onShowSnackbar: (suspend (String, String?) -> Boolean)? = null
 ) {
     val viewModel: TopBarNavigationViewModel = viewModel { TopBarNavigationViewModel() }
 
@@ -44,16 +50,26 @@ internal fun NavAppTopBar(
     var actionClick: () -> Unit = {}
     val onBackClick: () -> Unit = { state.navController.navigateUp() }
     val route = state.routeState.value
+    var snackBarAction by remember { mutableStateOf(false) }
     
     println("NavAppTopBar() - $route, ${viewModel.hashCode()}")
 
     when (route) {
         USERS_ROUTE -> {
+            isTopBarVisible = state.shouldShowNavRail
             toolbarTitle = Res.string.feature_users_title
             actionIcon = AppIcons.Settings
             actionDesc = stringResource(resource = CoreUiRes.string.core_common_settings)
-            actionClick = { viewModel.emit(route, TopBarNavigationState.Menu) }
-            isTopBarVisible = state.shouldShowNavRail
+            actionClick = {
+                viewModel.emit(route, TopBarNavigationState.Menu)
+                snackBarAction = snackBarAction.not()
+            }
+        }
+    }
+
+    if (snackBarAction) {
+        LaunchedEffect(key1 = snackBarAction) {
+            onShowSnackbar?.invoke("Random message: ${Random.nextInt()}", null)
         }
     }
 

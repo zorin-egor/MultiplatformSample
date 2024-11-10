@@ -37,10 +37,8 @@ class RepositoryDetailsViewModel(
                 Result.Loading -> UiState.Loading
 
                 is Result.Error -> {
-                    getLastSuccessStateOrNull<RepositoryDetailsModel>()?.let {
-                        setAction(RepositoryDetailsActions.ShowError(item.exception.toStringResource))
-                        return@mapNotNull null
-                    } ?: UiState.Empty
+                    setAction(RepositoryDetailsActions.ShowError(item.exception.toStringResource))
+                    return@mapNotNull null
                 }
 
                 is Result.Success -> {

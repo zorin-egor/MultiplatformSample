@@ -43,10 +43,8 @@ class UsersViewModel(
                     ?: UiState.Loading
 
                 is Result.Error -> {
-                    getLastSuccessStateOrNull<UsersUiModel>()?.let {
-                        setAction(UsersActions.ShowError(item.exception.toStringResource))
-                        return@mapNotNull null
-                    } ?: UiState.Empty
+                    setAction(UsersActions.ShowError(item.exception.toStringResource))
+                    return@mapNotNull null
                 }
 
                 is Result.Success -> {

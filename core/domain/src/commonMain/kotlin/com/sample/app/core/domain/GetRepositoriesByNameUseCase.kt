@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -61,6 +62,10 @@ class GetRepositoriesByNameUseCase(
                 } else {
                     new
                 }
+            }
+            .onEach {
+                val size = (it as? Result.Success)?.data?.size ?: -1
+                println("GetRepositoriesByNameUseCase() - onEach - size, result: $size,\n$it")
             }
             .flowOn(dispatcher)
     }

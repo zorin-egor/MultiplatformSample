@@ -8,7 +8,6 @@ import com.sample.app.core.domain.GetRepositoriesByNameUseCase
 import com.sample.app.core.domain.SetRecentSearchUseCase
 import com.sample.app.core.model.RecentSearchModel
 import com.sample.app.core.model.RepositoryModel
-import com.sample.app.core.model.exceptions.EmptyException
 import com.sample.app.core.ui.ext.toStringResource
 import com.sample.app.core.ui.viewmodels.StateViewModel
 import com.sample.app.core.ui.viewmodels.UiState
@@ -29,6 +28,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
@@ -65,6 +65,7 @@ class RepositoriesViewModel(
             val repoFlow = getReposByNameUseCase(name = searchQuery)
                 .onStart { delay(500) }
                 .mapNotNull { mapTo(item = it, previousState = lastItemCacheState?.repoState) }
+                .onEach { println("RepositoriesViewModel() repoFlow: $it") }
                 .catch {
                     println("Repo flow\n$it")
                     setAction(RepositoriesActions.ShowError(it.toStringResource))
@@ -132,21 +133,16 @@ class RepositoriesViewModel(
 
             is Result.Error -> {
                 setAction(RepositoriesActions.ShowError(item.exception.toStringResource))
-                when {
-                    successState != null -> successState.copy(item = successState.item.copy(isBottomProgress = false))
-                    item.exception is EmptyException -> UiState.Empty
-                    else -> UiState.Error(item.exception)
-                }
+                return null
             }
 
             is Result.Success -> {
                 if (item.data.isNotEmpty()) {
                     UiState.Success(
                         RepositoriesUiModel(
-                        repositories = item.data,
-                        isBottomProgress = false
-                    )
-                    )
+                            repositories = item.data,
+                            isBottomProgress = false
+                    ))
                 } else {
                     UiState.Empty
                 }

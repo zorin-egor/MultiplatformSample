@@ -17,9 +17,10 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNot
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 
 
@@ -37,8 +38,9 @@ internal class RepositoriesRepositoryImpl(
             .filterNot { it.isEmpty() }
             .map<List<RepositoryEntity>, Result<List<RepositoryModel>>> { Result.Success(it.entitiesToRepositoryModels()) }
             .onStart { emit(Result.Loading) }
+            .onEach { println("UsersRepositoryImpl() - db: $it") }
             .catch {
-                println("UsersRepositoryImpl() - $it")
+                println("UsersRepositoryImpl() - db: $it")
                 emit(Result.Error(it))
             }
 
@@ -72,21 +74,22 @@ internal class RepositoriesRepositoryImpl(
                 }.onFailure(::println)
             }
 
+            println("UsersRepositoryImpl() - nw users: ${response.size}")
             emit(Result.Success(response))
         }.catch {
-            println("UsersRepositoryImpl() - $it")
+            println("UsersRepositoryImpl() - nw: $it")
             emit(Result.Error(it))
         }
 
         return dbFlow.combine(networkFlow) { db, nw ->
             when {
-                db is Result.Success -> db
                 nw is Result.Success -> nw
+//                db is Result.Success -> db // TODO For js db return not all records
                 nw is Result.Error -> nw
                 else -> null
             }
         }
-        .mapNotNull { it }
+        .filterNotNull()
         .startLoading()
         .distinctUntilChanged()
     }
