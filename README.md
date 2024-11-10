@@ -1,7 +1,7 @@
 # Multiplatform sample
 Sample of kotlin/compose multiplatform multi modals app developed with conventions plugins. Targeting Android, iOS, Web, Desktop.
 
-## Using libraries
+## Project structure
 
 ``` text
 ├── composeApp..... Entry point to the application
